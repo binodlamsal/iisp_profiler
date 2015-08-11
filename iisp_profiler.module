@@ -21,7 +21,7 @@
  */
 function iisp_profiler_menu() {
   
-  $items['iisp_skills/skills/categories'] = array(
+  $items['admin/iisp_skills/skills/categories'] = array(
     'title'           => 'IISP skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories',
@@ -29,7 +29,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/skills/categories/create'] = array(
+  $items['admin/iisp_skills/skills/categories/create'] = array(
     'title'           => 'create new iisp skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories',
@@ -37,7 +37,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/skills/categories/%/edit'] = array(
+  $items['admin/iisp_skills/skills/categories/%/edit'] = array(
     'title'           => 'Edit iisp skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories_edit',
@@ -46,7 +46,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/skills/subcategories'] = array(
+  $items['admin/iisp_skills/skills/subcategories'] = array(
     'title'           => 'IISP skills sub-categories',
     'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
     'page callback'   => 'iisp_skills_subcategories',
@@ -54,7 +54,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/skills/subcategories/create'] = array(
+  $items['admin/iisp_skills/skills/subcategories/create'] = array(
     'title'           => 'Create new iisp skills sub-categories',
     'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
     'page callback'   => 'iisp_skills_subcategories',
@@ -62,7 +62,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/skills/subcategories/%/edit'] = array(
+  $items['admin/iisp_skills/skills/subcategories/%/edit'] = array(
     'title'           => 'Edit iisp skills sub-categories',
     'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
     'page callback'   => 'iisp_skills_subcategories_edit',
@@ -70,7 +70,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/skills'] = array(
+  $items['admin/iisp_skills/skills'] = array(
     'title'           => 'IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
@@ -78,7 +78,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/skills/create'] = array(
+  $items['admin/iisp_skills/skills/create'] = array(
     'title'           => 'Create IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
@@ -86,7 +86,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/skills/%/edit'] = array(
+  $items['admin/iisp_skills/skills/%/edit'] = array(
     'title'           => 'Edit IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
@@ -94,7 +94,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/config'] = array(
+  $items['admin/iisp_skills/config'] = array(
     'title'           => 'IISP admin configuraton',
     'description'     => 'Provides the iisp admin configuration for the iisp profiler',
     'page callback'   => 'iisp_admin_config',
@@ -102,7 +102,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/field_settigs'] = array(
+  $items['admin/iisp_skills/field_settigs'] = array(
     'title'           => 'Field settings',
     'description'     => 'Provides the iisp fields settings for the iisp profiler',
     'page callback'   => 'iisp_skills_categories',
@@ -118,7 +118,7 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/sifa_skills_types'] = array(
+  $items['admin/iisp_skills/sifa_skills_types'] = array(
     'title'           => 'SIfA skills types',
     'description'     => 'Provides the SIFA skills types',
     'page callback'   => 'iisp_sifa_skills_types',
