@@ -102,14 +102,45 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['admin/iisp_skills/field_settigs'] = array(
-    'title'           => 'Field settings',
-    'description'     => 'Provides the iisp fields settings for the iisp profiler',
-    'page callback'   => 'iisp_skills_categories',
+  $items['admin/iisp_skills/field_settings'] = array(
+    'title'           => t('Field settings'),
+    'description'     => t('Provides the iisp fields settings for the iisp profiler'),
+    'page callback'   => 'iisp_fields_settings',
 	'file'            => 'admin/field_settings.inc', 
     'access callback' => TRUE,
   );
+
+  $items['admin/iisp_skills/field_settings/create'] = array(
+      'title' => t('Create field settings'),
+      'description' => t('Create the iisp fields settings for the iisp profiler'),
+      'page callback' => 'iisp_fields_settings',
+      'page arguments' => array('create'),
+      'access callback' => TRUE,
+      'file' => 'admin/field_settings.inc',
+      'weight' => 1,
+  );
+
+
+  $items['admin/iisp_skills/field_settings/%/edit'] = array(
+      'title' => t('Edit field settings'),
+      'description' => t('Edit the iisp fields settings for the iisp profiler'),
+      'page callback' => 'iisp_fields_settings_page_edit',
+      'page arguments' => array(3),
+      'access callback' => TRUE,
+      'file' => 'admin/field_settings.inc',
+      'weight' => 1,
+  );
   
+   $items['admin/structure/item/projects/%/edit'] = array(
+      'title' => 'Edit Projects',
+    'description' => 'Edit projects',
+      'page callback' =>  'projects_page_edit',
+    'page arguments' => array(4),
+    'access callback' => array('_global_access'), 
+    'access arguments' => array('edit', 4,'projects','project','projectid'),   
+      'weight' => -10,
+  );
+
   $items['iisp_skills/settings'] = array(
     'title'           => 'Settings',
     'description'     => 'Provides the settings for the iisp profiler',
@@ -153,6 +184,17 @@ function iisp_profiler_menu() {
   
   return $items;
   
+}
+
+//Custom functions
+function get_active_variable($act) {
+   if($act == '1') {
+       $active = "Yes";
+   } else {
+       $active = "No" ;
+   }    
+
+   return $active;
 }
 
 
