@@ -29,6 +29,23 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
+  $items['iisp_skills/skills/categories/create'] = array(
+    'title'           => 'create new iisp skills categories',
+    'description'     => 'Provides the iisp skills categories for the iisp profiler',
+    'page callback'   => 'iisp_skills_categories',
+	'file'            => 'admin/profiler_admin.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/skills/categories/%/edit'] = array(
+    'title'           => 'Edit iisp skills categories',
+    'description'     => 'Provides the iisp skills categories for the iisp profiler',
+    'page callback'   => 'iisp_skills_categories_edit',
+	'page arguments'  => array(3), 
+ 	'file'            => 'admin/profiler_admin.inc', 
+    'access callback' => TRUE,
+  );
+  
   $items['iisp_skills/skills/subcategories'] = array(
     'title'           => 'IISP skills sub-categories',
     'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
@@ -37,8 +54,40 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
+  $items['iisp_skills/skills/subcategories/create'] = array(
+    'title'           => 'Create new iisp skills sub-categories',
+    'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
+    'page callback'   => 'iisp_skills_subcategories',
+	'file'            => 'admin/profiler_admin.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/skills/subcategories/%/edit'] = array(
+    'title'           => 'Edit iisp skills sub-categories',
+    'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
+    'page callback'   => 'iisp_skills_subcategories_edit',
+	'file'            => 'admin/profiler_admin.inc', 
+    'access callback' => TRUE,
+  );
+  
   $items['iisp_skills/skills'] = array(
     'title'           => 'IISP skills',
+    'description'     => 'Provides the iisp skills for the iisp profiler',
+    'page callback'   => 'iisp_skills_skills',
+	'file'            => 'admin/profiler_admin.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/skills/create'] = array(
+    'title'           => 'Create IISP skills',
+    'description'     => 'Provides the iisp skills for the iisp profiler',
+    'page callback'   => 'iisp_skills_skills',
+	'file'            => 'admin/profiler_admin.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/skills/%/edit'] = array(
+    'title'           => 'Edit IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
 	'file'            => 'admin/profiler_admin.inc', 
