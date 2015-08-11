@@ -1,0 +1,110 @@
+<?php
+
+/**
+ * @file
+ * IISP profiler main module.
+ */
+
+/**
+ * @defgroup action_example Example: Action
+ * @ingroup examples
+ * @{
+ * Creating actions in Drupal 7
+ *
+ */
+
+
+/**
+ * Implements hook_menu().
+ *
+ * Provides a menu entry which explains what the module does.
+ */
+function iisp_profiler_menu() {
+  
+  $items['iisp_skills/skills/categories'] = array(
+    'title'           => 'IISP skills categories',
+    'description'     => 'Provides the iisp skills categories for the iisp profiler',
+    'page callback'   => 'iisp_skills_categories',
+	'file'            => 'admin/profiler_admin.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/skills/subcategories'] = array(
+    'title'           => 'IISP skills sub-categories',
+    'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
+    'page callback'   => 'iisp_skills_subcategories',
+	'file'            => 'admin/profiler_admin.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/skills'] = array(
+    'title'           => 'IISP skills',
+    'description'     => 'Provides the iisp skills for the iisp profiler',
+    'page callback'   => 'iisp_skills_skills',
+	'file'            => 'admin/profiler_admin.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/config'] = array(
+    'title'           => 'IISP admin configuraton',
+    'description'     => 'Provides the iisp admin configuration for the iisp profiler',
+    'page callback'   => 'iisp_admin_config',
+	'file'            => 'admin/iisp_config.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/field_settigs'] = array(
+    'title'           => 'Field settings',
+    'description'     => 'Provides the iisp fields settings for the iisp profiler',
+    'page callback'   => 'iisp_skills_categories',
+	'file'            => 'admin/field_settings.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/settings'] = array(
+    'title'           => 'Settings',
+    'description'     => 'Provides the settings for the iisp profiler',
+    'page callback'   => 'iisp_profiler_settings',
+	'file'            => 'profiler_settings.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/sifa_skills_types'] = array(
+    'title'           => 'SIfA skills types',
+    'description'     => 'Provides the SIFA skills types',
+    'page callback'   => 'iisp_sifa_skills_types',
+	'file'            => 'profiler_dashboard.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/activities'] = array(
+    'title'           => 'Activities',
+    'description'     => 'Provides the activities for the iisp profiler',
+    'page callback'   => 'iisp_profiler_activities',
+	'file'            => 'profiler_activities.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/goals'] = array(
+    'title'           => 'Goals',
+    'description'     => 'Provides the goals for the iisp profiler',
+    'page callback'   => 'iisp_profiler_goals',
+	'file'            => 'profiler_goals.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_skills/dashboard'] = array(
+    'title'           => 'Dashboard',
+    'description'     => 'Provides the dashboard for the iisp profiler',
+    'page callback'   => 'iisp_profiler_dashboard',
+	'file'            => 'profiler_dashboard.inc', 
+    'access callback' => TRUE,
+  );
+  
+  
+  return $items;
+  
+}
+
+
+

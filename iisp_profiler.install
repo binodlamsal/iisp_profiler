@@ -1,0 +1,667 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the iisp_profiler module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function iisp_profiler_schema() {
+  $schema = array();
+
+  $schema['iisp_activities'] = array(
+    'description' => 'Stores activities information for iisp users.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary key for the iisp_activities table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+	    'description' => 'The Unix timestamp when the iisp_activities was created.',
+	    'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+	  'changed' => array(
+		  'description' => 'The Unix timestamp when the iisp_activities was most recently saved.',
+		  'type' => 'int',
+		  'not null' => TRUE,
+		  'default' => 0,
+	  ),
+    ),
+	'unique keys' => array( 'id' => array('id')),
+    'primary key' => array('id'),
+    
+  );
+
+  $schema['iisp_activities_custom_fields'] = array(
+    'description' => 'Stores iisp_activities_custom_fields information.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: IISP activities custom fields.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'title' => array(
+        'description' => 'The custom field title, dispalyed for the custom field title.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'type' => array(
+        'description' => 'The custom field type displayed to select the type of the field like date, numeric etc.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'advanced' => array(
+        'description' => 'The custom field to check if the user want this field in adanced section',
+        'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_activities_data'] = array(
+    'description' => 'Stores the activites data in the database submitted, activites data base table.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: IISP activities data.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	  'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  'custom' => array(
+        'description' => 'Check if the submitted field is custom or not?',
+        'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+      'value' => array(
+        'description' => 'The value of the iisp field data submitted.',
+        'type' => 'varchar',
+        'length' => 1000,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'iisp_activities_id' => array(
+        'description' => 'The relation field where iisp activites id is related to the field',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'iisp_field_settings_id' => array(
+        'description' => 'The realtional field where iisp field settings id is related to the field',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      
+    ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_field_settings'] = array(
+    'description' => 'Stores the field informations that are required for the activities and development goals',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: IISP field settings data.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	  'name' => array(
+        'description' => 'The name of the field going to be stored.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+	  'default_advanced' => array(
+        'description' => 'Check if you want to save the field as advanced in default or not?',
+        'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+      'type' => array(
+        'description' => 'The field type displayed to select the type of the field like date, numeric etc.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'weight' => array(
+        'description' => 'The weight of the field to be displayed in the user section',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      
+    ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_field_user_data'] = array(
+    'description' => 'Stores the iisp field user data that will be different for users',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: IISP fields user data.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	   'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  'advanced' => array(
+        'description' => 'Check if you want to save the field as advanced or not?',
+        'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+      'iisp_field_settings_id' => array(
+        'description' => 'The realtional field where iisp field settings id is related to the field',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      
+    ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_goals'] = array(
+    'description' => 'Stores goals information for iisp users.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary key for the iisp_goals table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+	    'description' => 'The Unix timestamp when the iisp_goals was created.',
+	    'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+	  'changed' => array(
+		  'description' => 'The Unix timestamp when the iisp_goals was most recently saved.',
+		  'type' => 'int',
+		  'not null' => TRUE,
+		  'default' => 0,
+	  ),
+	  'iisp_activities_id' => array(
+        'description' => 'The relation field where iisp activites id is related to the field',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+	'unique keys' => array( 'id' => array('id')),
+    'primary key' => array('id'),
+    
+  );
+
+  $schema['iisp_goals_custom_fields'] = array(
+    'description' => 'Stores iisp_goals_custom_fields information.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: IISP goals custom fields.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'title' => array(
+        'description' => 'The custom field title, dispalyed for the custom field title.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'type' => array(
+        'description' => 'The custom field type displayed to select the type of the field like date, numeric etc.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'advanced' => array(
+        'description' => 'The custom field to check if the user want this field in adanced section',
+        'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_goals_data'] = array(
+    'description' => 'Stores the goals data in the database submitted, goals data base table.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: IISP goals data.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	  'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  'custom' => array(
+        'description' => 'Check if the submitted field is custom or not?',
+        'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+      'value' => array(
+        'description' => 'The value of the iisp field data submitted.',
+        'type' => 'varchar',
+        'length' => 1000,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'iisp_goals_id' => array(
+        'description' => 'The relation field where iisp goals id is related to the field',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'iisp_field_settings_id' => array(
+        'description' => 'The realtional field where iisp field settings id is related to the field',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      
+    ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_profile_data'] = array(
+    'description' => 'Stores the profile data in the database submitted, goals data base table.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: IISP profile data.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	  'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  'score' => array(
+        'description' => 'Stores the score of the profile saved',
+        'type' => 'int',
+		'unsigned' => TRUE,
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+      'iisp_profiles_id' => array(
+        'description' => 'The relation submitted data to the profile of the user',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'iisp_skills_id' => array(
+        'description' => 'The realtional of the submitted data to the skill id',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      
+    ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_profiles'] = array(
+    'description' => 'Stores the profiles informations that are related to the certain users',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: IISP profiles data.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	  'type' => array(
+        'description' => 'The type of the profile being saved eg @new, @link, @visual',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+	  'name' => array(
+        'description' => 'The name of the profile being saved',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+	  'links' => array(
+        'description' => 'Profile import link',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'description' => array(
+        'description' => 'The description of the profile being saved',
+        'type' => 'text',
+      ),
+	  'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  'notes' => array(
+        'description' => 'The notes required for the profile',
+        'type' => 'text',
+      ),
+      'created' => array(
+	    'description' => 'The Unix timestamp when the iisp_activities was created.',
+	    'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+	  'changed' => array(
+		  'description' => 'The Unix timestamp when the iisp_activities was most recently saved.',
+		  'type' => 'int',
+		  'not null' => TRUE,
+		  'default' => 0,
+	  ),
+	  'sharing_links' => array(
+        'description' => 'Profile sharing link',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      
+    ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_sifaplus_skill_types'] = array(
+    'description' => 'Stores the iisp_sifaplus_skill_types',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: iisp_sifaplus_skill_types.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	  
+	  'name' => array(
+        'description' => 'The name of the profile being saved',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+	  ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_skill_cat'] = array(
+    'description' => 'Stores the iisp skills categories inofrmatiins to the database.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: iisp_skill_cat.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	  'name' => array(
+        'description' => 'The name of the skill being saved',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+	  'weight' => array(
+        'description' => 'The weight of the field to be displayed in the user section',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_skill_subcat'] = array(
+    'description' => 'Stores the iisp skills sub-categories inofrmatiins to the database.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: iisp_skill_subcat.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	  'name' => array(
+        'description' => 'The name of the skill being saved',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+	  'weight' => array(
+        'description' => 'The weight of the field to be displayed in the user section',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  'iisp_skill_cat_id' => array(
+        'description' => 'The realtional of field for the skills category id',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_skills'] = array(
+    'description' => 'Stores the iisp skills informations to the database',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: iisp_skills.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	  'name' => array(
+        'description' => 'The name of the skill eg. IT and governmence',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+	  'weight' => array(
+        'description' => 'The weight of the field to be displayed in the user section',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  'range' => array(
+        'description' => 'The range of the profile score',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+	  'status' => array(
+        'description' => 'The satatus of the iisp skill 1 for published 0 for unpublished',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'field_desc' => array(
+        'description' => 'The description of the profile being saved',
+        'type' => 'text',
+        
+      ),
+	  'iisp_skill_subcat_id' => array(
+        'description' => 'The {skill_subcat}.id.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  'iisp_skill_cat_id' => array(
+        'description' => 'The {skill_cat}.id.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+	    'description' => 'The Unix timestamp when the iisp_activities was created.',
+	    'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+      ),
+	  'changed' => array(
+	    'description' => 'The Unix timestamp when the iisp_activities was most recently saved.',
+	    'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+	  ),
+	  
+    ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_user_settings'] = array(
+    'description' => 'Stores the iisp user settings informations to the database',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: iisp_user_settings.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+	  'cpd_year_start' => array(
+        'description' => 'Date field when CPD year started',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+	  'primary_sifaplus_level' => array(
+        'description' => 'Represents the primary sifaplus level of the user',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+	  'iisp_sifaplus_skill_types_id' => array(
+        'description' => 'The relational skill types id',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uid' => array(
+	    'description' => 'The {users}: uid',
+	    'type' => 'int',
+	    'not null' => TRUE,
+	    'default' => 0,
+	  ),
+	  
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
+
+
+
+/**
+ * Implements hook_install().
+ */
+function iisp_profiler_install() {
+//Install if some automatic process must run through drupal API	
+	
+}
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function iisp_profiler_uninstall() {
+	
+//Uninstall all the chages in database if necessay
+
+}

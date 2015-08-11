@@ -1,0 +1,13 @@
+name = IISP Profiler
+description = IISP skills profiler module, skills comparism for authenciated users and skills managers
+package = Others
+core = 7.x
+;dependencies[] = trigger
+files[] = iisp_profiler.test
+
+; Information added by Drupal.org packaging script on 2015-07-05
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "IISP Profile"
+datestamp = "1436137141"
+
