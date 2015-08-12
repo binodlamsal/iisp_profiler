@@ -33,6 +33,7 @@ function iisp_profiler_menu() {
     'title'           => 'create new iisp skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories',
+	'page arguments' => array('create'),
 	'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
@@ -40,8 +41,8 @@ function iisp_profiler_menu() {
   $items['admin/iisp_skills/skills/categories/%/edit'] = array(
     'title'           => 'Edit iisp skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
-    'page callback'   => 'iisp_skills_categories_edit',
-	'page arguments'  => array(3), 
+    'page callback'   => 'iisp_skills_categories_page_edit',
+	'page arguments'  => array(4), 
  	'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
@@ -65,7 +66,8 @@ function iisp_profiler_menu() {
   $items['admin/iisp_skills/skills/subcategories/%/edit'] = array(
     'title'           => 'Edit iisp skills sub-categories',
     'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
-    'page callback'   => 'iisp_skills_subcategories_edit',
+    'page callback'   => 'iisp_skills_subcategories_page_edit',
+	'page arguments'  => array(4),
 	'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
