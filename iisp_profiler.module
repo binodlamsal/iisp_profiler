@@ -47,36 +47,11 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
-  $items['admin/iisp_skills/skills/subcategories'] = array(
-    'title'           => 'IISP skills sub-categories',
-    'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
-    'page callback'   => 'iisp_skills_subcategories',
-	'file'            => 'admin/profiler_admin.inc', 
-    'access callback' => TRUE,
-  );
-  
-  $items['admin/iisp_skills/skills/subcategories/create'] = array(
-    'title'           => 'Create new iisp skills sub-categories',
-    'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
-    'page callback'   => 'iisp_skills_subcategories',
-	'file'            => 'admin/profiler_admin.inc', 
-    'access callback' => TRUE,
-  );
-  
-  $items['admin/iisp_skills/skills/subcategories/%/edit'] = array(
-    'title'           => 'Edit iisp skills sub-categories',
-    'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
-    'page callback'   => 'iisp_skills_subcategories_page_edit',
-	'page arguments'  => array(4),
-	'file'            => 'admin/profiler_admin.inc', 
-    'access callback' => TRUE,
-  );
-  
   $items['admin/iisp_skills/skills'] = array(
     'title'           => 'IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
-	'file'            => 'admin/profiler_admin.inc', 
+	'file'            => 'admin/profiler_admin_skills.inc', 
     'access callback' => TRUE,
   );
   
@@ -84,15 +59,17 @@ function iisp_profiler_menu() {
     'title'           => 'Create IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
-	'file'            => 'admin/profiler_admin.inc', 
+	'page arguments'  => array('create'),
+	'file'            => 'admin/profiler_admin_skills.inc', 
     'access callback' => TRUE,
   );
   
   $items['admin/iisp_skills/skills/%/edit'] = array(
     'title'           => 'Edit IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
-    'page callback'   => 'iisp_skills_skills',
-	'file'            => 'admin/profiler_admin.inc', 
+    'page callback'   => 'iisp_skills_skills_page_edit',
+	'page arguments'  => array(3),
+	'file'            => 'admin/profiler_admin_skills.inc', 
     'access callback' => TRUE,
   );
   
@@ -173,6 +150,14 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
   
+  $items['iisp_skills/profiles'] = array(
+    'title'           => 'Profiles',
+    'description'     => 'Provides the profiles for the iisp profiler',
+    'page callback'   => 'iisp_profiler',
+	'file'            => 'profiler_goals.inc', 
+    'access callback' => TRUE,
+  );
+  
   $items['iisp_skills/dashboard'] = array(
     'title'           => 'Dashboard',
     'description'     => 'Provides the dashboard for the iisp profiler',
@@ -206,6 +191,29 @@ function get_keyvalue_array($keyvalue_unmanaged_arr){
   }
   return $options;
 }
+
+
+function get_dropdownlist($tablename, $alias, $compare_parameter, $parameter, $tableprimarykey, $parameterexpecting)
+{
+	
+	
+    $query = db_select($tablename, $alias)
+        ->fields($alias)
+        ->orderBy($alias . '.' . $tableprimarykey, 'DESC')
+		->execute()
+        ->fetchAll();
+		
+		
+    $result = array();
+    $result[''] = "- Select -";
+    foreach ($query as $qry) {
+        $result[$qry->$tableprimarykey] = $qry->$parameterexpecting;
+    }
+
+	
+    return $result;
+}
+
 
 
 

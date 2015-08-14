@@ -573,7 +573,7 @@ function iisp_profiler_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-	  'range' => array(
+	  'scorerange' => array(
         'description' => 'The range of the profile score',
         'type' => 'varchar',
         'length' => 255,
