@@ -6,9 +6,6 @@
  * 
  */
 // Add all forms definitions
-module_load_include('inc', 'coatings', 'coatings.form');
-module_load_include('inc', 'coatings', 'coatings.constant');
-module_load_include('inc', 'item', 'item.constant');
 
 //
 // Fields settings Listing page, create and edit page
@@ -48,7 +45,7 @@ function iisp_fields_settings_multiple_delete_confirm($form, &$form_state, $dele
 	$flag_set_delete = 0;
 	$form['deletable_ids'] = array('#prefix' => '<ul>', '#suffix' => '</ul>', '#tree' => TRUE);
 	    foreach ($deletable_ids as $cid => $value) {
-	      $iisp_fields_settingsname = db_query('SELECT name FROM {field_settings} WHERE id = :id', array(':id' => $cid))->fetchField();
+	      $iisp_fields_settingsname = db_query('SELECT name FROM {iisp_field_settings} WHERE id = :id', array(':id' => $cid))->fetchField();
 
 	      $form['deletable_ids'][$cid] = array(
 	        '#type' => 'hidden',
@@ -80,7 +77,7 @@ function iisp_fields_settings_multiple_delete_confirm_submit($form, &$form_state
     watchdog('iisp_fields_settings', 'Deleted @count iisp_fields_settings.', array('@count' => $count));
     drupal_set_message(format_plural($count, 'Deleted 1 iisp field settings.', 'Deleted @count iisp field settings.'));
   }
-  $form_state['redirect'] = 'admin/iisp_skills/field_settigs';
+  $form_state['redirect'] = 'admin/iisp_skills/field_settings';
 }
 
 function iisp_fields_settings_delete_multiple($values){

@@ -132,30 +132,28 @@ function iisp_profiler_menu() {
       'file' => 'admin/field_settings.inc',
       'weight' => 1,
   );
-  
-   $items['admin/structure/item/projects/%/edit'] = array(
-      'title' => 'Edit Projects',
-    'description' => 'Edit projects',
-      'page callback' =>  'projects_page_edit',
-    'page arguments' => array(4),
-    'access callback' => array('_global_access'), 
-    'access arguments' => array('edit', 4,'projects','project','projectid'),   
-      'weight' => -10,
-  );
 
   $items['iisp_skills/settings'] = array(
     'title'           => 'Settings',
     'description'     => 'Provides the settings for the iisp profiler',
     'page callback'   => 'iisp_profiler_settings',
-	'file'            => 'profiler_settings.inc', 
+	'file'            => 'admin/profiler_settings.inc', 
     'access callback' => TRUE,
   );
   
   $items['admin/iisp_skills/sifa_skills_types'] = array(
     'title'           => 'SIfA skills types',
     'description'     => 'Provides the SIFA skills types',
-    'page callback'   => 'iisp_sifa_skills_types',
-	'file'            => 'profiler_dashboard.inc', 
+    'page callback'   => 'sifa_skill_types',
+	  'file'            => 'admin/sifa_skill_types_settings.inc', 
+    'access callback' => TRUE,
+  );
+
+  $items['admin/iisp_skills/sifa_skills_levels'] = array(
+    'title'           => 'SIfA skills levels',
+    'description'     => 'Provides the SIFA skills levels',
+    'page callback'   => 'sifa_skill_levels',
+    'file'            => 'admin/sifa_skill_levels_settings.inc', 
     'access callback' => TRUE,
   );
   
@@ -197,6 +195,16 @@ function get_active_variable($act) {
    }    
 
    return $active;
+}
+
+function get_keyvalue_array($keyvalue_unmanaged_arr){
+  $options = array();
+  $keyvalue_exploded_arr = explode(',', $keyvalue_unmanaged_arr);
+  foreach($keyvalue_exploded_arr as $kpr){
+    $key_pair_separated = explode(':', $kpr);
+    $options[$key_pair_separated[0]] = $key_pair_separated[1]; 
+  }
+  return $options;
 }
 
 
