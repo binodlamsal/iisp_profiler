@@ -218,13 +218,14 @@ function fetch_from_table($tablename, $alias, $compare_parameter, $parameter, $t
     else return FALSE;
 }
 
-function check_if_($tablename, $alias, $compare_parameter, $parameter, $tableprimarykey)
+function check_if_user_has_profile_settings($field_settings_id, $user_id)
 {
-    $query = db_select($tablename, $alias)
-        ->fields($alias)
-        ->condition($alias . '.' . $compare_parameter, $parameter);
+    $query = db_select('iisp_field_user_data','ud')
+        ->fields('ud')
+        ->condition('ud.iisp_field_settings_id', $field_settings_id)
+        ->condition('ud.uid', $user_id);
        $result = $query->execute()
-        ->fetchAll();
+        ->fetchObject();
     if($result) return TRUE;
     else return FALSE;
 }

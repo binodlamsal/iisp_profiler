@@ -196,9 +196,11 @@ function system_attribute_settings_form($form, &$form_state, $system_attribute_s
 function system_attribute_settings_form_submit($form, &$form_state){
 	global $user;
 	$system_attribute_settings = (object) $form_state['values'];
-	// foreach($system_attribute_settings as $key){
 	foreach ($system_attribute_settings as $key => $iisp_field_settings) {
-		$check_if_user_has_attribute_settings = fetch_from_table('isp_field_user_data', 'as', 'uid',$user->uid, 'id');
+		print_r($key);
+		print_r($iisp_field_settings[1]);
+		die;
+		$check_if_user_has_attribute_settings = check_if_user_has_profile_settings('isp_field_user_data', 'as', 'uid',$user->uid, 'id');
 		if($check_if_user_has_attribute_settings){
 			$saved_system_attribute_settings = drupal_write_record('isp_field_user_data', $system_attribute_settings, 'id');
 		}else{
