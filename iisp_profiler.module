@@ -122,7 +122,7 @@ function iisp_profiler_menu() {
     'title'           => 'SIfA skills types',
     'description'     => 'Provides the SIFA skills types',
     'page callback'   => 'sifa_skill_types',
-	  'file'            => 'admin/sifa_skill_types_settings.inc', 
+	'file'            => 'admin/sifa_skill_types_settings.inc', 
     'access callback' => TRUE,
   );
 
@@ -214,6 +214,7 @@ function check_if_user_has_profile_settings($field_settings_id, $user_id)
     if($result) return TRUE;
     else return FALSE;
 }
+
 
 
 function get_dropdownlist($tablename, $alias, $compare_parameter, $parameter, $tableprimarykey, $parameterexpecting)
