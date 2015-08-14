@@ -49,7 +49,7 @@ function sifa_skill_types_settings_form($form, &$form_state, $sifa_skill_types_s
   	'#required' => true,
   	'#weight' => $weight++,
   	'#default_value' => $skill_types,
-    '#description' => t('Add key:value pair for skill types. Eg: 0:Animation Development, 1:Application Support, 2:Asset Management etc')
+    '#description' => t('Add key|value pair for skill types. Eg: 0|Animation Development /n 1|Application Support /n 2|Asset Management etc')
   );
 
   $form['actions'] = array('#type' => 'actions');

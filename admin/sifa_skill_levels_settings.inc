@@ -49,7 +49,7 @@ function sifa_skill_levels_settings_form($form, &$form_state, $sifa_skill_levels
   	'#required' => true,
   	'#weight' => $weight++,
   	'#default_value' => $skill_types,
-    '#description' => t('Add key:value pair for skill levels. Eg: 0:None, 1:Follow - works under close supervision etc')
+    '#description' => t('Add key|value pair for skill levels. Eg: 0|None, 1|Follow - works under close supervision etc')
   );
 
   $form['actions'] = array('#type' => 'actions');
