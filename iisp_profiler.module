@@ -25,7 +25,7 @@ function iisp_profiler_menu() {
     'title'           => 'IISP skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories',
-	'file'            => 'admin/profiler_admin.inc', 
+  'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
   
@@ -33,8 +33,8 @@ function iisp_profiler_menu() {
     'title'           => 'create new iisp skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories',
-	'page arguments' => array('create'),
-	'file'            => 'admin/profiler_admin.inc', 
+  'page arguments' => array('create'),
+  'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
   
@@ -42,8 +42,8 @@ function iisp_profiler_menu() {
     'title'           => 'Edit iisp skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories_page_edit',
-	'page arguments'  => array(4), 
- 	'file'            => 'admin/profiler_admin.inc', 
+  'page arguments'  => array(4), 
+  'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
   
@@ -51,7 +51,7 @@ function iisp_profiler_menu() {
     'title'           => 'IISP skills sub-categories',
     'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
     'page callback'   => 'iisp_skills_subcategories',
-	'file'            => 'admin/profiler_admin.inc', 
+  'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
   
@@ -59,7 +59,7 @@ function iisp_profiler_menu() {
     'title'           => 'Create new iisp skills sub-categories',
     'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
     'page callback'   => 'iisp_skills_subcategories',
-	'file'            => 'admin/profiler_admin.inc', 
+  'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
   
@@ -67,8 +67,8 @@ function iisp_profiler_menu() {
     'title'           => 'Edit iisp skills sub-categories',
     'description'     => 'Provides the iisp skills sub-categories for the iisp profiler',
     'page callback'   => 'iisp_skills_subcategories_page_edit',
-	'page arguments'  => array(4),
-	'file'            => 'admin/profiler_admin.inc', 
+  'page arguments'  => array(4),
+  'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
   
@@ -76,7 +76,7 @@ function iisp_profiler_menu() {
     'title'           => 'IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
-	'file'            => 'admin/profiler_admin.inc', 
+  'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
   
@@ -84,7 +84,7 @@ function iisp_profiler_menu() {
     'title'           => 'Create IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
-	'file'            => 'admin/profiler_admin.inc', 
+  'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
   
@@ -92,7 +92,7 @@ function iisp_profiler_menu() {
     'title'           => 'Edit IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
-	'file'            => 'admin/profiler_admin.inc', 
+  'file'            => 'admin/profiler_admin.inc', 
     'access callback' => TRUE,
   );
   
@@ -100,7 +100,7 @@ function iisp_profiler_menu() {
     'title'           => 'IISP admin configuraton',
     'description'     => 'Provides the iisp admin configuration for the iisp profiler',
     'page callback'   => 'iisp_admin_config',
-	'file'            => 'admin/iisp_config.inc', 
+  'file'            => 'admin/iisp_config.inc', 
     'access callback' => TRUE,
   );
   
@@ -108,7 +108,7 @@ function iisp_profiler_menu() {
     'title'           => t('Field settings'),
     'description'     => t('Provides the iisp fields settings for the iisp profiler'),
     'page callback'   => 'iisp_fields_settings',
-	'file'            => 'admin/field_settings.inc', 
+  'file'            => 'admin/field_settings.inc', 
     'access callback' => TRUE,
   );
 
@@ -132,30 +132,28 @@ function iisp_profiler_menu() {
       'file' => 'admin/field_settings.inc',
       'weight' => 1,
   );
-  
-   $items['admin/structure/item/projects/%/edit'] = array(
-      'title' => 'Edit Projects',
-    'description' => 'Edit projects',
-      'page callback' =>  'projects_page_edit',
-    'page arguments' => array(4),
-    'access callback' => array('_global_access'), 
-    'access arguments' => array('edit', 4,'projects','project','projectid'),   
-      'weight' => -10,
-  );
 
   $items['iisp_skills/settings'] = array(
     'title'           => 'Settings',
     'description'     => 'Provides the settings for the iisp profiler',
     'page callback'   => 'iisp_profiler_settings',
-	'file'            => 'profiler_settings.inc', 
+  'file'            => 'profiler_settings.inc', 
     'access callback' => TRUE,
   );
   
   $items['admin/iisp_skills/sifa_skills_types'] = array(
     'title'           => 'SIfA skills types',
     'description'     => 'Provides the SIFA skills types',
-    'page callback'   => 'iisp_sifa_skills_types',
-	'file'            => 'profiler_dashboard.inc', 
+    'page callback'   => 'sifa_skill_types',
+    'file'            => 'admin/sifa_skill_types_settings.inc', 
+    'access callback' => TRUE,
+  );
+
+  $items['admin/iisp_skills/sifa_skills_levels'] = array(
+    'title'           => 'SIfA skills levels',
+    'description'     => 'Provides the SIFA skills levels',
+    'page callback'   => 'sifa_skill_levels',
+    'file'            => 'admin/sifa_skill_levels_settings.inc', 
     'access callback' => TRUE,
   );
   
@@ -163,7 +161,7 @@ function iisp_profiler_menu() {
     'title'           => 'Activities',
     'description'     => 'Provides the activities for the iisp profiler',
     'page callback'   => 'iisp_profiler_activities',
-	'file'            => 'profiler_activities.inc', 
+  'file'            => 'profiler_activities.inc', 
     'access callback' => TRUE,
   );
   
@@ -171,7 +169,7 @@ function iisp_profiler_menu() {
     'title'           => 'Goals',
     'description'     => 'Provides the goals for the iisp profiler',
     'page callback'   => 'iisp_profiler_goals',
-	'file'            => 'profiler_goals.inc', 
+  'file'            => 'profiler_goals.inc', 
     'access callback' => TRUE,
   );
   
@@ -179,7 +177,7 @@ function iisp_profiler_menu() {
     'title'           => 'Dashboard',
     'description'     => 'Provides the dashboard for the iisp profiler',
     'page callback'   => 'iisp_profiler_dashboard',
-	'file'            => 'profiler_dashboard.inc', 
+  'file'            => 'profiler_dashboard.inc', 
     'access callback' => TRUE,
   );
   
@@ -187,6 +185,11 @@ function iisp_profiler_menu() {
   return $items;
   
 }
+
+global $base_url;
+
+  $path = 'sites/all/modules/iisp_profiler';
+        drupal_add_css($base_url . '/' . $path . '/css/custom-style.css', array('type' => 'file', 'scope' => 'footer', 'weight' => 2500));
 
 //Custom functions
 function get_active_variable($act) {
@@ -197,6 +200,39 @@ function get_active_variable($act) {
    }    
 
    return $active;
+}
+
+function get_keyvalue_array($keyvalue_unmanaged_arr){
+  $options = array();
+    $keyvalue_unmanaged_arr = preg_split("/\\r\\n|\\r|\\n/", $keyvalue_unmanaged_arr);
+  foreach($keyvalue_unmanaged_arr as $kpr){
+    $key_pair_separated = explode('|', $kpr);
+    $options[$key_pair_separated[0]] = $key_pair_separated[1]; 
+  }
+  return $options;
+}
+
+function fetch_from_table($tablename, $alias, $compare_parameter, $parameter, $tableprimarykey)
+{
+    $query = db_select($tablename, $alias)
+        ->fields($alias)
+        ->condition($alias . '.' . $compare_parameter, $parameter);
+       $result = $query->execute()
+        ->fetchAll();
+    if($result) return TRUE;
+    else return FALSE;
+}
+
+function check_if_user_has_profile_settings($field_settings_id, $user_id)
+{
+    $query = db_select('iisp_field_user_data','ud')
+        ->fields('ud')
+        ->condition('ud.iisp_field_settings_id', $field_settings_id)
+        ->condition('ud.uid', $user_id);
+       $result = $query->execute()
+        ->fetchObject();
+    if($result) return TRUE;
+    else return FALSE;
 }
 
 
