@@ -456,9 +456,30 @@ function iisp_profiler_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
+    
+    'name' => array(
+        'description' => 'The name of the profile being saved',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  
+  $schema['iisp_sifaplus_skill_levels'] = array(
+    'description' => 'Stores the iisp_sifaplus_skill_levels',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: iisp_sifaplus_skill_levels.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
 	  
 	  'name' => array(
-        'description' => 'The name of the profile being saved',
+        'description' => 'The name of the skill levels info being saved',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
@@ -552,7 +573,7 @@ function iisp_profiler_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-	  'range' => array(
+	  'scorerange' => array(
         'description' => 'The range of the profile score',
         'type' => 'varchar',
         'length' => 255,
