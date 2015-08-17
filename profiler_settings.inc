@@ -18,9 +18,6 @@ function iisp_profiler_settings() {
 	// $output = drupal_render($build);
  //  return $output;
 
-	$path = 'sites/all/modules/iisp_profiler';
-        drupal_add_js($base_url . '/' . $path . '/js/settings-page.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2500));
-
 
 	//Start get previously store user skill settings for the specific user id	
 	  $system_attribute_form_fields = db_select('iisp_field_settings', 'fs')
@@ -29,13 +26,17 @@ function iisp_profiler_settings() {
 	            ->execute()
 	            ->fetchALL();
 	  //End get previously store user skill settings for the specific user id
-	return theme('profiler_settings', array('user_form_field_info' => $system_attribute_form_fields));
+	return theme('profiler_settings_page', array('user_form_field_info' => $system_attribute_form_fields));
+
+	  drupal_add_js($base_url . '/' . $path . '/js/settings-page.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2500));
+  
+  drupal_add_js($base_url . '/' . $path . '/js/select2.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2400));
 }
 
 
 function iisp_profiler_theme() {
   return array(
-    'profiler_settings' => array(
+    'profiler_settings_page' => array(
       'variables' => array('user_form_field_info' => NULL),      
       'template' => 'settings-page',
       'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',)
@@ -279,4 +280,8 @@ function system_attribute_settings_form_submit($form, &$form_state){
   return array('#type' => 'ajax', '#commands' => $commands);
 //End for saved message
 
+}
+
+function ajax_settings (){
+	var_dump($_POST);die;
 }

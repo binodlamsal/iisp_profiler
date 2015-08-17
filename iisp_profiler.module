@@ -140,7 +140,7 @@ function iisp_profiler_menu() {
     'title'           => 'Settings',
     'description'     => 'Provides the settings for the iisp profiler',
     'page callback'   => 'iisp_profiler_settings',
-	'file'            => 'admin/profiler_settings.inc', 
+	'file'            => 'profiler_settings.inc', 
     'access callback' => TRUE,
   );
   
@@ -191,6 +191,14 @@ function iisp_profiler_menu() {
   'file'            => 'profiler_dashboard.inc', 
     'access callback' => TRUE,
   );
+
+  $items['iisp_skills/ajax_settings'] = array(
+    'title'           => 'Settings',
+    'description'     => 'Provides the ajax callback settings for the iisp profiler',
+    'page callback'   => 'ajax_settings',
+    'file'            => 'profiler_settings.inc', 
+    'access callback' => TRUE,
+  );
   
   
   return $items;
@@ -200,7 +208,8 @@ function iisp_profiler_menu() {
 global $base_url;
 
   $path = 'sites/all/modules/iisp_profiler';
-        drupal_add_css($base_url . '/' . $path . '/css/custom-style.css', array('type' => 'file', 'scope' => 'footer', 'weight' => 2500));
+        drupal_add_css($base_url . '/' . $path . '/css/custom-style.css', array('type' => 'file', 'scope' => 'footer', 'weight' => 20));
+
 
 //Custom functions
 function get_active_variable($act) {
