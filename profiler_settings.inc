@@ -11,13 +11,13 @@
 // sifa skill types setting form
 //
 function iisp_profiler_settings() {
+	
 	global $base_url;
- //  $output = '';
- //  $build['profilerform_skill_settings_create'] = drupal_get_form('profilerform_skill_settings_form');
- //  $build['system_attribute_settings_create'] = drupal_get_form('system_attribute_settings_form');
-	// $output = drupal_render($build);
- //  return $output;
-
+	$path = drupal_get_path('module', 'iisp_profiler');
+	drupal_add_js($base_url . '/' . $path . '/js/settings-page.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2500));
+    
+	drupal_add_css($base_url . '/' . $path . '/css/custom-style.css', array('type' => 'external', 'weight' => '500'));
+        
 
 	//Start get previously store user skill settings for the specific user id	
 	  $system_attribute_form_fields = db_select('iisp_field_settings', 'fs')
@@ -28,20 +28,8 @@ function iisp_profiler_settings() {
 	  //End get previously store user skill settings for the specific user id
 	return theme('profiler_settings_page', array('user_form_field_info' => $system_attribute_form_fields));
 
-	  drupal_add_js($base_url . '/' . $path . '/js/settings-page.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2500));
-  
-  drupal_add_js($base_url . '/' . $path . '/js/select2.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2400));
+	  
 }
-
-
-function iisp_profiler_theme() {
-  return array(
-    'profiler_settings_page' => array(
-      'variables' => array('user_form_field_info' => NULL),      
-      'template' => 'settings-page',
-      'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',)
-    );
- }
 
 function profilerform_skill_settings_form($form, &$form_state, $profilerform_skill_settings = NULL){
 	global $user;
@@ -106,6 +94,12 @@ function profilerform_skill_settings_form($form, &$form_state, $profilerform_ski
 		  	'#default_value' => $iisp_sifaplus_skill_types_id,
 		  	'#options' => $options_skill_types,
 		    '#description' => t('Tips and Info : Please indentify which of the SFIAplus skills best matches your primary specialism. This will help us provide you with relevant content and messages to help you with your CPD.'),
+			'#select2' => array(
+			  'width' => '200',
+			  'placeholder' => t('Select categories'),
+			  'allowClear'   => TRUE,
+			  'minimumResultsForSearch' => '1',
+			),
 		  );
 
 		$form['primary_sifaplus_level'] = array(
@@ -266,22 +260,28 @@ function system_attribute_settings_form_submit($form, &$form_state){
 		}
 	}
 
-	$message = 'User skill settings saved';
+	$message = '<div class="alert alert-dismissable alert-success">
+<button type="button" class="close" data-dismiss="alert">×</button><h2 class="element-invisible">Status message</h2>
+ <ul><li>User skill settings saved</li></ul></div>';
 	$system_attribute_settings->submit = $form_submit;
 	$system_attribute_settings->form_build_id = $form_build_id;
 	$system_attribute_settings->form_token =$form_token;
 	$system_attribute_settings->form_id =$form_id;
 	$system_attribute_settings->op = $op;
-//Start for saved message
-  $selector = '#system_saved_message';
-  $commands = array();
-  // $commands[] = ajax_command_after($selector, "New 'after'...");
-  $commands[] = ajax_command_replace($selector, "<div id='".$selector."'>".$message."</div>");
-  return array('#type' => 'ajax', '#commands' => $commands);
-//End for saved message
+
+	//Start for saved message
+	  $selector = '#system_saved_message';
+	  $commands = array();
+	  $commands[] = ajax_command_replace($selector, "<div id='".$selector."'>".$message."</div>");
+	  return array('#type' => 'ajax', '#commands' => $commands);
+	//End for saved message
+
 
 }
 
-function ajax_settings (){
-	var_dump($_POST);die;
+
+function receive_settings_data(){
+	drupal_set_message('Congratulations!, Saving the settings data becomes successfull.');
+	drupal_goto('iisp_skills/settings');
+	
 }

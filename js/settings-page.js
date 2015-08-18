@@ -68,7 +68,7 @@ jQuery(document).ready(function($) {
  //        return o;
  //    };
 
-	$('body').on('click','.btn-submit-second', function (event){
+	/*$('body').on('click','.btn-submit-second', function (event){
 		var datastring = $("#profile_settings_ga").serialize();
 		// var datastring = JSON.stringify($('#profile_settings_ga').serializeObject());
 		// datastring = datastring.concat(
@@ -90,6 +90,6 @@ jQuery(document).ready(function($) {
 		                  alert('error handing here');
 		            }
 		        });
-	});
+	});*/
 });
 

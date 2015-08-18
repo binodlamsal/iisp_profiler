@@ -49,7 +49,7 @@ function sifa_skill_types_settings_form($form, &$form_state, $sifa_skill_types_s
   	'#required' => true,
   	'#weight' => $weight++,
   	'#default_value' => $skill_types,
-    '#description' => t('Add key|value pair for skill types. Eg: 0|Animation Development /n 1|Application Support /n 2|Asset Management etc')
+    '#description' => t('Add key|value pair for skill types. Eg: 0|Animation Development, 1|Application Support, 2|Asset Management etc, please enter one per line.')
   );
 
   $form['actions'] = array('#type' => 'actions');
@@ -57,8 +57,8 @@ function sifa_skill_types_settings_form($form, &$form_state, $sifa_skill_types_s
       '#type' => 'submit',
       '#value' => t('Save sifa skill settings'),
       '#weight' => $weight++,
-    '#prefix' => '<div class="form-item form-actions">',
-    '#suffix' => '</div>',
+	  '#prefix' => '<div class="form-item form-actions">',
+	  '#suffix' => '</div>',
       '#submit' => array('sifa_skill_types_settings_form_submit'),
   );
   
@@ -69,7 +69,6 @@ function sifa_skill_types_settings_form($form, &$form_state, $sifa_skill_types_s
 function sifa_skill_types_settings_form_submit($form, &$form_state){
 	global $user;
 	$sifa_skill_types_settings = (object) $form_state['values'];
-	$sifa_skill_types_settings->default_advanced = $sifa_skill_types_settings->default_advanced[1];
 	if(empty($sifa_skill_types_settings->id)){
 		drupal_write_record('iisp_sifaplus_skill_types', $sifa_skill_types_settings);
 	} else {

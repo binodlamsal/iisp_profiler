@@ -3,3 +3,25 @@ input[type="checkbox"] {
     width: 20px;
     height: 30px;
 }
+
+.select2-container {
+	display:block !important;	
+}
+
+.container-inline-date .date-padding {
+    padding: 10px;
+    float: none !important; 
+}
+
+.container-inline-date .form-item .form-item {
+    float: none !important; 
+}
+
+.form-item-cpd-year-start-date label{
+	display:none !important;
+}
+
+input#edit-cpd-year-start-datepicker-popup-0 {
+    width: 100%;
+    margin-left: -10px;
+}

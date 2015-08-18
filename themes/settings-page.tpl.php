@@ -1,7 +1,8 @@
-<!-- <div class="row">
-	<div class="col-md-6">
-	<?php print drupal_render(drupal_get_form('profilerform_skill_settings_form')); ?>
-	</div>
+<?php 
+global $base_url;
+$form = drupal_get_form('profilerform_skill_settings_form');
+?>
+	<!--</div>
 </div> -->
 <?php //var_dump($user_form_field_info);die; ?>
 
@@ -16,14 +17,14 @@
 		</div>
 		<div id="accordion-1" class="panel-collapse collapse in">
 			<div class="panel-body">
-				<?php print drupal_render(drupal_get_form('profilerform_skill_settings_form')); ?>
+				<?php print drupal_render($form); ?>
 			</div>
 		</div>
 	</div>
 	
 </div>
 
-<form method="post" id="profile_settings_ga">
+<form method="post" id="profile_settings_ga" action="<?php echo $base_url; ?>/skills/receive_settings_data">
 <div class="tabs col-md-12" style="margin-top:30px">
   <ul class="nav nav-tabs">
 	<li class="active"><a href="#tab-1" data-toggle="tab">System Attribute Settings</a></li>
@@ -36,15 +37,15 @@
 			<table>
 				<thead>
 					<tr>
-						<td>Title</td>
-						<td style="text-algin:center">Advanced</td>
+						<th>Title</th>
+						<th >Advanced</th>
 					</tr>
 				</thead>
 				<tbody>
 				<?php foreach($user_form_field_info as $uffi) : ?>
 					<tr>
-						<td><?php echo $uffi->name; ?><td>
-						<td style="text-algin:left"><input type="checkbox" name="advanced[<?php echo $uffi->id; ?>]" value="<?php echo $uffi->default_advanced; ?>" <?php if($uffi->default_advanced == 1) {echo "checked";} else {echo '';} ?>><td>
+						<td><?php echo $uffi->name; ?></td>
+						<td ><input type="checkbox" name="advanced[<?php echo $uffi->id; ?>]" value="<?php echo $uffi->default_advanced; ?>" <?php if($uffi->default_advanced == 1) {echo "checked";} else {echo '';} ?>><td>
 					</tr>
 				<?php endforeach; ?>
 				</tbody>
@@ -65,7 +66,7 @@
 					<div id="accordion-1" class="panel-collapse collapse in">
 						<div class="panel-body">
 							<div class="append-goals">
-								<table id="goal-fields"><thead><tr><td>Title</td><td>Type</td><td>Advanced</td><td>Actions</td></tr></thead>
+								<table id="goal-fields"><thead><tr><th>Title</th><th>Type</th><th>Advanced</th><th>Actions</th></tr></thead>
 								<tbody></tbody>
 								</table>
 							</div>
@@ -87,7 +88,7 @@
 					<div id="accordion-1" class="panel-collapse collapse in">
 						<div class="panel-body">
 							<div class="goals-enter">
-								<table id="goal-fields-enter"><thead><tr><td>Title</td><td>Type</td><td>Advanced</td><td>Actions</td></tr></thead>
+								<table id="goal-fields-enter"><thead><tr><th>Title</th><th>Type</th><th>Advanced</th><th>Actions</th></tr></thead>
 								<tbody>
 									<tr>
 										<td><div class="form-group"><input type="text" name="goal_name" class="form-control" value="" id="goal_name"></div></td>
@@ -129,7 +130,8 @@
 					<div id="accordion-1" class="panel-collapse collapse in">
 						<div class="panel-body">
 							<div class="append-activity">
-								<table id="activity-fields"><thead><tr><td>Title</td><td>Type</td><td>Advanced</td><td>Actions</td></tr></thead>
+								<table id="activity-fields">
+                                <thead><tr><th>Title</th><th>Type</th><th>Advanced</th><th>Actions</th></tr></thead>
 								<tbody></tbody>
 								</table>
 							</div>
@@ -151,7 +153,7 @@
 					<div id="accordion-1" class="panel-collapse collapse in">
 						<div class="panel-body">
 							<div class="activitys-enter">
-								<table id="activity-fields-enter"><thead><tr><td>Title</td><td>Type</td><td>Advanced</td><td>Actions</td></tr></thead>
+								<table id="activity-fields-enter"><thead><tr><th>Title</th><th>Type</th><th>Advanced</th><th>Actions</th></tr></thead>
 								<tbody>
 									<tr>
 										<td><div class="form-group"><input type="text" name="activity_name" class="form-control" value="" id="activity_name"></div></td>
@@ -181,7 +183,7 @@
 	</div>
 </div>
 
-<div class="save-ajax-form col-md-12 " style="magin-top:10px">
+<div class="save-ajax-form col-md-12 " style="margin-top:20px">
 	<input type="submit" name="save_from" value="SAVE ALL SETTINGS" class="btn btn-default btn-submit-second">
 </div>
 </form>
