@@ -66,8 +66,7 @@ function iisp_profiler_menu() {
 	'weight' => -10,
   );
   
-  
-  
+
   $items['admin/iisp_profiler/skills/create'] = array(
     'title'           => 'Create IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
@@ -297,6 +296,37 @@ function iisp_profiler_theme() {
       'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',)
     );
  }
+
+ function user_system_attribute_form_fields($field_settings_id){
+     global $user;
+     $query = db_select('iisp_field_user_data', 'ud')
+            ->fields('ud')
+            ->condition('ud.uid',$user->uid)
+            ->condition('ud.iisp_field_settings_id',$field_settings_id);
+    $result =$query->execute()
+            ->fetchObject();
+    return $result;
+  }
+
+ function user_goal_form_fields(){
+     global $user;
+     $query = db_select('iisp_goals_custom_fields', 'ud')
+            ->fields('ud')
+            ->condition('ud.uid',$user->uid);
+    $result =$query->execute()
+            ->fetchAll();
+    return $result;
+  }
+
+function user_activity_form_fields(){
+     global $user;
+     $query = db_select('iisp_activities_custom_fields', 'ud')
+            ->fields('ud')
+            ->condition('ud.uid',$user->uid);
+    $result =$query->execute()
+            ->fetchAll();
+    return $result;
+  }
 
 
 

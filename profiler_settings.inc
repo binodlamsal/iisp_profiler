@@ -13,6 +13,7 @@
 function iisp_profiler_settings() {
 	
 	global $base_url;
+	global $user;
 	$path = drupal_get_path('module', 'iisp_profiler');
 	drupal_add_js($base_url . '/' . $path . '/js/settings-page.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2500));
     
@@ -26,9 +27,17 @@ function iisp_profiler_settings() {
 	            ->execute()
 	            ->fetchALL();
 	  //End get previously store user skill settings for the specific user id
-	return theme('profiler_settings_page', array('user_form_field_info' => $system_attribute_form_fields));
 
-	  
+	   // //Start get previously fetched user skill settings of user id
+	  	// $user_system_attribute_form_fields = db_select('iisp_field_user_data', 'ud')
+    //     ->fields('ud')
+    //     ->condition('ud.uid',$user->uid)
+    //     ->condition('ud.iisp_field_settings_id',$sys_ff->id)
+    //     ->execute()
+    //     ->fetchobject();
+	   // //End get previously fetched user skill settings of user id
+
+	return theme('profiler_settings_page', array('user_form_field_info' => $system_attribute_form_fields));	  
 }
 
 function profilerform_skill_settings_form($form, &$form_state, $profilerform_skill_settings = NULL){
@@ -281,9 +290,54 @@ function system_attribute_settings_form_submit($form, &$form_state){
 
 
 function receive_settings_data(){
-	
-	
-	
+	global $user;
+	echo '<pre>';
+	var_dump($_POST);
+	//Start delete the previous data from issp_field_user_data 
+	db_delete('iisp_field_user_data')->condition('uid',$user->uid)->execute();
+	db_delete('iisp_goals_custom_fields')->condition('uid',$user->uid)->execute();
+	db_delete('iisp_activities_custom_fields')->condition('uid',$user->uid)->execute();
+
+	//End delete the previous data from issp_field_user_data
+ 	if(isset($_POST['advanced'])){
+	 	//Fields user settings 
+		foreach ($_POST['advanced'] as $field_settings_id => $value) {
+				$data_field_user_data = (object) array(
+						'uid' => $user->uid,
+						'advanced' => $value,
+						'iisp_field_settings_id' => $field_settings_id,
+					);
+				drupal_write_record('iisp_field_user_data',$data_field_user_data);
+		}
+	}
+
+	if(isset($_POST['goal_name_set'])){
+		//Fields goal_settings 
+		var_dump("insert_goal");
+		foreach ($_POST['goal_name_set'] as $key => $goal_name){
+			$data_field_goal_data = (object) array(
+						'title' => $goal_name,
+						'type' => isset($_POST['goal_type_set'][$key]) ? $_POST['goal_type_set'][$key] : '',
+						'advanced' => isset($_POST['goal_advanced'][$key]) ? $_POST['goal_advanced'][$key] :  0,
+						'uid' => $user->uid,
+					);
+			drupal_write_record('iisp_goals_custom_fields',$data_field_goal_data);
+		}
+	}
+
+	if(isset($_POST['activity_name_set'])){
+		//Fields advanced_settings 
+		foreach ($_POST['activity_name_set'] as $key => $activity_name){
+			$data_field_activity_data = (object) array(
+						'title' => $activity_name,
+						'type' => isset($_POST['activity_type_set'][$key]) ? $_POST['activity_type_set'][$key] : '',
+						'advanced' => isset($_POST['activity_advanced'][$key]) ? $_POST['activity_advanced'][$key] :  0,
+						'uid' => $user->uid,
+					);
+			drupal_write_record('iisp_activities_custom_fields',$data_field_activity_data);
+		}
+	}
+	die;
 	drupal_set_message('Congratulations!, Saving the settings data becomes successfull.');
 	drupal_goto('iisp_profiler/settings');
 	

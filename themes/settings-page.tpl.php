@@ -43,9 +43,17 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 				</thead>
 				<tbody>
 				<?php foreach($user_form_field_info as $uffi) : ?>
+				<?php 	
+					$user_system_attribute_form_fields = user_system_attribute_form_fields($uffi->id);
+					if($user_system_attribute_form_fields){
+						$default_advanced = $user_system_attribute_form_fields->advanced;
+				    }else{
+					    $default_advanced = $uffi->default_advanced;
+			     	} 
+			     ?>
 					<tr>
 						<td><?php echo $uffi->name; ?></td>
-						<td ><input type="checkbox" name="advanced[<?php echo $uffi->id; ?>]" value="<?php echo $uffi->default_advanced; ?>" <?php if($uffi->default_advanced == 1) {echo "checked";} else {echo '';} ?>><td>
+						<td ><input type="checkbox" class="checkboxes" name="advanced[<?php echo $uffi->id; ?>]" value="<?php echo $default_advanced; ?>" <?php if($default_advanced == 1) {echo "checked";} else {echo '';} ?>><td>
 					</tr>
 				<?php endforeach; ?>
 				</tbody>
@@ -67,7 +75,21 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 						<div class="panel-body">
 							<div class="append-goals">
 								<table id="goal-fields"><thead><tr><th>Title</th><th>Type</th><th>Advanced</th><th>Actions</th></tr></thead>
-								<tbody></tbody>
+								<tbody>
+									<?php 	
+										$user_goal_form_fields = user_goal_form_fields();
+								     	foreach ($user_goal_form_fields as $key => $goal_fields) { ?>
+										   	<tr>
+												<td><div class="form-group"><input type="text" name="goal_name_set[<?php echo $key; ?>]" class="form-control" value="<?php echo $goal_fields->title; ?>" id="goal_name<?php echo $key; ?>"></div></td>
+												<td>
+													<?php echo $goal_fields->type; ?><input type="hidden" name="goal_type_set[<?php echo $key; ?>]" value="<?php echo $goal_fields->type; ?>">
+												</td>
+												<td><input type="checkbox" name="goal_advanced[<?php echo $key; ?>]" id="goal_advance<?php echo $key; ?>" value="<?php echo $goal_fields->advanced; ?>" <?php if($goal_fields->advanced == 1){echo "checked";} ?>></td>
+												<td><input type="button" value="Remove" class="btn-sm btn-danger btn-remove" id="goal-remove-button[<?php echo $key; ?>]"></td>
+											</tr>
+								     	
+								    <?php } ?>
+								</tbody>
 								</table>
 							</div>
 						</div>
@@ -103,7 +125,7 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 											</select>
 											</div>
 										</td>
-										<td><input type="checkbox" name="goal_advanced" id="goal_advance" value="1"></td>
+										<td><input type="checkbox" name="goal_advance" id="goal_advance" value="1"></td>
 										<td><input type="button" value="Add" class="btn-sm btn-success btn" id="goal-add-button"></td>
 									</tr>
 								</tbody>
@@ -132,7 +154,21 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 							<div class="append-activity">
 								<table id="activity-fields">
                                 <thead><tr><th>Title</th><th>Type</th><th>Advanced</th><th>Actions</th></tr></thead>
-								<tbody></tbody>
+								<tbody>
+									<?php 	
+										$user_activity_form_fields = user_activity_form_fields();
+								     	foreach ($user_activity_form_fields as $key => $activity_fields) { ?>
+										   	<tr>
+												<td><div class="form-group"><input type="text" name="activity_name_set[<?php echo $key; ?>]" class="form-control" value="<?php echo $activity_fields->title; ?>" id="activity_name<?php echo $key; ?>"></div></td>
+												<td>
+													<?php echo $activity_fields->type; ?><input type="hidden" name="activity_type_set[<?php echo $key; ?>]" value="<?php echo $activity_fields->type; ?>">
+												</td>
+												<td><input type="checkbox" name="activity_advanced[<?php echo $key; ?>]" id="activity_advance<?php echo $key; ?>" value="<?php echo $activity_fields->advanced; ?>" <?php if($activity_fields->advanced == 1){echo "checked";} ?>></td>
+												<td><input type="button" value="Remove" class="btn-sm btn-danger btn-remove" id="activity-remove-button[<?php echo $key; ?>]"></td>
+											</tr>
+								     	
+								    <?php } ?>
+								</tbody>
 								</table>
 							</div>
 						</div>
