@@ -21,111 +21,123 @@
  */
 function iisp_profiler_menu() {
   
-  $items['admin/iisp_skills/skills/categories'] = array(
+  $items['admin/iisp_profiler/skills/view'] = array(
+    'title' => 'Skills',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  
+  $items['admin/iisp_profiler/skills/categories'] = array(
     'title'           => 'IISP skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories',
+	'type' 			  => MENU_LOCAL_TASK,
     'file'            => 'admin/profiler_admin.inc', 
 	'access arguments' => array('administer skill profiler settings'),
   );
-  
-  $items['admin/iisp_skills/skills/categories/create'] = array(
+ 
+  $items['admin/iisp_profiler/skills/categories/create'] = array(
     'title'           => 'create new iisp skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories',
     'page arguments' => array('create'),
-    'file'            => 'admin/profiler_admin.inc', 
+    'file'            => 'admin/profiler_admin.inc',
+	'type' => MENU_CALLBACK,
     'access arguments' => array('administer skill profiler settings'),
   );
   
-  $items['admin/iisp_skills/skills/categories/%/edit'] = array(
+  $items['admin/iisp_profiler/skills/categories/%/edit'] = array(
     'title'           => 'Edit iisp skills categories',
     'description'     => 'Provides the iisp skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories_page_edit',
     'page arguments'  => array(4), 
     'file'            => 'admin/profiler_admin.inc', 
+	'type' => MENU_CALLBACK,
     'access arguments' => array('administer skill profiler settings'),
   );
 
-  $items['admin/iisp_skills/skills'] = array(
+  $items['admin/iisp_profiler/skills'] = array(
     'title'           => 'IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
 	'file'            => 'admin/profiler_admin_skills.inc', 
     'access arguments' => array('administer skill profiler settings'),
+	'type' => MENU_LOCAL_TASK,
+	'weight' => -10,
   );
   
-  $items['admin/iisp_skills/skills/create'] = array(
+  
+  
+  $items['admin/iisp_profiler/skills/create'] = array(
     'title'           => 'Create IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
 	'page arguments'  => array('create'),
-	'file'            => 'admin/profiler_admin_skills.inc', 
+	'file'            => 'admin/profiler_admin_skills.inc',
+	'type' => MENU_CALLBACK, 
     'access arguments' => array('administer skill profiler settings'),
   );
   
-  $items['admin/iisp_skills/skills/%/edit'] = array(
+  $items['admin/iisp_profiler/skills/%/edit'] = array(
     'title'           => 'Edit IISP skills',
     'description'     => 'Provides the iisp skills for the iisp profiler',
     'file'            => 'admin/profiler_admin.inc', 
     'page callback'   => 'iisp_skills_skills_page_edit',
 	'page arguments'  => array(3),
 	'file'            => 'admin/profiler_admin_skills.inc', 
+	'type' => MENU_CALLBACK,
     'access arguments' => array('administer skill profiler settings'),
   );
   
-  $items['admin/iisp_skills/config'] = array(
+  $items['admin/iisp_profiler/config'] = array(
     'title'           => 'IISP admin configuraton',
     'description'     => 'Provides the iisp admin configuration for the iisp profiler',
     'page callback'   => 'drupal_get_form',
 	'page arguments'  => array('iisp_admin_config_form'),
     'file'            => 'admin/iisp_config.inc', 
     'access arguments' => array('administer skill profiler settings'),
+	'type' => MENU_LOCAL_TASK,
   );
   
-  $items['admin/iisp_skills/field_settings'] = array(
+  $items['admin/iisp_profiler/field_settings'] = array(
     'title'           => t('Field settings'),
     'description'     => t('Provides the iisp fields settings for the iisp profiler'),
     'page callback'   => 'iisp_fields_settings',
     'file'            => 'admin/field_settings.inc', 
     'access arguments' => array('administer skill profiler settings'),
+	'type' => MENU_LOCAL_TASK,
   );
 
-  $items['admin/iisp_skills/field_settings/create'] = array(
+  $items['admin/iisp_profiler/field_settings/create'] = array(
       'title' => t('Create field settings'),
       'description' => t('Create the iisp fields settings for the iisp profiler'),
       'page callback' => 'iisp_fields_settings',
       'page arguments' => array('create'),
       'access callback' => TRUE,
       'file' => 'admin/field_settings.inc',
+	  'type' => MENU_CALLBACK,
       'access arguments' => array('administer skill profiler settings'),
   );
 
 
-  $items['admin/iisp_skills/field_settings/%/edit'] = array(
+  $items['admin/iisp_profiler/field_settings/%/edit'] = array(
       'title' => t('Edit field settings'),
       'description' => t('Edit the iisp fields settings for the iisp profiler'),
       'page callback' => 'iisp_fields_settings_page_edit',
       'page arguments' => array(3),
       'access arguments' => array('administer skill profiler settings'),
+	  'type' => MENU_CALLBACK,
       'file' => 'admin/field_settings.inc',
       'weight' => 1,
   );
 
-  $items['iisp_skills/settings'] = array(
-    'title'           => 'Settings',
-    'description'     => 'Provides the settings for the iisp profiler',
-    'page callback'   => 'iisp_profiler_settings',
-	'file'            => 'profiler_settings.inc', 
-    'access callback' => TRUE,
-  );
-  
-  $items['admin/iisp_skills/sifa_skills_types'] = array(
+  $items['admin/iisp_profiler/sifa_skills_types'] = array(
     'title'           => 'SIfA skills types',
     'description'     => 'Provides the SIFA skills types',
     'page callback'   => 'sifa_skill_types',
 	'file'            => 'admin/sifa_skill_types_settings.inc', 
     'access arguments' => array('administer skill profiler settings'),
+	'type' => MENU_LOCAL_TASK,
   );
 
   $items['admin/iisp_skills/sifa_skills_levels'] = array(
@@ -134,45 +146,66 @@ function iisp_profiler_menu() {
     'page callback'   => 'sifa_skill_levels',
     'file'            => 'admin/sifa_skill_levels_settings.inc', 
     'access arguments' => array('administer skill profiler settings'),
+	'type' => MENU_LOCAL_TASK,
   );
   
-  $items['iisp_skills/activities'] = array(
+  $items['iisp_profiler/dashboard/view'] = array(
+    'title' => 'Dashboard',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  
+  $items['iisp_profiler/settings'] = array(
+    'title'           => 'Settings',
+    'description'     => 'Provides the settings for the iisp profiler',
+    'page callback'   => 'iisp_profiler_settings',
+	'file'            => 'profiler_settings.inc', 
+    'access arguments' => array('administer skill profiler settings'),
+	'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['iisp_profiler/activities'] = array(
     'title'           => 'Activities',
     'description'     => 'Provides the activities for the iisp profiler',
     'page callback'   => 'iisp_profiler_activities',
     'file'            => 'profiler_activities.inc', 
+	'type' => MENU_LOCAL_TASK,
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/goals'] = array(
+  $items['iisp_profiler/goals'] = array(
     'title'           => 'Goals',
     'description'     => 'Provides the goals for the iisp profiler',
     'page callback'   => 'iisp_profiler_goals',
-  'file'            => 'profiler_goals.inc', 
+    'file'            => 'profiler_goals.inc', 
+	'type' => MENU_LOCAL_TASK,
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/profiles'] = array(
+  $items['iisp_profiler/profiles'] = array(
     'title'           => 'Profiles',
     'description'     => 'Provides the profiles for the iisp profiler',
     'page callback'   => 'iisp_profiler',
-	'file'            => 'profiler_goals.inc', 
+	'file'            => 'profiler_goals.inc',
+	'type' => MENU_LOCAL_TASK, 
     'access callback' => TRUE,
   );
   
-  $items['iisp_skills/dashboard'] = array(
+  $items['iisp_profiler/dashboard'] = array(
     'title'           => 'Dashboard',
     'description'     => 'Provides the dashboard for the iisp profiler',
     'page callback'   => 'iisp_profiler_dashboard',
-  'file'            => 'profiler_dashboard.inc', 
+    'file'            => 'profiler_dashboard.inc', 
     'access callback' => TRUE,
+	'type' => MENU_LOCAL_TASK,
   );
-
+  
   $items['iisp_skills/ajax_settings'] = array(
     'title'           => 'Settings',
     'description'     => 'Provides the ajax callback settings for the iisp profiler',
     'page callback'   => 'ajax_settings',
     'file'            => 'profiler_settings.inc', 
+	'type' => MENU_CALLBACK,
     'access callback' => TRUE,
   );
   
@@ -181,6 +214,7 @@ function iisp_profiler_menu() {
     'description'     => 'Receive settings data',
     'page callback'   => 'receive_settings_data',
     'file'            => 'profiler_settings.inc', 
+	'type' => MENU_CALLBACK,
     'access callback' => TRUE,
   );
   
@@ -289,6 +323,14 @@ function iisp_profiler_permission() {
 
   return $permissions;
 }
+
+function iisp_profiler_menu_alter(&$items) {
+ /* unset($items['admin/index']);
+  unset($items['admin']);*/
+ }
+
+
+
 
 
 

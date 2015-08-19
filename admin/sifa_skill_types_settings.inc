@@ -76,7 +76,7 @@ function sifa_skill_types_settings_form_submit($form, &$form_state){
 	}
 
 	drupal_set_message('IISP sifa plus skill types saved');
-	$form_state['redirect'] = 'admin/iisp_skills/sifa_skills_types';
+	$form_state['redirect'] = 'admin/iisp_profiler/sifa_skills_types';
 }
 
 

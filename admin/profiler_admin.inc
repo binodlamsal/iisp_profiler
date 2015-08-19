@@ -24,7 +24,7 @@ function iisp_skills_categories($tab = '') {
 	  break;
     default:
 	
-     $output .= '<ul class="action-links"><li>'.l(t('Add iisp skills category'), 'admin/iisp_skills/skills/categories/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
+     $output .= '<ul class="action-links"><li>'.l(t('Add iisp skills category'), 'admin/iisp_profiler/skills/categories/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
 	 $build['iisp_skills_categories_list'] = drupal_get_form('iisp_skills_caategories_list_form');
      $output .= drupal_render($build);
 	  
@@ -69,7 +69,7 @@ function iisp_skills_categories_multiple_delete_confirm($form, &$form_state, $de
 	    'Are you sure you want to delete these report settings?');
 	return confirm_form($form,
 	                  $confirm_question,
-	                  'admin/iisp_skills/field_settings/', t('This action cannot be undone.'),
+	                  'admin/iisp_profiler/field_settings/', t('This action cannot be undone.'),
 	                  t('Delete'), t('Cancel'));
 
 }
@@ -81,7 +81,7 @@ function iisp_skills_categories_multiple_delete_confirm_submit($form, &$form_sta
     watchdog('iisp_skills_categories', 'Deleted @count iisp_skills_categories.', array('@count' => $count));
     drupal_set_message(format_plural($count, 'Deleted 1 iisp field settings.', 'Deleted @count iisp field settings.'));
   }
-  $form_state['redirect'] = 'admin/iisp_skills/skills/categories';
+  $form_state['redirect'] = 'admin/iisp_profiler/skills/categories';
 }
 
 function iisp_skills_categories_delete_multiple($values){
@@ -311,7 +311,7 @@ function iisp_skills_categories_form_submit($form, &$form_state){
 	}
 
 	drupal_set_message('IISP skill category saved');
-	$form_state['redirect'] = 'admin/iisp_skills/skills/categories';
+	$form_state['redirect'] = 'admin/iisp_profiler/skills/categories';
 }
 
 function iisp_skills_categories_page_edit($iisp_skills_categories_id){

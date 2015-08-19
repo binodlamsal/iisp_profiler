@@ -281,7 +281,10 @@ function system_attribute_settings_form_submit($form, &$form_state){
 
 
 function receive_settings_data(){
+	
+	
+	
 	drupal_set_message('Congratulations!, Saving the settings data becomes successfull.');
-	drupal_goto('iisp_skills/settings');
+	drupal_goto('iisp_profiler/settings');
 	
 }

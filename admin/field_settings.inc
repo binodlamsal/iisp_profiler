@@ -20,7 +20,7 @@ function iisp_fields_settings($tab = '') {
 	  break;
     default:
 	
-     $output .= '<ul class="action-links"><li>'.l(t('Add iisp field settings'), 'admin/iisp_skills/field_settings/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
+     $output .= '<ul class="action-links"><li>'.l(t('Add iisp field settings'), 'admin/iisp_profiler/field_settings/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
 	 $build['iisp_fields_settings_list'] = drupal_get_form('iisp_fields_settings_list_form');
      $output .= drupal_render($build);
 	  
@@ -65,7 +65,7 @@ function iisp_fields_settings_multiple_delete_confirm($form, &$form_state, $dele
 	    'Are you sure you want to delete these report settings?');
 	return confirm_form($form,
 	                  $confirm_question,
-	                  'admin/iisp_skills/field_settings/', t('This action cannot be undone.'),
+	                  'admin/iisp_profiler/field_settings/', t('This action cannot be undone.'),
 	                  t('Delete'), t('Cancel'));
 
 }
@@ -77,7 +77,7 @@ function iisp_fields_settings_multiple_delete_confirm_submit($form, &$form_state
     watchdog('iisp_fields_settings', 'Deleted @count iisp_fields_settings.', array('@count' => $count));
     drupal_set_message(format_plural($count, 'Deleted 1 iisp field settings.', 'Deleted @count iisp field settings.'));
   }
-  $form_state['redirect'] = 'admin/iisp_skills/field_settings';
+  $form_state['redirect'] = 'admin/iisp_profiler/field_settings';
 }
 
 function iisp_fields_settings_delete_multiple($values){
@@ -339,7 +339,7 @@ function iisp_fields_settings_form_submit($form, &$form_state){
 	}
 
 	drupal_set_message('IISP field setting saved');
-	$form_state['redirect'] = 'admin/iisp_skills/field_settings';
+	$form_state['redirect'] = 'admin/iisp_profiler/field_settings';
 }
 
 function iisp_fields_settings_page_edit($iisp_fields_settings_id){

@@ -24,7 +24,7 @@ function iisp_skills_skills($tab = '') {
 	  break;
     default:
 	
-     $output .= '<ul class="action-links"><li>'.l(t('Add iisp skills'), 'admin/iisp_skills/skills/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
+     $output .= '<ul class="action-links"><li>'.l(t('Add iisp skills'), 'admin/iisp_profiler/skills/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
 	 $build['iisp_skills_skills_list'] = drupal_get_form('iisp_skills_skills_list_form');
      $output .= drupal_render($build);
 	  
@@ -69,7 +69,7 @@ function iisp_skills_skills_multiple_delete_confirm($form, &$form_state, $deleta
 	    'Are you sure you want to delete these report settings?');
 	return confirm_form($form,
 	                  $confirm_question,
-	                  'admin/iisp_skills/skills/', t('This action cannot be undone.'),
+	                  'admin/iisp_profiler/skills/', t('This action cannot be undone.'),
 	                  t('Delete'), t('Cancel'));
 
 }
@@ -81,7 +81,7 @@ function iisp_skills_skills_multiple_delete_confirm_submit($form, &$form_state) 
     watchdog('iisp_skills_skills', 'Deleted @count iisp_skills_skills.', array('@count' => $count));
     drupal_set_message(format_plural($count, 'Deleted 1 iisp skill.', 'Deleted @count iisp skill.'));
   }
-  $form_state['redirect'] = 'admin/iisp_skills/skills';
+  $form_state['redirect'] = 'admin/iisp_profiler/skills';
 }
 
 function iisp_skills_skills_delete_multiple($values){
@@ -370,7 +370,7 @@ function iisp_skills_skills_form_submit($form, &$form_state){
 	}
 
 	drupal_set_message('IISP skill category saved');
-	$form_state['redirect'] = 'admin/iisp_skills/skills';
+	$form_state['redirect'] = 'admin/iisp_profiler/skills';
 }
 
 function iisp_skills_skills_page_edit($iisp_skills_skills_id){
