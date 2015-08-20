@@ -24,6 +24,7 @@ function iisp_profiler_settings() {
 	  $system_attribute_form_fields = db_select('iisp_field_settings', 'fs')
 	            ->fields('fs')
 	            // ->condition('fs.uid',$user->uid)
+				->orderBy('fs.weight', 'ASC')
 	            ->execute()
 	            ->fetchALL();
 	  //End get previously store user skill settings for the specific user id
@@ -291,9 +292,7 @@ function system_attribute_settings_form_submit($form, &$form_state){
 
 function receive_settings_data(){
 	global $user;
-	echo '<pre>';
-	var_dump($_POST);
-	//Start delete the previous data from issp_field_user_data 
+	
 	db_delete('iisp_field_user_data')->condition('uid',$user->uid)->execute();
 	db_delete('iisp_goals_custom_fields')->condition('uid',$user->uid)->execute();
 	db_delete('iisp_activities_custom_fields')->condition('uid',$user->uid)->execute();
@@ -337,7 +336,7 @@ function receive_settings_data(){
 			drupal_write_record('iisp_activities_custom_fields',$data_field_activity_data);
 		}
 	}
-	die;
+	
 	drupal_set_message('Congratulations!, Saving the settings data becomes successfull.');
 	drupal_goto('iisp_profiler/settings');
 	

@@ -166,7 +166,7 @@ function iisp_fields_settings_admin_enquiries() {
                     '#suffix' => '</li>',
                     '#type' => 'link',
                     '#title' => t('Edit'),
-                    '#href' => "admin/iisp_skills/field_settings/$row->id/edit",
+                    '#href' => "admin/iisp_profiler/field_settings/$row->id/edit",
                     '#attributes' => array('class' => array('edit', 'btn', 'btn-default', 'btn-sm', 'btn-icon', 'icon-left')),
                     '#options' => array('query' => $destination, 'html' => true)
 					),

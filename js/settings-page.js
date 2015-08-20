@@ -34,6 +34,7 @@ jQuery(document).ready(function($) {
 		var activity_name = $("#activity_name").val();
 		var activity_type = $("#activity_type").val();
 		var activity_advance = $("#activity_advance").attr("checked") ? 1 : 0;
+     
 
 		//Start removing the fields
 		$("#activity_name").val('');

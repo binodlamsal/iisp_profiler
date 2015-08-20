@@ -139,7 +139,7 @@ function iisp_profiler_menu() {
 	'type' => MENU_LOCAL_TASK,
   );
 
-  $items['admin/iisp_skills/sifa_skills_levels'] = array(
+  $items['admin/iisp_profiler/sifa_skills_levels'] = array(
     'title'           => 'SIfA skills levels',
     'description'     => 'Provides the SIFA skills levels',
     'page callback'   => 'sifa_skill_levels',
@@ -147,12 +147,7 @@ function iisp_profiler_menu() {
     'access arguments' => array('administer skill profiler settings'),
 	'type' => MENU_LOCAL_TASK,
   );
-  
-  $items['iisp_profiler/dashboard/view'] = array(
-    'title' => 'Dashboard',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'weight' => -10,
-  );
+ 
   
   $items['iisp_profiler/settings'] = array(
     'title'           => 'Settings',
@@ -160,7 +155,7 @@ function iisp_profiler_menu() {
     'page callback'   => 'iisp_profiler_settings',
 	'file'            => 'profiler_settings.inc', 
     'access arguments' => array('administer skill profiler settings'),
-	'type' => MENU_LOCAL_TASK,
+	
   );
   
   $items['iisp_profiler/activities'] = array(
@@ -168,7 +163,24 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the activities for the iisp profiler',
     'page callback'   => 'iisp_profiler_activities',
     'file'            => 'profiler_activities.inc', 
-	'type' => MENU_LOCAL_TASK,
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_profiler/activities/create'] = array(
+    'title'           => 'Add activities',
+    'description'     => 'Add the activities for the iisp profiler',
+    'page callback'   => 'iisp_profiler_activities',
+	'page arguments'  => array('create'),
+    'file'            => 'profiler_activities.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_profiler/activities/%/edit'] = array(
+    'title'           => 'Edit activities',
+    'description'     => 'Edit activities for the iisp profiler',
+    'page callback'   => 'iisp_profiler_activities_page_edit',
+	'page arguments'  => array(2),
+    'file'            => 'profiler_activities.inc', 
     'access callback' => TRUE,
   );
   
@@ -177,7 +189,6 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the goals for the iisp profiler',
     'page callback'   => 'iisp_profiler_goals',
     'file'            => 'profiler_goals.inc', 
-	'type' => MENU_LOCAL_TASK,
     'access callback' => TRUE,
   );
   
@@ -186,7 +197,6 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the profiles for the iisp profiler',
     'page callback'   => 'iisp_profiler',
 	'file'            => 'profiler_goals.inc',
-	'type' => MENU_LOCAL_TASK, 
     'access callback' => TRUE,
   );
   
@@ -196,7 +206,6 @@ function iisp_profiler_menu() {
     'page callback'   => 'iisp_profiler_dashboard',
     'file'            => 'profiler_dashboard.inc', 
     'access callback' => TRUE,
-	'type' => MENU_LOCAL_TASK,
   );
   
   $items['iisp_skills/ajax_settings'] = array(
@@ -204,7 +213,6 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the ajax callback settings for the iisp profiler',
     'page callback'   => 'ajax_settings',
     'file'            => 'profiler_settings.inc', 
-	'type' => MENU_CALLBACK,
     'access callback' => TRUE,
   );
   
@@ -213,7 +221,6 @@ function iisp_profiler_menu() {
     'description'     => 'Receive settings data',
     'page callback'   => 'receive_settings_data',
     'file'            => 'profiler_settings.inc', 
-	'type' => MENU_CALLBACK,
     'access callback' => TRUE,
   );
   
