@@ -8,6 +8,10 @@ input[type="checkbox"] {
 	display:block !important;	
 }
 
+.panel-group .panel-title > a:before{
+    opacity: 0 !important;
+}
+
 .container-inline-date .date-padding {
     padding: 10px;
     float: none !important; 
@@ -25,3 +29,4 @@ input#edit-cpd-year-start-datepicker-popup-0 {
     width: 100%;
     margin-left: -10px;
 }
+

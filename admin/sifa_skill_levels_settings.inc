@@ -68,7 +68,8 @@ function sifa_skill_levels_settings_form($form, &$form_state, $sifa_skill_levels
 
 function sifa_skill_levels_settings_form_submit($form, &$form_state){
 	global $user;
-	$sifa_skill_levels_settings = (object) $form_state['values'];
+  $sifa_skill_levels_settings = (object) $form_state['values'];
+	$sifa_skill_levels_settings->name = trim($sifa_skill_levels_settings->name);
 	if(empty($sifa_skill_levels_settings->id)){
 		drupal_write_record('iisp_sifaplus_skill_levels', $sifa_skill_levels_settings);
 	} else {

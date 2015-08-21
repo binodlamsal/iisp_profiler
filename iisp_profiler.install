@@ -149,6 +149,11 @@ function iisp_profiler_schema() {
         'not null' => TRUE,
         'default' => '',
       ),
+    'description' => array(
+              'description' => 'The Description of this iisp_field settings.',
+              'type' => 'text',
+              'not null' => TRUE,
+          ),
 	  'default_advanced' => array(
         'description' => 'Check if you want to save the field as advanced in default or not?',
         'type' => 'int',

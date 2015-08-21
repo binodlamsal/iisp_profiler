@@ -262,7 +262,8 @@ function iisp_fields_settings_form($form, &$form_state, $iisp_fields_settings = 
 					'date'=>'date'
 				);
 	if(!empty($iisp_fields_settings)){
-		$name = $iisp_fields_settings->name;
+    $name = $iisp_fields_settings->name;
+		$description = $iisp_fields_settings->description;
 		$type = $iisp_fields_settings->type;
 		$default_advanced = $iisp_fields_settings->default_advanced;
 		$weight_field = $iisp_fields_settings->weight;
@@ -273,6 +274,7 @@ function iisp_fields_settings_form($form, &$form_state, $iisp_fields_settings = 
 
 	} else {
         $name    =  "";
+        $description    =  "";
         $type    =  array();
         $default_advanced  =  0;
         $weight_field =  0;		
@@ -285,6 +287,15 @@ function iisp_fields_settings_form($form, &$form_state, $iisp_fields_settings = 
 	'#required' => true,
 	'#weight' => $weight++,
 	'#default_value' => $name,
+  );
+
+  $form['description'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description'),
+    '#weight' => $weight++,
+    '#required' => true,
+    '#default_value' =>$description,
+    '#description' => t('Description for iisp field settings'),      
   );
 
   $form['type'] = array(
