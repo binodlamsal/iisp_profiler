@@ -187,10 +187,29 @@ function iisp_profiler_menu() {
   $items['iisp_profiler/goals'] = array(
     'title'           => 'Goals',
     'description'     => 'Provides the goals for the iisp profiler',
-    'page callback'   => 'iisp_profiler_goals',
+    'page callback'   => 'iisp_profiler_activities',
     'file'            => 'profiler_goals.inc', 
     'access callback' => TRUE,
   );
+  $items['iisp_profiler/goals/create'] = array(
+    'title'           => 'Add Goals',
+    'description'     => 'Add the goals for the iisp profiler',
+    'page callback'   => 'iisp_profiler_activities',
+	'page arguments'  => array('create'),
+    'file'            => 'profiler_goals.inc', 
+    'access callback' => TRUE,
+  );
+  
+  $items['iisp_profiler/goals/%/edit'] = array(
+    'title'           => 'Edit Goals',
+    'description'     => 'Edit goals for the iisp profiler',
+    'page callback'   => 'iisp_profiler_activities_page_edit',
+	'page arguments'  => array(2),
+    'file'            => 'profiler_goals.inc', 
+    'access callback' => TRUE,
+  );
+  
+  
   
   $items['iisp_profiler/profiles'] = array(
     'title'           => 'Profiles',

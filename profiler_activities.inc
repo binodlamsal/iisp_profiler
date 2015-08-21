@@ -14,18 +14,18 @@
 //
 // Fields settings Listing page, create and edit page
 //
-function iisp_skills_categories($tab = '') {
+function iisp_profiler_activities($tab = '') {
   $output = '';
   switch ($tab) {
     case 'create':
-      $build['iisp_skills_categories_create'] = drupal_get_form('iisp_skills_categories_form');
+      $build['iisp_profiler_activities_create'] = drupal_get_form('iisp_profiler_activities_form');
 	  
 	  $output = drupal_render($build);
 	  break;
     default:
 	
-     $output .= '<ul class="action-links"><li>'.l(t('Add iisp skills category'), 'admin/iisp_profiler/skills/categories/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
-	 $build['iisp_skills_categories_list'] = drupal_get_form('iisp_skills_caategories_list_form');
+     $output .= '<ul class="action-links"><li style="list-style:none;">'.l(t('Add Activity'), 'iisp_profiler/activities/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
+	 $build['iisp_profiler_activities_list'] = drupal_get_form('iisp_profiler_activities_list_form');
      $output .= drupal_render($build);
 	  
   }
@@ -33,67 +33,69 @@ function iisp_skills_categories($tab = '') {
 
 }
 
-function iisp_skills_caategories_list_form($form, $form_state) {
+function iisp_profiler_activities_list_form($form, $form_state) {
     if (isset($form_state['values']['operation']) && $form_state['values']['operation'] == 'delete') {
-        return iisp_skills_categories_multiple_delete_confirm($form, $form_state, array_filter($form_state['values']['deletable_ids']));
+        return iisp_profiler_activities_multiple_delete_confirm($form, $form_state, array_filter($form_state['values']['deletable_ids']));
     }
     
-    $form['admin'] = iisp_skills_categories_admin_enquiries();
+    $form['admin'] = iisp_profiler_activities_admin_enquiries();
     return $form;
 }
 
-function iisp_skills_categories_multiple_delete_confirm($form, &$form_state, $deletable_ids) {
+function iisp_profiler_activities_multiple_delete_confirm($form, &$form_state, $deletable_ids) {
   
 	global $base_url;
 	global $user;
 	$flag_set_delete = 0;
 	$form['deletable_ids'] = array('#prefix' => '<ul>', '#suffix' => '</ul>', '#tree' => TRUE);
 	    foreach ($deletable_ids as $cid => $value) {
-	      $iisp_skills_categoriesname = db_query('SELECT name FROM {iisp_skill_cat} WHERE id = :id', array(':id' => $cid))->fetchField();
+	      $id = db_query('SELECT id FROM {iisp_activities} WHERE id = :id', array(':id' => $cid))->fetchField();
 
 	      $form['deletable_ids'][$cid] = array(
 	        '#type' => 'hidden',
 	        '#value' => $cid,
 	        '#prefix' => '<li>',
-	        '#suffix' => check_plain($iisp_skills_categoriesname) . "</li>\n",
+	        '#suffix' => 'goal '. check_plain($id) . "</li>\n",
 	      );
 	    }
 
 
 	$form['operation'] = array('#type' => 'hidden', '#value' => 'delete');
 
-	$form['#submit'][] = 'iisp_skills_categories_multiple_delete_confirm_submit';
+	$form['#submit'][] = 'iisp_profiler_activities_multiple_delete_confirm_submit';
 
 	$confirm_question = format_plural(count($deletable_ids),
-	    'Are you sure you want to delete this report setting?',
-	    'Are you sure you want to delete these report settings?');
+	    'Are you sure you want to delete this activity',
+	    'Are you sure you want to delete these activities?');
 	return confirm_form($form,
 	                  $confirm_question,
-	                  'admin/iisp_profiler/field_settings/', t('This action cannot be undone.'),
+	                  'iisp_profiler/activities/', t('This action cannot be undone.'),
 	                  t('Delete'), t('Cancel'));
 
 }
 
-function iisp_skills_categories_multiple_delete_confirm_submit($form, &$form_state) {
+function iisp_profiler_activities_multiple_delete_confirm_submit($form, &$form_state) {
   if ($form_state['values']['confirm']) {    
-    iisp_skills_categories_delete_multiple(array_keys($form_state['values']['deletable_ids']));
+    iisp_profiler_activities_delete_multiple(array_keys($form_state['values']['deletable_ids']));
     $count = count($form_state['values']['deletable_ids']);
-    watchdog('iisp_skills_categories', 'Deleted @count iisp_skills_categories.', array('@count' => $count));
-    drupal_set_message(format_plural($count, 'Deleted 1 iisp field settings.', 'Deleted @count iisp field settings.'));
+    watchdog('iisp goals', 'Deleted @count iisp activities.', array('@count' => $count));
+    drupal_set_message(format_plural($count, 'Deleted 1 activities.', 'Deleted @count activities.'));
   }
-  $form_state['redirect'] = 'admin/iisp_profiler/skills/categories';
+  $form_state['redirect'] = 'iisp_profiler/activities';
 }
 
-function iisp_skills_categories_delete_multiple($values){
+function iisp_profiler_activities_delete_multiple($values){
 	foreach($values as $val){
-		$query = db_delete('iisp_skill_cat');
+		$query = db_delete('iisp_activities');
 		$query->condition('id', $val)->execute();
+		
+		db_delete('iisp_activities_data')->condition('iisp_activities_id', $val)->execute();
 
 	}
 }
 
 
-function iisp_skills_categories_admin_enquiries() {
+function iisp_profiler_activities_admin_enquiries() {
 	
 	global $user;
 	
@@ -107,7 +109,7 @@ function iisp_skills_categories_admin_enquiries() {
     );
 	
     $options = array();
-	$operations = iisp_skills_categories_operations();
+	$operations = iisp_profiler_activities_operations();
 	
     foreach ($operations as $operation => $array) {
 		
@@ -124,49 +126,74 @@ function iisp_skills_categories_admin_enquiries() {
     $form['options']['submit'] = array(
         '#type' => 'submit',
         '#value' => t('Update'),
-        '#validate' => array('iisp_skills_categories_form_list_validate'),
-        '#submit' => array('iisp_skills_categories_form_list_submit'),
+        '#validate' => array('iisp_profiler_activities_form_list_validate'),
+        '#submit' => array('iisp_profiler_activities_form_list_submit'),
     );
 
 
     $header = array(
-        'title_en' => array('data' => t('Name'), 'field' => 'fs.name', 'sort' => 'DESC'),  
-		'weight' => array('data' => t('Weight')),      
+        'title_en' => array('data' => t('Title'), 'field' => 'fs.id', 'sort' => 'DESC'),  
+		'status' => array('data' => t('Status')),
+		'start_date' => array('data' => t('Start Date')),
+		'end_date' => array('data' => t('End Date')),   
+		'reviewed' => array('data' => t('Reviewed')),   
         'operations' => array('data' => t('Operations')),
     );
 
     //Start get the listing for iisp field settings
-  	$query = db_select('iisp_skill_cat','fs');
+  	$query = db_select('iisp_activities','fs');
     $count_query = clone $query;
     $count_query->addExpression('COUNT(fs.id)');
     $query = $query->extend('PagerDefault')->extend('TableSort');
+	$query = $query->condition('fs.uid', $user->uid);
     $query
-      ->fields('fs', array('id', 'name', 'weight'))
+      ->fields('fs', array('id'))
       ->limit(10)
-      ->orderBy('fs.weight','ASC')
+      ->orderBy('fs.id','DESC')
       ->setCountQuery($count_query);
     $result = $query->execute();
     //End get the listing for iisp field settings
 
     $destination = drupal_get_destination();
     $options = array();
+	
 
     foreach ($result as $row)
     { 
 			
+		$system_attribute_form_fields = db_select('iisp_activities_data', 'f')
+	            ->fields('f')
+	            ->condition('f.iisp_activities_id',$row->id);
+	    $result = $system_attribute_form_fields->execute()->fetchALL();	
+		$newarray = array();
+		foreach($result as $res){
+			$newarray[$res->iisp_field_settings_id] = $res;
+		}
+		
+		if($newarray[6]->value == '1'){
+			$status = "Pending";
+		} else if($newarray[6]->value == '2'){
+			$status = "In progress";
+		} else if($newarray[6]->value == '3'){
+			$status = "Complete";
+		}
+		
 			
         $options[$row->id] = array(
-            'title_en' => $row->name,
-            'weight' => $row->weight,
+            'title_en' => $newarray[3]->value,
+            'status' => $status,
+			'start_date' => $newarray[2]->value,
+			'end_date' => $newarray[1]->value,
+			'reviewed' => $newarray[8]->value,
             'operations' => array('data' =>array(
                 array(
                     '#prefix' => '<ul class="links inline">',),
                 array(
-                    '#prefix' => '<li>',
+                    '#prefix' => '<li style="list-style:none;">',
                     '#suffix' => '</li>',
                     '#type' => 'link',
                     '#title' => t('Edit'),
-                    '#href' => "admin/iisp_profiler/skills/categories/$row->id/edit",
+                    '#href' => "iisp_profiler/activities/$row->id/edit",
                     '#attributes' => array('class' => array('edit', 'btn', 'btn-default', 'btn-sm', 'btn-icon', 'icon-left')),
                     '#options' => array('query' => $destination, 'html' => true)
 					),
@@ -181,7 +208,7 @@ function iisp_skills_categories_admin_enquiries() {
             '#type' => 'tableselect',
             '#header' => $header,
             '#options' => $options,
-            '#empty' => t('No iisp skills categories are available.'),  
+            '#empty' => t('No iisp activities are available.'),  
             '#attributes' => array (
                 'id' => 'iisp_skill_cat_table',
             )
@@ -196,10 +223,10 @@ function iisp_skills_categories_admin_enquiries() {
 /**
  * Implements hook_iisp_skills_categories_operations().
  */
-function iisp_skills_categories_operations() {
+function iisp_profiler_activities_operations() {
   $operations = array(
     'delete' => array(
-      'label' => t('Delete selected iisp skills categories'),
+      'label' => t('Bulk delete iisp activities'),
       'callback' => NULL,
     ),
   );
@@ -212,10 +239,10 @@ function iisp_skills_categories_operations() {
  * Check if any iisp fields settings have been selected to perform the chosen
  * 'Update option' on.
  */
-function iisp_skills_categories_form_list_validate($form, &$form_state) {
+function iisp_profiler_activities_form_list_validate($form, &$form_state) {
   // Error if there are no items to select.
   if (!is_array($form_state['values']['deletable_ids']) || !count(array_filter($form_state['values']['deletable_ids']))) {
-    form_set_error('', t('No iisp skills categories selected.'));
+    form_set_error('', t('No iisp activities selected.'));
   }
 }
 
@@ -225,8 +252,8 @@ function iisp_skills_categories_form_list_validate($form, &$form_state) {
  *
  * Execute the chosen 'Update option' on the selected trends.
  */
-function iisp_skills_categories_form_list_submit($form, &$form_state) {
-  $operations = iisp_skills_categories_operations();
+function iisp_profiler_activities_form_list_submit($form, &$form_state) {
+  $operations = iisp_profiler_activities_operations();
   $operation = $operations[$form_state['values']['operation']];
   // Filter out unchecked trends
   $deletable_ids = array_filter($form_state['values']['deletable_ids']);
@@ -249,80 +276,336 @@ function iisp_skills_categories_form_list_submit($form, &$form_state) {
   }
 }
 
-function iisp_skills_categories_form($form, &$form_state, $iisp_skills_categories = NULL){
+function iisp_profiler_activities_form($form, &$form_state, $activities = NULL){
+	global $user;
 	$form = array();
 	$form['#attributes']['class'][] = 'inform';
 	
-	$weight = 10;
-	
-	if(!empty($iisp_skills_categories)){
-		$name = $iisp_skills_categories->name;
-		$weight_field = $iisp_skills_categories->weight;
-	    $form['id'] = array(
+	if(!empty($activities)){
+		
+		$form['id'] = array(
 	    		'#type' => 'hidden',
-	    		'#value' =>$iisp_skills_categories->id,
+	    		'#value' =>$activities->id,
 	  	  );	
-
+		
+		$system_attribute_form_fields = db_select('iisp_activities_data', 'f')
+	            ->fields('f')
+	            ->condition('f.iisp_activities _id', $activities->id);
+	    $result = $system_attribute_form_fields->execute()->fetchALL();	
+		$newarray = array();
+		foreach($result as $res){
+			$newarray[$res->iisp_field_settings_id] = $res;
+		}
+		
+		
 	} else {
-        $name    =  "";
-        $weight_field =  10;		
+		
+		
 	}
 	
 	
-  $form['name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Name'),
-	'#required' => true,
+	$weight = 10;
+	
+ $system_attribute_form_fields = db_select('iisp_field_settings', 'fs')
+	            ->fields('fs')
+	            // ->condition('fs.uid',$user->uid)
+				->orderBy('fs.weight', 'ASC');
+ $result =  $system_attribute_form_fields ->execute()->fetchAll();
+ 
+ 
+ $advanced_fields = db_select('iisp_field_user_data', 'ud')
+	            ->fields('ud')
+	            ->condition('ud.uid',$user->uid);
+ 
+ $result_normal = array();
+ 
+ foreach($result as $key => $fields){
+	 $result_normal[$fields->id] = $fields;
+ }		
+ 		
+ 
+ $result_adv =  $advanced_fields ->execute()->fetchAll();
+ 
+ 
+ $result_advance = array();
+ 
+ foreach($result_adv as $rev){
+	if (array_key_exists($rev->iisp_field_settings_id, $result_normal)) {
+		
+		$result_advance[$rev->iisp_field_settings_id] = $result_normal[$rev->iisp_field_settings_id];
+		unset($result_normal[$rev->iisp_field_settings_id]);
+	}
+ }
+ 
+ 
+ 	
+	$form['field_info_first'] = array(
+    '#prefix' => '<div class="row"><div class="col-md-8" style="background:#f7f7f7; padding:10px; border-radius:10px;" >',
+	'#type' => 'markup',
+	'#weight' => $weight++,	
+	);			
+				
+foreach($result_normal as $fields)	{
+	
+	if($fields->type == 'date'){
+		$fields->type = 'date_popup';
+	}
+	
+	if($fields->name == 'Status'){
+		
+		$form['name_'.$fields->id] = array(
+			'#type' => 'radios',
+			'#title' => $fields->name,
+			'#weight' => $weight++,
+			'#options' => array('1' => 'Pending', '2' => 'In Progress', '3' => 'Complete'),
+			'#default_value' => $newarray[$fields->id]->value,
+		  );
+		
+	}if($fields->type == 'range'){
+		
+	      $skill_types_fields = db_select('iisp_sifaplus_skill_types', 'fs')
+	            ->fields('fs')
+	            ->execute()
+	            ->fetchAll();
+	  $options_skill_types = get_keyvalue_array($skill_types_fields[0]->name);
+	  
+	  	$form['name_'.$fields->id] = array(
+		    '#type' => 'select',
+		    '#title' => t('Skill enhanced'),
+		  	'#weight' => $weight++,
+			'#options' => $options_skill_types,
+			'#default_value' => $newarray[$fields->id]->value,
+		    '#description' => t('Tips and Info : Please indentify which of the SFIAplus skills best matches your primary specialism. This will help us provide you with relevant content and messages to help you with your CPD.'),
+			'#select2' => array(
+			  'width' => '200',
+			  'placeholder' => t('Select categories'),
+			  'allowClear'   => TRUE,
+			  'minimumResultsForSearch' => '1',
+			),
+		  );
+	
+	} else {
+		
+		if($fields->name == 'Title'){
+			$required = true;	
+		}else{
+			$required = false;	
+		}	
+	$form['name_'.$fields->id] = array(
+    '#type' => $fields->type,
+    '#title' => $fields->name,
+	'#required' => $required,
 	'#weight' => $weight++,
-	'#default_value' => $name,
+	'#default_value' => $newarray[$fields->id]->value,
+  );
+  
+	}
+  
+}
+
+$normal_fields_custom = db_select('iisp_activities_custom_fields', 'ud')
+	            ->fields('ud')
+	            ->condition('ud.uid',$user->uid)->execute()->fetchAll();
+				
+foreach($normal_fields_custom as $fields){ 
+	
+ if($fields->advanced == '0') {
+		
+	$form['custom_'.$fields->id] = array(
+    '#type' => 'textfield',
+    '#title' => $fields->title,
+	'#weight' => $weight++,
+	'#default_value' => $newarray[$fields->id]->value,
+  );
+  
+ }
+	
+}			
+
+ 
+
+$form['field_info'] = array(
+  '#type' => 'markup',
+   '#markup' => '<div class="panel-group" id="accordions-">
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" class="" data-parent="#accordions-" href="#accordion-1">
+         Advanced fields
+        </a>
+      </h4>
+    </div>
+    <div id="accordion-1" class="panel-collapse collapse" style="height: auto;">
+      <div class="panel-body">
+        ',
+	'#weight' => $weight++,	
+);
+
+foreach($result_advance as $fields)	{
+	
+	if($fields->type == 'date'){
+		$fields->type = 'date_popup';
+	}
+	
+	
+	
+	if($fields->name == 'Status'){
+		
+		$form['name_'.$fields->id] = array(
+			'#type' => 'radios',
+			'#title' => $fields->name,
+			'#weight' => $weight++,
+			'#options' => array('1' => 'Pending', '2' => 'In Progress', '3' => 'Complete'),
+			'#default_value' => $newarray[$fields->id]->value,
+		  );
+		
+	} elseif($fields->type == 'range'){
+		
+	      $skill_types_fields = db_select('iisp_sifaplus_skill_types', 'fs')
+	            ->fields('fs')
+	            ->execute()
+	            ->fetchAll();
+	  $options_skill_types = get_keyvalue_array($skill_types_fields[0]->name);
+	  
+	  	$form['name_'.$fields->id] = array(
+		    '#type' => 'select',
+		    '#title' => t('Skill enhanced'),
+		  	'#weight' => $weight++,
+			'#options' => $options_skill_types,
+			'#default_value' => $newarray[$fields->id]->value,
+		    '#description' => t('Tips and Info : Please indentify which of the SFIAplus skills best matches your primary specialism. This will help us provide you with relevant content and messages to help you with your CPD.'),
+			'#select2' => array(
+			  'width' => '200',
+			  'placeholder' => t('Select categories'),
+			  'allowClear'   => TRUE,
+			  'minimumResultsForSearch' => '1',
+			),
+		  );
+	
+	} else {
+		
+		if($fields->name == 'Title'){
+			$required = true;	
+		}else{
+			$required = false;	
+		}	
+	$form['name_'.$fields->id] = array(
+    '#type' => $fields->type,
+    '#title' => $fields->name,
+	'#required' => $required,
+	'#weight' => $weight++,
+	'#default_value' => $newarray[$fields->id]->value,
+  );
+  
+	}
+  
+}	
+
+foreach($normal_fields_custom as $fields){
+	
+ if($fields->advanced == '1') {
+		
+	$form['custom_'.$fields->id] = array(
+    '#type' => 'textfield',
+    '#title' => $fields->title,
+	'#weight' => $weight++,
+	'#default_value' => $newarray[$fields->id]->value,
+  );
+  
+ }
+	
+}		
+	
+$form['field_info_end'] = array(
+   '#type' => 'markup',
+   '#markup' => '</div></div></div></div>',
+   '#suffix' => '</div><div class="col-md-4">
+    <hr class="visible-sm visible-xs lg">',
+   '#weight' => $weight++,
+);  
+
+$form['linked_activities']  = array(
+  	 '#type' => 'select',
+     '#title' => 'Activities Linked to Goal',
+	 '#options' => array('linked', 'no linked', 'unlinked'),
+	 '#suffix' => '</div></div>',
+	 '#weight' => $weight++,
+	 '#default_value' => $activities->iisp_activities_id,
   );
  	
-
-  $form['weight'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Weight'),
-	'#required' => true,
-	'#weight' => $weight++,
-	'#default_value' => $weight_field,
-	'#element_validate' => array('element_validate_number'),
-  );
 
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => t('Save iisp skill category'),
+      '#value' => t('Save Activity'),
       '#weight' => $weight++,
-	  '#prefix' => '<div class="form-item form-actions">',
+	  '#prefix' => '<br/><div class="form-item form-actions">',
 	  '#suffix' => '</div>',
-      '#submit' => array('iisp_skills_categories_form_submit'),
+      '#submit' => array('iisp_profiler_activities_form_submit'),
   );
+  
+  
   
   return $form;
 	
 }
 
-function iisp_skills_categories_form_submit($form, &$form_state){
+function iisp_profiler_activities_form_submit($form, &$form_state){
 	global $user;
-	$iisp_skills_categories = (object) $form_state['values'];
-	if(empty($iisp_skills_categories->id)){
-		drupal_write_record('iisp_skill_cat', $iisp_skills_categories);
+	
+	$form_data = (object) $form_state['values'];
+	unset($form_data->submit);
+	unset($form_data->form_build_id);
+	unset($form_data->form_token);
+	unset($form_data->form_id);
+	unset($form_data->op);
+	
+	
+	$goals = (object)array();
+	$goals->changed = REQUEST_TIME;
+	$goals->uid = $user->uid;
+	//$goals->iisp_activities_id = $form_data->linked_activities;
+	
+	if(empty($form_data->id)){
+		$goals->created = REQUEST_TIME;
+		drupal_write_record('iisp_activities', $goals);
 	} else {
-		drupal_write_record('iisp_skill_cat', $iisp_skills_categories, 'id');
+		$goals->id = $form_data->id;
+		drupal_write_record('iisp_activities', $goals, 'id');
 	}
+	
+	db_delete('iisp_activities_data')->condition('iisp_activities_id', $form_data->id)->execute();
+	foreach($form_data as $key=>$val){
+		$goals_data = (object)array();
+		$goals_data->uid = $user->uid;
+		
+		$data = explode("_", $key);
+		if($data[0] == 'custom'){
+		  $goals_data->custom = 1; 
+		}
+		
+		$goals_data->value = $val;
+		$goals_data->iisp_activities_id = $goals->id;
+		$goals_data->iisp_field_settings_id = $data[1];
+		
+		drupal_write_record('iisp_activities_data', $goals_data);
+		
+	}
+	
 
-	drupal_set_message('IISP skill category saved');
-	$form_state['redirect'] = 'admin/iisp_profiler/skills/categories';
+	drupal_set_message('IISP activity saved');
+	$form_state['redirect'] = 'iisp_profiler/activities';
 }
 
-function iisp_skills_categories_page_edit($iisp_skills_categories_id){
-	$query = db_select('iisp_skill_cat', 'fs')
+function iisp_profiler_activities_page_edit($activity_id){
+	$query = db_select('iisp_activities', 'fs')
             ->fields('fs')
-			->condition('fs.id', $iisp_skills_categories_id)
+			->condition('fs.id', $activity_id)
             ->execute()
             ->fetchObject();
-   drupal_set_title(t('<em> Edit iisp field settings  @title </em>', array('@title' => $query->name)), PASS_THROUGH);
+   drupal_set_title(t('Edit activity'));
 
-   return drupal_get_form('iisp_skills_categories_form', $query);
+   return drupal_get_form('iisp_profiler_activities_form', $query);
 }
 
 
