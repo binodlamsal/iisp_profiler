@@ -333,6 +333,17 @@ function iisp_profiler_theme() {
             ->fetchObject();
     return $result;
   }
+  
+  function user_has_form_fields(){
+     global $user;
+     $query = db_select('iisp_field_user_data', 'ud')
+            ->fields('ud')
+            ->condition('ud.uid',$user->uid);
+    $result = $query->execute()
+            ->fetchObject();
+    if($result) return TRUE;
+    else return FALSE;
+  }
 
  function user_goal_form_fields(){
      global $user;
@@ -384,10 +395,3 @@ function iisp_profiler_menu_alter(&$items) {
  /* unset($items['admin/index']);
   unset($items['admin']);*/
  }
-
-
-
-
-
-
-

@@ -166,7 +166,7 @@ function iisp_skills_categories_admin_enquiries() {
                     '#suffix' => '</li>',
                     '#type' => 'link',
                     '#title' => t('Edit'),
-                    '#href' => "admin/iisp_profiler/skills/categories/$row->id/edit",
+                    '#href' => "admin/iisp_skills/skills/categories/$row->id/edit",
                     '#attributes' => array('class' => array('edit', 'btn', 'btn-default', 'btn-sm', 'btn-icon', 'icon-left')),
                     '#options' => array('query' => $destination, 'html' => true)
 					),

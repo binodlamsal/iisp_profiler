@@ -68,7 +68,8 @@ function sifa_skill_types_settings_form($form, &$form_state, $sifa_skill_types_s
 
 function sifa_skill_types_settings_form_submit($form, &$form_state){
 	global $user;
-	$sifa_skill_types_settings = (object) $form_state['values'];
+  $sifa_skill_types_settings = (object) $form_state['values'];
+	$sifa_skill_types_settings->name = trim($sifa_skill_types_settings->name);
 	if(empty($sifa_skill_types_settings->id)){
 		drupal_write_record('iisp_sifaplus_skill_types', $sifa_skill_types_settings);
 	} else {

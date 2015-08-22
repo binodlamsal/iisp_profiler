@@ -607,6 +607,3 @@ function iisp_profiler_activities_page_edit($activity_id){
 
    return drupal_get_form('iisp_profiler_activities_form', $query);
 }
-
-
-
