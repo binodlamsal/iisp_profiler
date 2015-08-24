@@ -425,7 +425,7 @@ foreach($result_normal as $fields)	{
 			'#type' => $fields->type,
 			'#title' => $fields->name,
 			'#description'=> $fields->description,
-			'#required' => $required,
+			//'#required' => $required,
 			'#weight' => $weight++,
 			'#date_format' => 'Y-m-d',
 			'#default_value' => $newarray[$fields->id]->value,
