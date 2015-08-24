@@ -29,7 +29,6 @@ function sifa_skill_levels_settings_form($form, &$form_state, $sifa_skill_levels
             ->fetchObject();
   //End checking if previously stored skill types for sfia
 
-
 	$weight = 0;
 	if(!empty($sifa_skill_levels_settings)){
 	$skill_types = $sifa_skill_levels_settings->name;

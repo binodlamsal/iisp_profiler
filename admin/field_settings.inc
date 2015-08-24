@@ -364,4 +364,3 @@ function iisp_fields_settings_page_edit($iisp_fields_settings_id){
 
    return drupal_get_form('iisp_fields_settings_form', $query);
 }
-

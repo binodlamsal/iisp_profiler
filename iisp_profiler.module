@@ -230,7 +230,7 @@ function iisp_profiler_menu() {
     'title'           => 'Profiles',
     'description'     => 'Provides the profiles for the iisp profiler',
     'page callback'   => 'iisp_profiler',
-	'file'            => 'profiler_goals.inc',
+	'file'            => 'profiler_info.inc',
     'access callback' => TRUE,
 	'access arguments' => array('skill profiler works'),
   );
@@ -262,6 +262,13 @@ function iisp_profiler_menu() {
 	'access arguments' => array('skill profiler works'),
   );
   
+  $items['iisp_profiler/profiles/skill_add'] = array(
+    'title'           => 'Profiles',
+    'description'     => 'Provides the profiles for the iisp profiler',
+    'page callback'   => 'iisp_profiler_skill_add',
+    'file'            => 'profiler_info.inc',
+    'access callback' => TRUE,
+  );
   
   return $items;
   
@@ -372,8 +379,16 @@ function iisp_profiler_theme() {
     'profiler_settings_page' => array(
       'variables' => array('user_form_field_info' => NULL),      
       'template' => 'settings-page',
-      'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',)
+      'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',
+      ),
+
+    'profiler_page' => array(
+      'variables' => array('user_profile_info' => NULL,'skill_categories' => NULL,'skills' => NULL),      
+      'template' => 'profiler-page',
+      'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',
+      )
     );
+
  }
 
  function user_system_attribute_form_fields($field_settings_id){

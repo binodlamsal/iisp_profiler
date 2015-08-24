@@ -36,3 +36,25 @@ input#edit-cpd-year-start-datepicker-popup-0 {
 div#block-iisp-profiler-top-menu-for ul li{
 	display:inline;
 }
+
+/*.panel-group .panel-title > a:before{
+    opacity: 0 !important;
+}*/
+
+.checkbox-wrapper{
+    float: right;
+}
+
+.checkbox-style{
+    width: 20px;
+    height: 20px;
+    margin: 0px 6px;
+    padding: 8px 12px;
+    border-radius: 135px;
+    background-color: #ccc;
+    z-index: 10000 !important;
+}
+
+.left-panel-profile{
+    margin-top: 40px;
+}
