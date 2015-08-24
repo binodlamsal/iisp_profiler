@@ -24,7 +24,7 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 	
 </div>
 
-<form method="post" id="profile_settings_ga" action="<?php echo $base_url; ?>?q=/skills/receive_settings_data">
+<form method="post" id="profile_settings_ga" action="<?php echo $base_url; ?>/skills/receive_settings_data">
 	<div class="tabs col-md-12" style="margin-top:30px">
 	  <ul class="nav nav-tabs">
 		<li class="active"><a href="#tab-1" data-toggle="tab">System Attribute Settings</a></li>

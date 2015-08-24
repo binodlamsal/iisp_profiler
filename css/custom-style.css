@@ -30,3 +30,9 @@ input#edit-cpd-year-start-datepicker-popup-0 {
     margin-left: -10px;
 }
 
+.form-type-radio.form-item-name-6.form-item.radio {
+    display: inline;
+}
+div#block-iisp-profiler-top-menu-for ul li{
+	display:inline;
+}

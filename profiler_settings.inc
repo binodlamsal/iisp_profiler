@@ -18,7 +18,7 @@ function iisp_profiler_settings() {
 	drupal_add_js($base_url . '/' . $path . '/js/noslider.min.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2010));
 	drupal_add_js($base_url . '/' . $path . '/js/settings-page.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2500));
     
-	drupal_add_css($base_url . '/' . $path . '/css/custom-style.css', array('type' => 'external', 'weight' => '500'));
+	
 	drupal_add_css($base_url . '/' . $path . '/css/nouislider.pips.css', array('type' => 'external', 'weight' => '600'));
         
 

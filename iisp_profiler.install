@@ -109,9 +109,7 @@ function iisp_profiler_schema() {
       ),
       'value' => array(
         'description' => 'The value of the iisp field data submitted.',
-        'type' => 'varchar',
-        'length' => 1000,
-        'not null' => TRUE,
+        'type' => 'text',
         'default' => '',
       ),
       'iisp_activities_id' => array(
@@ -318,9 +316,7 @@ function iisp_profiler_schema() {
       ),
       'value' => array(
         'description' => 'The value of the iisp field data submitted.',
-        'type' => 'varchar',
-        'length' => 1000,
-        'not null' => TRUE,
+        'type' => 'text',
         'default' => '',
       ),
       'iisp_goals_id' => array(
