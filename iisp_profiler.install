@@ -665,6 +665,34 @@ function iisp_profiler_schema() {
     'primary key' => array('id'),
   );
 
+   $schema['linked_data'] = array(
+    'description' => 'Stores the linked info between activity and goals',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key: linked info.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    'activityid' => array(
+        'description' => 'activity id',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    'goalid' => array(
+        'description' => 'goals id',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+    ),
+
+    ),
+    'primary key' => array('id'),
+  );
+
   return $schema;
 }
 

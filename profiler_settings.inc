@@ -294,71 +294,73 @@ function system_attribute_settings_form_submit($form, &$form_state){
 
 function receive_settings_data(){
 	global $user;
+
 	db_delete('iisp_field_user_data')->condition('uid',$user->uid)->execute();
-	db_delete('iisp_goals_custom_fields')->condition('id', $_POST['edit-goal-id'], 'NOT IN')->condition('uid',$user->uid)->execute();
-	db_delete('iisp_activities_custom_fields')->condition('id', $_POST['edit-activity-id'], 'NOT IN')->condition('uid',$user->uid)->execute();
+ db_delete('iisp_goals_custom_fields')->condition('id', $_POST['edit-goal-id'], 'NOT IN')->condition('uid',$user->uid)->execute();
+ db_delete('iisp_activities_custom_fields')->condition('id', $_POST['edit-activity-id'], 'NOT IN')->condition('uid',$user->uid)->execute();
 
-	//End delete the previous data from issp_field_user_data
- 	if(isset($_POST['advanced'])){
-	 	//Fields user settings 
-		foreach ($_POST['advanced'] as $field_settings_id => $value) {
-				$data_field_user_data = (object) array(
-						'uid' => $user->uid,
-						'advanced' => $value,
-						'iisp_field_settings_id' => $field_settings_id,
-					);
-				drupal_write_record('iisp_field_user_data',$data_field_user_data);
-		}
-	}
+ //End delete the previous data from issp_field_user_data
+  if(isset($_POST['advanced'])){
+   //Fields user settings 
+  foreach ($_POST['advanced'] as $field_settings_id => $value) {
+    $data_field_user_data = (object) array(
+      'uid' => $user->uid,
+      'advanced' => $value,
+      'iisp_field_settings_id' => $field_settings_id,
+     );
+    drupal_write_record('iisp_field_user_data',$data_field_user_data);
+  }
+ }
 
-	if(isset($_POST['goal_name_set'])){
-		//Fields goal_settings 
-		foreach ($_POST['goal_name_set'] as $key => $goal_name){
-			if(isset($_POST['edit-goal-id'][$key])){
-				$data_field_goal_data = (object) array(
-						'id' => $_POST['edit-goal-id'][$key],
-						'title' => $goal_name,
-						'type' => isset($_POST['goal_type_set'][$key]) ? $_POST['goal_type_set'][$key] : '',
-						'advanced' => isset($_POST['goal_advanced'][$key]) ? $_POST['goal_advanced'][$key] :  0,
-						'uid' => $user->uid,
-					);
-				drupal_write_record('iisp_goals_custom_fields',$data_field_goal_data,'id');
-			}else{
-				$data_field_goal_data = (object) array(
-						'title' => $goal_name,
-						'type' => isset($_POST['goal_type_set'][$key]) ? $_POST['goal_type_set'][$key] : '',
-						'advanced' => isset($_POST['goal_advanced'][$key]) ? $_POST['goal_advanced'][$key] :  0,
-						'uid' => $user->uid,
-					);
-				drupal_write_record('iisp_goals_custom_fields',$data_field_goal_data);
-			}
-		}
-	}
+ if(isset($_POST['goal_name_set'])){
+  //Fields goal_settings 
+  foreach ($_POST['goal_name_set'] as $key => $goal_name){
+   if(isset($_POST['edit-goal-id'][$key])){
+    $data_field_goal_data = (object) array(
+      'id' => $_POST['edit-goal-id'][$key],
+      'title' => $goal_name,
+      'type' => isset($_POST['goal_type_set'][$key]) ? $_POST['goal_type_set'][$key] : '',
+      'advanced' => isset($_POST['goal_advanced'][$key]) ? $_POST['goal_advanced'][$key] :  0,
+      'uid' => $user->uid,
+     );
+    drupal_write_record('iisp_goals_custom_fields',$data_field_goal_data,'id');
+   }else{
+    $data_field_goal_data = (object) array(
+      'title' => $goal_name,
+      'type' => isset($_POST['goal_type_set'][$key]) ? $_POST['goal_type_set'][$key] : '',
+      'advanced' => isset($_POST['goal_advanced'][$key]) ? $_POST['goal_advanced'][$key] :  0,
+      'uid' => $user->uid,
+     );
+    drupal_write_record('iisp_goals_custom_fields',$data_field_goal_data);
+   }
+  }
+ }
 
-	if(isset($_POST['activity_name_set'])){
-	   foreach ($_POST['activity_name_set'] as $key => $activity_name){
-			if(isset($_POST['edit-activity-id'][$key])){
-					$data_field_activity_data = (object) array(
-						'id' => $_POST['edit-activity-id'][$key],
-						'title' => $activity_name,
-						'type' => isset($_POST['activity_type_set'][$key]) ? $_POST['activity_type_set'][$key] : '',
-						'advanced' => isset($_POST['activity_advanced'][$key]) ? $_POST['activity_advanced'][$key] :  0,
-						'uid' => $user->uid,
-					);
-					drupal_write_record('iisp_activities_custom_fields',$data_field_activity_data,'id');
-			}
-			else{
-					$data_field_activity_data = (object) array(
-						'title' => $activity_name,
-						'type' => isset($_POST['activity_type_set'][$key]) ? $_POST['activity_type_set'][$key] : '',
-						'advanced' => isset($_POST['activity_advanced'][$key]) ? $_POST['activity_advanced'][$key] :  0,
-						'uid' => $user->uid,
-					);
-					drupal_write_record('iisp_activities_custom_fields',$data_field_activity_data);
-			}		
-	   }
-	}
-	drupal_set_message('Congratulations!, Saving the settings data becomes successfull.');
-	drupal_goto('iisp_profiler/settings');
+ if(isset($_POST['activity_name_set'])){
+    foreach ($_POST['activity_name_set'] as $key => $activity_name){
+   if(isset($_POST['edit-activity-id'][$key])){
+     $data_field_activity_data = (object) array(
+      'id' => $_POST['edit-activity-id'][$key],
+      'title' => $activity_name,
+      'type' => isset($_POST['activity_type_set'][$key]) ? $_POST['activity_type_set'][$key] : '',
+      'advanced' => isset($_POST['activity_advanced'][$key]) ? $_POST['activity_advanced'][$key] :  0,
+      'uid' => $user->uid,
+     );
+     drupal_write_record('iisp_activities_custom_fields',$data_field_activity_data,'id');
+   }
+   else{
+     $data_field_activity_data = (object) array(
+      'title' => $activity_name,
+      'type' => isset($_POST['activity_type_set'][$key]) ? $_POST['activity_type_set'][$key] : '',
+      'advanced' => isset($_POST['activity_advanced'][$key]) ? $_POST['activity_advanced'][$key] :  0,
+      'uid' => $user->uid,
+     );
+     drupal_write_record('iisp_activities_custom_fields',$data_field_activity_data);
+   }  
+    }
+ }
+ drupal_set_message('Congratulations!, Saving the settings data becomes successfull.');
+ drupal_goto('iisp_profiler/settings');
+
 	
 }

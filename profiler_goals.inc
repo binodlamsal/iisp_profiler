@@ -193,7 +193,8 @@ function iisp_profiler_activities_admin_enquiries() {
 			
 		$system_attribute_form_fields = db_select('iisp_goals_data', 'f')
 	            ->fields('f')
-	            ->condition('f.iisp_goals_id',$row->id);
+	            ->condition('f.iisp_goals_id',$row->id)
+	            ->condition('f.custom', '0');
 	    $result = $system_attribute_form_fields->execute()->fetchALL();	
 		$newarray = array();
 		foreach($result as $res){
@@ -201,18 +202,18 @@ function iisp_profiler_activities_admin_enquiries() {
 		}
 		
 		if($newarray[6]->value == '1'){
-			$status = "Pending";
+			$status = "<span style='color:red'>Pending</span>";
 		} else if($newarray[6]->value == '2'){
-			$status = "In progress";
+			$status = "<span style='color:#CCCC00'>In progress</span>";
 		} else if($newarray[6]->value == '3'){
-			$status = "Complete";
+			$status = "<span style='color:green'>Complete</span>";
 		}
 		
 		
 		
 			
         $options[$row->id] = array(
-            'title_en' => $newarray[3]->value,
+            'title_en' => l($newarray[3]->value, "iisp_profiler/goals/$row->id/edit", array('attributes' => array('style' => 'color:black;'))),
             'status' => $status,
 			'start_date' => process_date($newarray[2]->value),
 			'end_date' => process_date($newarray[1]->value),
@@ -325,6 +326,7 @@ function iisp_profiler_activities_form($form, &$form_state, $activities = NULL){
 	$path = drupal_get_path('module', 'iisp_profiler');
 	drupal_add_js($base_url . '/' . $path . '/js/src/jquery.tagsinput.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2000));
 	drupal_add_js($base_url . '/' . $path . '/js/src/tagsinput-callback.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2000));
+	drupal_add_js($base_url . '/' . $path . '/js/src/addeditlinked.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2000));
 	drupal_add_css($base_url . '/' . $path . '/js/src/jquery.tagsinput.css', array('type' => 'external', 'weight' => '500'));
 	
 	global $user;
@@ -344,7 +346,11 @@ function iisp_profiler_activities_form($form, &$form_state, $activities = NULL){
 	    $result = $system_attribute_form_fields->execute()->fetchALL();	
 		$newarray = array();
 		foreach($result as $res){
-			$newarray[$res->iisp_field_settings_id] = $res;
+			if($res->custom == '1'){
+				$newarray[$res->iisp_field_settings_id.'-custom'] = $res;
+		   } else {
+		   	    $newarray[$res->iisp_field_settings_id] = $res;
+		   }
 		}
 		
 		
@@ -374,9 +380,18 @@ function iisp_profiler_activities_form($form, &$form_state, $activities = NULL){
  }		
  		
  
- $result_adv =  $advanced_fields ->execute()->fetchAll();
- 
- 
+ $result_adv =  $advanced_fields->execute()->fetchAll();
+
+
+ if(count($result_adv) == 0){
+	
+    $advanced_fields = db_select('iisp_field_settings', 'ud')
+	            ->fields('ud', array(id));
+    $advanced_fields->condition('ud.default_advanced', 1);
+	$result_adv =  $advanced_fields ->execute()->fetchAll(); 
+    
+}
+
  $result_advance = array();
  
  foreach($result_adv as $rev){
@@ -384,6 +399,12 @@ function iisp_profiler_activities_form($form, &$form_state, $activities = NULL){
 		
 		$result_advance[$rev->iisp_field_settings_id] = $result_normal[$rev->iisp_field_settings_id];
 		unset($result_normal[$rev->iisp_field_settings_id]);
+	}
+
+	if (array_key_exists($rev->id, $result_normal)) {
+		
+		$result_advance[$rev->id] = $result_normal[$rev->id];
+		unset($result_normal[$rev->id]);
 	}
  }
  
@@ -469,13 +490,46 @@ $normal_fields_custom = db_select('iisp_goals_custom_fields', 'ud')
 foreach($normal_fields_custom as $fields){
 	
  if($fields->advanced == '0') {
-		
-	$form['custom_'.$fields->id] = array(
-    '#type' => 'textfield',
-    '#title' => $fields->title,
-	'#weight' => $weight++,
-	'#default_value' => $newarray[$fields->id]->value,
-  );
+
+    if($fields->type == 'int' || $fields->type == 'decimal' ){
+
+    		$type = 'textfield';
+    		$validate = array('element_validate_number');
+
+			$form['custom_'.$fields->id] = array(
+		    '#type' => $type,
+		    '#title' => $fields->title,
+			'#weight' => $weight++,
+			'#element_validate' => $validate,
+			'#default_value' => $newarray[$fields->id.'-custom']->value,
+		  );
+    }
+    else if($fields->type == 'date'){
+    		$type = 'date_popup';
+    		$validate = array();
+
+			$form['custom_'.$fields->id] = array(
+		    '#type' => $type,
+		    '#title' => $fields->title,
+			'#weight' => $weight++,
+			'#date_format' => 'Y-m-d',
+			'#element_validate' => $validate,
+			'#default_value' => $newarray[$fields->id.'-custom']->value,
+		  );
+
+    } else {
+    		$type  = "textfield";
+    		$validate = array();
+
+    			
+			$form['custom_'.$fields->id] = array(
+		    '#type' => $type,
+		    '#title' => $fields->title,
+			'#weight' => $weight++,
+			'#element_validate' => $validate,
+			'#default_value' => $newarray[$fields->id.'-custom']->value,
+		  );
+    }
   
  }
 	
@@ -573,13 +627,46 @@ foreach($result_advance as $fields)	{
 foreach($normal_fields_custom as $fields){
 	
  if($fields->advanced == '1') {
-		
-	$form['custom_'.$fields->id] = array(
-    '#type' => 'textfield',
-    '#title' => $fields->title,
-	'#weight' => $weight++,
-	'#default_value' => $newarray[$fields->id]->value,
-  );
+
+    if($fields->type == 'int' || $fields->type == 'decimal' ){
+
+    		$type = 'textfield';
+    		$validate = array('element_validate_number');
+
+			$form['custom_'.$fields->id] = array(
+		    '#type' => $type,
+		    '#title' => $fields->title,
+			'#weight' => $weight++,
+			'#element_validate' => $validate,
+			'#default_value' => $newarray[$fields->id.'-custom']->value,
+		  );
+    }
+    else if($fields->type == 'date'){
+    		$type = 'date_popup';
+    		$validate = array();
+
+			$form['custom_'.$fields->id] = array(
+		    '#type' => $type,
+		    '#title' => $fields->title,
+			'#weight' => $weight++,
+			'#date_format' => 'Y-m-d',
+			'#element_validate' => $validate,
+			'#default_value' => $newarray[$fields->id.'-custom']->value,
+		  );
+
+    } else {
+    		$type  = "textfield";
+    		$validate = array();
+
+    			
+			$form['custom_'.$fields->id] = array(
+		    '#type' => $type,
+		    '#title' => $fields->title,
+			'#weight' => $weight++,
+			'#element_validate' => $validate,
+			'#default_value' => $newarray[$fields->id.'-custom']->value,
+		  );
+    }
   
  }
 	
@@ -593,15 +680,43 @@ $form['field_info_end'] = array(
    '#weight' => $weight++,
 );  
 
+$system_attribute_form_fields = db_select('linked_data', 'ld')
+	            ->fields('ld')
+	            ->condition('ld.goalid', $activities->id)
+				->orderBy('ld.id', 'ASC');
+ $result =  $system_attribute_form_fields ->execute()->fetchAll();
+ 
+ $newa = array();
+ foreach($result as $rs){
+ 	$newa[$rs->activityid] = $rs->goalid;
+ }
+
+$resultact = get_all_activities_of_current_user();
+ 
+$suffix = ''; 
+foreach($resultact as $key=>$res){
+
+ if(array_key_exists($key, $newa)){
+ 	
+  
+  $suffix .= '<div style="background:#CCC;margin:5px; padding:5px;" id="remove'.$key.'">'.$res.'<input type="hidden" name="activities[]" value="'.$key.'"><span style="textalign:right; float:right; clear:both;" onclick="removedom('.$key.')">X</span></div>';
+}
+
+}
+
+
+
 $form['linked_activities']  = array(
   	 '#type' => 'select',
-	 
      '#title' => 'Activities Linked to Goal',
 	 '#title_display'=>'invisible',
 	 '#options' => get_all_activities_of_current_user(),
-	 '#suffix' => '</div></div>',
+	 '#suffix' => '<div class="linklist">
+	 	'.$suffix.'
+
+	 </div></div></div>',
 	 '#weight' => $weight++,
-	 '#default_value' => $activities->iisp_activities_id,
+	 //'#default_value' => $activities->iisp_activities_id,
   );
  	
 
@@ -644,6 +759,18 @@ function iisp_profiler_activities_form_submit($form, &$form_state){
 		$goals->id = $form_data->id;
 		drupal_write_record('iisp_goals', $goals, 'id');
 	}
+
+	db_delete('linked_data')->condition('goalid', $goals->id)->execute();	
+	
+	foreach($_POST['activities'] as $act){
+
+		$linked_data = (object)array();
+		$linked_data->activityid = $act;
+		$linked_data->goalid     = $goals->id;
+
+		drupal_write_record('linked_data', $linked_data);
+    }
+
 	
 	db_delete('iisp_goals_data')->condition('iisp_goals_id', $form_data->id)->execute();
 	foreach($form_data as $key=>$val){
@@ -680,10 +807,13 @@ function iisp_profiler_activities_page_edit($activity_id){
 }
 
 function get_all_activities_of_current_user(){
+    global $user;
+
 	$query = db_select('iisp_activities', 'fs')
             ->fields('fs', array('id'));
 	$query->leftJoin('iisp_activities_data', 'o', '(fs.id = o.iisp_activities_id)');
 	$query->condition('o.iisp_field_settings_id', '3');
+	$query->condition('fs.uid', $user->uid);
 	$query->fields('o', array('value'));
     $result = $query->execute()->fetchAll();
 	
