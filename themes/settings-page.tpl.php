@@ -2,10 +2,6 @@
 global $base_url;
 $form = drupal_get_form('profilerform_skill_settings_form');
 ?>
-	<!--</div>
-</div> -->
-<?php //var_dump($user_form_field_info);die; ?>
-
 <div class="panel-group col-md-8" id="accordion">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -24,7 +20,7 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 	
 </div>
 
-<form method="post" id="profile_settings_ga" action="<?php echo $base_url; ?>?q=skills/receive_settings_data">
+<form method="post" id="profile_settings_ga" action="<?php echo $base_url; ?>/skills/receive_settings_data">
 	<div class="tabs col-md-12" style="margin-top:30px">
 	  <ul class="nav nav-tabs">
 		<li class="active"><a href="#tab-1" data-toggle="tab">System Attribute Settings</a></li>
@@ -84,11 +80,12 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 											$user_goal_form_fields = user_goal_form_fields();
 									     	foreach ($user_goal_form_fields as $key => $goal_fields) { ?>
 											   	<tr>
+													<input type="hidden" name="edit-goal-id[<?php echo $key; ?>]" value="<?php echo $goal_fields->id; ?>" id="goal_name<?php echo $key; ?>" > 
 													<td><div class="form-group"><input type="text" name="goal_name_set[<?php echo $key; ?>]" class="form-control" value="<?php echo $goal_fields->title; ?>" id="goal_name<?php echo $key; ?>" ></div></td>
 													<td>
 														<?php echo $goal_fields->type; ?><input type="hidden" name="goal_type_set[<?php echo $key; ?>]" value="<?php echo $goal_fields->type; ?>" required>
 													</td>
-													<td><input type="checkbox" name="goal_advanced[<?php echo $key; ?>]" id="goal_advance<?php echo $key; ?>" value="<?php echo $goal_fields->advanced; ?>" <?php if($goal_fields->advanced == 1){echo "checked";} ?>></td>
+													<td><input type="checkbox" class="checkboxes" name="goal_advanced[<?php echo $key; ?>]" id="goal_advance<?php echo $key; ?>" value="<?php echo $goal_fields->advanced; ?>" <?php if($goal_fields->advanced == 1){echo "checked";} ?>></td>
 													<td><input type="button" value="Remove" class="btn-sm btn-danger btn-remove" id="goal-remove-button[<?php echo $key; ?>]"></td>
 												</tr>
 									     	
@@ -163,11 +160,12 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 											$user_activity_form_fields = user_activity_form_fields();
 									     	foreach ($user_activity_form_fields as $key => $activity_fields) { ?>
 											   	<tr>
+											   		<input type="hidden" name="edit-activity-id[<?php echo $key; ?>]" value="<?php echo $activity_fields->id; ?>" id="activity_name<?php echo $key; ?>" > 
 													<td><div class="form-group"><input type="text" name="activity_name_set[<?php echo $key; ?>]" class="form-control" value="<?php echo $activity_fields->title; ?>" id="activity_name<?php echo $key; ?>" required></div></td>
 													<td>
 														<?php echo $activity_fields->type; ?><input type="hidden" name="activity_type_set[<?php echo $key; ?>]" value="<?php echo $activity_fields->type; ?>" required>
 													</td>
-													<td><input type="checkbox" name="activity_advanced[<?php echo $key; ?>]" id="activity_advance<?php echo $key; ?>" value="<?php echo $activity_fields->advanced; ?>" <?php if($activity_fields->advanced == 1){echo "checked";} ?>></td>
+													<td><input type="checkbox" class="checkboxes" name="activity_advanced[<?php echo $key; ?>]" id="activity_advance<?php echo $key; ?>" value="<?php echo $activity_fields->advanced; ?>" <?php if($activity_fields->advanced == 1){echo "checked";} ?>></td>
 													<td><input type="button" value="Remove" class="btn-sm btn-danger btn-remove" id="activity-remove-button[<?php echo $key; ?>]"></td>
 												</tr>
 									     	

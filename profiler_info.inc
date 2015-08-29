@@ -9,14 +9,75 @@
 // Sfia skill profilers page
 //
 function iisp_profiler($tab = '') {
- $output = '';
-  $build['profiler_info_create'] = drupal_get_form('profiler_info_form');
+
+  $output = '';
+  switch ($tab) {
+    case 'create':
+      $build['profiler_info_create'] = drupal_get_form('profiler_info_form');
+    
+    $output = drupal_render($build);
+    break;
+    default:
   
-  $output = drupal_render($build);
+     $output .= '<h2> Profiles </h2><ul class="action-links" style="list-style:none;margin-left:-40px"><li>'.l(t('Create Profile'), 'iisp_profiler/profiles/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
+   $build['profiler_info_list'] = drupal_get_form('profiler_info_list_form');
+     $output .= drupal_render($build);
+    
+  }
   return $output;
 }
 
-function iisp_profiler_skill_add($tab = '') {
+function profiler_info_list_form($form, $form_state){
+    $header = array(
+        'name' => array('data' => t('Name'), 'field' => 'fs.name', 'sort' => 'DESC'),
+        'description' => array('data' => t('Description')),      
+        'created' => array('data' => t('Date Created')),      
+        'changed' => array('data' => t('Date Changed')),      
+    );
+
+    //Start get the listing for iisp profile
+    $query = db_select('iisp_profiles','fs');
+    $count_query = clone $query;
+    $count_query->addExpression('COUNT(fs.id)');
+    $query = $query->extend('PagerDefault')->extend('TableSort');
+    $query
+      ->fields('fs', array('id', 'name', 'description', 'created', 'changed'))
+      ->limit(10)
+      ->orderBy('fs.id','DESC')
+      ->setCountQuery($count_query);
+    $result = $query->execute();
+    //End get the listing for iisp profile
+
+    $destination = drupal_get_destination();
+    $options = array();
+
+    foreach ($result as $row)
+    { 
+
+        $options[$row->id] = array(
+            'name' => l($row->name,'iisp_profiler/profiles/skill/'.$row->id),
+            'description' => $row->description,
+            'created' =>  format_date($row->created,'short'),
+            'changed' => format_date($row->changed,'short'),
+        );
+    }  
+    
+    $form['gallerys'] = array(
+            '#theme' => 'table',
+            '#header' => $header,
+            '#rows' => $options,
+            '#empty' => t('No profiles available'),  
+            '#attributes' => array (
+                'id' => 'iisp_profile_table',
+            )
+        );
+
+    // $form['pager']['#markup'] = theme('pager');
+
+    return $form;
+}
+
+function iisp_profiler_skill_add($profile_id) {
   global $base_url;
   global $user;
   $path = drupal_get_path('module', 'iisp_profiler');
@@ -24,12 +85,19 @@ function iisp_profiler_skill_add($tab = '') {
     drupal_add_css($base_url . '/' . $path . '/css/custom-style.css', array('type' => 'external', 'weight' => '500'));
 
 
-    //Start get user profile info
+    //Start get user profile info by id
     $user_profile_info = db_select('iisp_profiles', 'fs')
               ->fields('fs')
-              ->condition('fs.uid',$user->uid)
+              ->condition('fs.id',$profile_id)
               ->execute()
               ->fetchObject();  
+    //End get user profile info by id
+
+    //Start get user profile info
+    $user_profile_list = db_select('iisp_profiles', 'fs')
+              ->fields('fs')
+              ->execute()
+              ->fetchAll();  
     //End get user profile info
 
     //Start get skill categorys         
@@ -44,8 +112,16 @@ function iisp_profiler_skill_add($tab = '') {
               ->fields('sk')
               ->execute()
               ->fetchAll();  
-    //End get skill types          
- return theme('profiler_page', array('user_profile_info' => $user_profile_info,'skill_categories'=>$user_skill_categories,'skills'=>$user_skills));
+    //End get skill types    
+
+    //Start get profiles skill levels that already exists
+    $user_profile_data_info = db_select('iisp_profile_data', 'pd')
+              ->fields('pd')
+              ->condition('pd.iisp_profiles_id',$profile_id)
+              ->execute()
+              ->fetchAll();        
+    //End get profiles skill levels that already exists      
+ return theme('profiler_page', array('user_profile_info' => $user_profile_info,'skill_categories'=>$user_skill_categories,'skills'=>$user_skills,'user_profile_data_info'=>$user_profile_data_info,'user_profile_list'=>$user_profile_list));
 }
 
 function profiler_info_form($form, &$form_state, $profiler_info = NULL){
@@ -132,12 +208,7 @@ function profiler_info_form($form, &$form_state, $profiler_info = NULL){
       '#weight' => $weight++,
       '#prefix' => '<div class="form-item form-actions">',
       '#suffix' => '</div>',
-      '#ajax' => array(
-        'callback' => 'profiler_info_form_submit',
-        'wrapper' => 'profiler_info_form',
-        'method' => 'replace',
-        'effect' => 'fade',
-      ),
+      '#submit' => array('profiler_info_form_submit'),
   );
   
   return $form;
@@ -152,8 +223,52 @@ function profiler_info_form_submit($form, &$form_state){
   $profiler_info->created = REQUEST_TIME;
     $profiler_info->changed = REQUEST_TIME;
     drupal_write_record('iisp_profiles', $profiler_info);
+    
+    $form_state['redirect'] = 'iisp_profiler/profiles/skill/'.$profiler_info->id;
+}
 
-  $form_state['redirect'] = 'iisp_profiler/profiles';
+function ajax_skills_profile(){
+  $check_user_set_profile = check_profile_skills($_GET['iisp_skills_id'],$_GET['iisp_profiles_id']);
+  if($check_user_set_profile){
+      $check_save = db_update('iisp_profile_data')
+                          ->fields(array(
+                            'score' => $_GET['score'],
+                          ))
+                          ->condition('iisp_profiles_id', $_GET['iisp_profiles_id'])
+                          ->condition('iisp_skills_id',$_GET['iisp_skills_id'])
+                          ->execute();
+  }
+  else{
+    $data = (object) array(
+        'uid'=>$_GET['uid'],
+        'score'=>$_GET['score'],
+        'iisp_profiles_id'=>$_GET['iisp_profiles_id'],
+        'iisp_skills_id'=>$_GET['iisp_skills_id'],
+    );
+    $check_save = drupal_write_record('iisp_profile_data',$data);
+  }
+  
+  if($check_save){
+    $msg['success'] = true;
+  }else{
+    $msg['success'] = false;
+  }
+  echo json_encode($msg);
+}
+
+function ajax_skills_profile_data($profile_id){
+  global $user;
+    $user_profile_data_info = db_select('iisp_profile_data', 'pd')
+              ->fields('pd')
+              ->condition('pd.iisp_profiles_id',$profile_id)
+              ->execute()
+              ->fetchAll();
+    if($user_profile_data_info){
+    echo json_encode($user_profile_data_info); }
+    else {
+      $msg['success'] = false;
+      echo json_encode($msg);
+    }
 }
 
 

@@ -161,9 +161,9 @@ function iisp_profiler_menu() {
     'title'           => 'Settings',
     'description'     => 'Provides the settings for the iisp profiler',
     'page callback'   => 'iisp_profiler_settings',
-	'file'            => 'profiler_settings.inc', 
+	  'file'            => 'profiler_settings.inc', 
+    'access callback' => TRUE,
     'access arguments' => array('skill profiler works'),
-	
   );
   
   $items['iisp_profiler/activities'] = array(
@@ -225,15 +225,25 @@ function iisp_profiler_menu() {
   );
   
   
-  
   $items['iisp_profiler/profiles'] = array(
     'title'           => 'Profiles',
     'description'     => 'Provides the profiles for the iisp profiler',
     'page callback'   => 'iisp_profiler',
-	'file'            => 'profiler_info.inc',
+    'file'            => 'profiler_info.inc',
     'access callback' => TRUE,
-	'access arguments' => array('skill profiler works'),
+    'access arguments' => array('skill profiler works'),
   );
+
+  $items['iisp_profiler/profiles/create'] = array(
+    'title'           => 'Profiles',
+    'description'     => 'Create new profiles for the iisp profiler',
+    'page callback'   => 'iisp_profiler',
+	  'page arguments' => array('create'),
+    'file'            => 'profiler_info.inc',
+    'access callback' => TRUE,
+	  'access arguments' => array('skill profiler works'),
+  );
+  
   
   $items['iisp_profiler/dashboard'] = array(
     'title'           => 'Dashboard',
@@ -262,11 +272,29 @@ function iisp_profiler_menu() {
 	'access arguments' => array('skill profiler works'),
   );
   
-  $items['iisp_profiler/profiles/skill_add'] = array(
+  $items['iisp_profiler/profiles/skill/%'] = array(
     'title'           => 'Profiles',
     'description'     => 'Provides the profiles for the iisp profiler',
+    'page arguments'  => array(3),
     'page callback'   => 'iisp_profiler_skill_add',
     'file'            => 'profiler_info.inc',
+    'access callback' => TRUE,
+  );
+
+  $items['iisp_skills/ajax_skills_profile'] = array(
+    'title'           => 'Settings profile skills insert',
+    'description'     => 'Provides the ajax callback settings for the iisp profiler skills',
+    'page callback'   => 'ajax_skills_profile',
+    'file'            => 'profiler_info.inc', 
+    'access callback' => TRUE,
+  );
+
+  $items['iisp_skills/ajax_skills_profile_data/%'] = array(
+    'title'           => 'Settings profile skill data',
+    'description'     => 'Provides settings for the iisp profiler skills',
+    'page arguments'  => array(2),
+    'page callback'   => 'ajax_skills_profile_data',
+    'file'            => 'profiler_info.inc', 
     'access callback' => TRUE,
   );
   
@@ -383,7 +411,7 @@ function iisp_profiler_theme() {
       ),
 
     'profiler_page' => array(
-      'variables' => array('user_profile_info' => NULL,'skill_categories' => NULL,'skills' => NULL),      
+      'variables' => array('user_profile_info' => NULL,'skill_categories' => NULL,'skills' => NULL,'user_profile_data_info' => NULL,'user_profile_list' => NULL),      
       'template' => 'profiler-page',
       'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',
       )
@@ -400,6 +428,16 @@ function iisp_profiler_theme() {
     $result =$query->execute()
             ->fetchObject();
     return $result;
+  }
+
+  function check_profile_skills($skill_id,$profile_id){
+      $query = db_select('iisp_profile_data', 'ud')
+            ->fields('ud')
+            ->condition('ud.iisp_skills_id',$skill_id)
+            ->condition('ud.iisp_profiles_id',$profile_id);
+      $result =$query->execute()
+              ->fetchObject();
+      return $result;
   }
   
   function user_has_form_fields(){
@@ -433,6 +471,14 @@ function user_activity_form_fields(){
     return $result;
   }
 
+function get_skills_by_skill_category($skillcat_id){
+    $user_skill_categories = db_select('iisp_skills', 'sc')
+              ->fields('sc')
+              ->condition('sc.iisp_skill_cat_id',$skillcat_id)
+              ->execute()
+              ->fetchAll();
+    return $user_skill_categories;
+}
 
 
 /**
