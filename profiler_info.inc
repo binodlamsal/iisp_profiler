@@ -19,7 +19,7 @@ function iisp_profiler($tab = '') {
     break;
     default:
   
-     $output .= '<h2> Profiles </h2><ul class="action-links" style="list-style:none;margin-left:-40px"><li>'.l(t('Create Profile'), 'iisp_profiler/profiles/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
+     $output .= '<h2> Profiles </h2><ul class="action-links" style="list-style:none;margin-left:-40px"><li>'.l(t('<i class="fa fa-plus"></i> &nbsp; Create Profile'), 'iisp_profiler/profiles/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
    $build['profiler_info_list'] = drupal_get_form('profiler_info_list_form');
      $output .= drupal_render($build);
     

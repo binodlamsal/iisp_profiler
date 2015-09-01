@@ -2,7 +2,7 @@ jQuery(document).ready(function($) {
 	var root = document.location.hostname;
 	 var pathArray = window.location.pathname.split( '/' );
 	 var secondLevelLocation = pathArray[1];
-	 var base_url = 'http://'+root+'/'+ secondLevelLocation;
+	 var base_url = 'http://'+root;
 	$('.toggle-span').click(function(){
 		$( ".inner-accordion" ).slideToggle( "slow", function() {});
 	});

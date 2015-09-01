@@ -7,7 +7,7 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 		<div class="panel-heading">
 			<h4 class="panel-title">
 				<a data-toggle="collapse" data-parent="#accordion" href="#accordion-1">
-					Settings
+					<i class="fa fa-gears"></i> Settings
 				</a>
 			</h4>
 		</div>

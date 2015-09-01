@@ -120,9 +120,8 @@ function iisp_profiler_menu() {
       'description' => t('Create the iisp fields settings for the iisp profiler'),
       'page callback' => 'iisp_fields_settings',
       'page arguments' => array('create'),
-      'access callback' => TRUE,
       'file' => 'admin/field_settings.inc',
-	  'type' => MENU_CALLBACK,
+	    'type' => MENU_CALLBACK,
       'access arguments' => array('administer skill profiler settings'),
   );
 
@@ -133,7 +132,7 @@ function iisp_profiler_menu() {
       'page callback' => 'iisp_fields_settings_page_edit',
       'page arguments' => array(3),
       'access arguments' => array('administer skill profiler settings'),
-	  'type' => MENU_CALLBACK,
+	    'type' => MENU_CALLBACK,
       'file' => 'admin/field_settings.inc',
       'weight' => 1,
   );
@@ -162,7 +161,6 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the settings for the iisp profiler',
     'page callback'   => 'iisp_profiler_settings',
 	  'file'            => 'profiler_settings.inc', 
-    'access callback' => TRUE,
     'access arguments' => array('skill profiler works'),
   );
   
@@ -171,28 +169,25 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the activities for the iisp profiler',
     'page callback'   => 'iisp_profiler_activities',
     'file'            => 'profiler_activities.inc', 
-    'access callback' => TRUE,
-	'access arguments' => array('skill profiler works'),
+	  'access arguments' => array('skill profiler works'),
   );
   
   $items['iisp_profiler/activities/create'] = array(
     'title'           => 'Add activities',
     'description'     => 'Add the activities for the iisp profiler',
     'page callback'   => 'iisp_profiler_activities',
-	'page arguments'  => array('create'),
+	  'page arguments'  => array('create'),
     'file'            => 'profiler_activities.inc', 
-    'access callback' => TRUE,
-	'access arguments' => array('skill profiler works'),
+	  'access arguments' => array('skill profiler works'),
   );
   
   $items['iisp_profiler/activities/%/edit'] = array(
     'title'           => 'Edit activities',
     'description'     => 'Edit activities for the iisp profiler',
     'page callback'   => 'iisp_profiler_activities_page_edit',
-	'page arguments'  => array(2),
+	  'page arguments'  => array(2),
     'file'            => 'profiler_activities.inc', 
-    'access callback' => TRUE,
-	'access arguments' => array('skill profiler works'),
+	  'access arguments' => array('skill profiler works'),
   );
   
   $items['iisp_profiler/goals'] = array(
@@ -200,17 +195,15 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the goals for the iisp profiler',
     'page callback'   => 'iisp_profiler_activities',
     'file'            => 'profiler_goals.inc', 
-    'access callback' => TRUE,
-	'access arguments' => array('skill profiler works'),
+	  'access arguments' => array('skill profiler works'),
   );
   $items['iisp_profiler/goals/create'] = array(
     'title'           => 'Add Goals',
     'description'     => 'Add the goals for the iisp profiler',
     'page callback'   => 'iisp_profiler_activities',
-	'page arguments'  => array('create'),
+	  'page arguments'  => array('create'),
     'file'            => 'profiler_goals.inc', 
-    'access callback' => TRUE,
-	'access arguments' => array('skill profiler works'),
+	  'access arguments' => array('skill profiler works'),
   );
   
   
@@ -218,10 +211,9 @@ function iisp_profiler_menu() {
     'title'           => 'Edit Goals',
     'description'     => 'Edit goals for the iisp profiler',
     'page callback'   => 'iisp_profiler_activities_page_edit',
-	'page arguments'  => array(2),
+	  'page arguments'  => array(2),
     'file'            => 'profiler_goals.inc', 
-    'access callback' => TRUE,
-	'access arguments' => array('skill profiler works'),
+	  'access arguments' => array('skill profiler works'),
   );
   
   
@@ -230,7 +222,6 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the profiles for the iisp profiler',
     'page callback'   => 'iisp_profiler',
     'file'            => 'profiler_info.inc',
-    'access callback' => TRUE,
     'access arguments' => array('skill profiler works'),
   );
 
@@ -240,7 +231,6 @@ function iisp_profiler_menu() {
     'page callback'   => 'iisp_profiler',
 	  'page arguments' => array('create'),
     'file'            => 'profiler_info.inc',
-    'access callback' => TRUE,
 	  'access arguments' => array('skill profiler works'),
   );
   
@@ -250,8 +240,7 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the dashboard for the iisp profiler',
     'page callback'   => 'iisp_profiler_dashboard',
     'file'            => 'profiler_dashboard.inc', 
-    'access callback' => TRUE,
-	'access arguments' => array('skill profiler works'),
+	  'access arguments' => array('skill profiler works'),
   );
   
   $items['iisp_skills/ajax_settings'] = array(
@@ -259,8 +248,7 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the ajax callback settings for the iisp profiler',
     'page callback'   => 'ajax_settings',
     'file'            => 'profiler_settings.inc', 
-    'access callback' => TRUE,
-	'access arguments' => array('skill profiler works'),
+	  'access arguments' => array('skill profiler works'),
   );
   
   $items['skills/receive_settings_data'] = array(
@@ -268,8 +256,7 @@ function iisp_profiler_menu() {
     'description'     => 'Receive settings data',
     'page callback'   => 'receive_settings_data',
     'file'            => 'profiler_settings.inc', 
-    'access callback' => TRUE,
-	'access arguments' => array('skill profiler works'),
+	  'access arguments' => array('skill profiler works'),
   );
   
   $items['iisp_profiler/profiles/skill/%'] = array(
@@ -278,7 +265,7 @@ function iisp_profiler_menu() {
     'page arguments'  => array(3),
     'page callback'   => 'iisp_profiler_skill_add',
     'file'            => 'profiler_info.inc',
-    'access callback' => TRUE,
+    'access arguments' => array('skill profiler works'),
   );
 
   $items['iisp_skills/ajax_skills_profile'] = array(
@@ -286,7 +273,7 @@ function iisp_profiler_menu() {
     'description'     => 'Provides the ajax callback settings for the iisp profiler skills',
     'page callback'   => 'ajax_skills_profile',
     'file'            => 'profiler_info.inc', 
-    'access callback' => TRUE,
+    'access arguments' => array('skill profiler works'),
   );
 
   $items['iisp_skills/ajax_skills_profile_data/%'] = array(
@@ -295,7 +282,7 @@ function iisp_profiler_menu() {
     'page arguments'  => array(2),
     'page callback'   => 'ajax_skills_profile_data',
     'file'            => 'profiler_info.inc', 
-    'access callback' => TRUE,
+    'access arguments' => array('skill profiler works'),
   );
   
   return $items;
@@ -326,11 +313,11 @@ function iisp_profiler_block_view($delta = ''){
     case 'top_menu_for':
       $block['subject'] = t('Top menu for iisp_profiler applicaton');
       $block['content'] = '<ul style="text-align:center; list-style:none;">
-          <li>'.l('Dashboard', 'iisp_profiler/dashboard',  array('attributes' => array('class' => array('btn', 'btn-medium', 'btn-default')))).'</li>
-          <li>'.l('Development Goals', 'iisp_profiler/goals',  array('attributes' => array('class' => array('btn', 'btn-medium', 'btn-default')))).'</li>
-          <li>'.l('Activities', 'iisp_profiler/activities',  array('attributes' => array('class' => array('btn', 'btn-medium', 'btn-default')))).'</li>
-          <li>'.l('Profiler', 'iisp_profiler/profiles',  array('attributes' => array('class' => array('btn', 'btn-medium', 'btn-default')))).'</li>
-          <li>'.l('Settings', 'iisp_profiler/settings',  array('attributes' => array('class' => array('btn', 'btn-medium', 'btn-default')))).'</li></ul><br/><br/>
+          <li>'.l('<i class="fa fa-home"></i> Dashboard', 'iisp_profiler/dashboard',  array('html'=>true,  'attributes' => array('class' => array('btn', 'btn-medium', 'btn-default')))).'</li>
+          <li>'.l('<i class="fa fa-key"></i> Development Goals', 'iisp_profiler/goals',  array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-medium', 'btn-default')))).'</li>
+          <li>'.l('<i class="fa fa-archive"></i> Activities', 'iisp_profiler/activities',  array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-medium', 'btn-default')))).'</li>
+          <li>'.l('<i class="fa fa-user"></i> Profiler', 'iisp_profiler/profiles',  array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-medium', 'btn-default')))).'</li>
+          <li>'.l('<i class="fa fa-wrench"></i> Settings', 'iisp_profiler/settings',  array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-medium', 'btn-default')))).'</li></ul><br/><br/>
 		  ';
       break;
   }
@@ -414,7 +401,14 @@ function iisp_profiler_theme() {
       'variables' => array('user_profile_info' => NULL,'skill_categories' => NULL,'skills' => NULL,'user_profile_data_info' => NULL,'user_profile_list' => NULL),      
       'template' => 'profiler-page',
       'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',
+      ),
+
+    'profiler_dashboard_page' => array(
+      'variables' => array('goals_profiler' => NULL, 'activities_profiler' => NULL),      
+      'template' => 'profiler_dashboard_page',
+      'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',
       )
+
     );
 
  }
@@ -518,4 +512,27 @@ function iisp_profiler_menu_alter(&$items) {
 	 } else {
 	  	return '';	 
 	}
+ }
+
+
+ function get_goals_individual_data($goalid){
+      $system_attribute_form_fields = db_select('iisp_goals_data', 'f')
+              ->fields('f')
+              ->condition('f.iisp_goals_id',$goalid)
+              ->condition('f.custom', '0');
+      $result = $system_attribute_form_fields->execute()->fetchALL(); 
+
+      return $result;
+
+ }
+
+
+ function get_activities_individual_data($activityid){
+     $system_attribute_form_fields = db_select('iisp_activities_data', 'f')
+              ->fields('f')
+              ->condition('f.iisp_activities_id',$activityid)
+              ->condition('f.custom', '0');
+      $result = $system_attribute_form_fields->execute()->fetchALL(); 
+      
+      return $result;
  }

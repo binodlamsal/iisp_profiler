@@ -62,3 +62,7 @@ div#block-iisp-profiler-top-menu-for ul li{
 .profile-left-button{
     width:100px;
 }
+
+.date-padding label{
+    display: none;
+}

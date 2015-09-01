@@ -24,7 +24,7 @@ function iisp_profiler_activities($tab = '') {
 	  break;
     default:
 	
-     $output .= '<ul class="action-links"><li style="list-style:none;">'.l(t('Add Goal'), 'iisp_profiler/goals/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
+     $output .= '<ul class="action-links"><li style="list-style:none;">'.l('<i class="fa fa-plus"></i>&nbsp;'.t('Add Goal'), 'iisp_profiler/goals/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
 	 $build['iisp_profiler_activities_list'] = drupal_get_form('iisp_profiler_activities_list_form');
      $output .= drupal_render($build);
 	  
@@ -58,7 +58,7 @@ function change_staus_of_activity($activities, $status){
 		  ->condition('iisp_field_settings_id', 6)
 		  ->execute();
 	}
-	drupal_set_message('Chaning status becomes successful');
+	drupal_set_message('Changing status becomes successful');
 	drupal_goto('iisp_profiler/goals');
 }
 
@@ -178,7 +178,7 @@ function iisp_profiler_activities_admin_enquiries() {
 	$query = $query->condition('fs.uid', $user->uid);
     $query
       ->fields('fs', array('id'))
-      ->limit(10)
+      ->limit(100)
       ->orderBy('fs.id','DESC')
       ->setCountQuery($count_query);
     $result = $query->execute();
@@ -225,7 +225,7 @@ function iisp_profiler_activities_admin_enquiries() {
                     '#prefix' => '<li style="list-style:none;">',
                     '#suffix' => '</li>',
                     '#type' => 'link',
-                    '#title' => t('Edit'),
+                    '#title' => t(' <i class="fa fa-pencil"></i> Edit'),
                     '#href' => "iisp_profiler/goals/$row->id/edit",
                     '#attributes' => array('class' => array('edit', 'btn', 'btn-default', 'btn-sm', 'btn-icon', 'icon-left')),
                     '#options' => array('query' => $destination, 'html' => true)
@@ -411,7 +411,7 @@ function iisp_profiler_activities_form($form, &$form_state, $activities = NULL){
  
  	
 	$form['field_info_first'] = array(
-    '#prefix' => '<div class="row"><div class="col-md-8" style="background:#f7f7f7; padding:10px; border-radius:10px; border:1px solid #eaeaea;" ><legend>Add/Edit Goals</legend><br/><br/><br/><p>* Are mandantory fields</p>',
+    '#prefix' => '<div class="row"><div class="col-md-8" style="background:#f7f7f7; padding:10px; border-radius:10px; border:1px solid #eaeaea;" ><legend><i class="fa fa-key"></i> &nbsp; Add/Edit Goals</legend><br/><br/><br/><p>* Are mandantory fields</p>',
 	'#type' => 'markup',
 	'#weight' => $weight++,	
 	);			
@@ -544,7 +544,7 @@ $form['field_info'] = array(
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" class="collapsed" data-parent="#accordions-" href="#accordion-1">
-         Advanced fields
+         <i class="fa fa-star"></i> &nbsp; Advanced fields
         </a>
       </h4>
     </div>

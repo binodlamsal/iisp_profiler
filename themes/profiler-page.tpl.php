@@ -30,7 +30,7 @@
                 </a>
               </h4>
             </div>
-            <div id="collapseTwo<?php echo $sc->id;?>" class="panel-collapse collapse">
+            <div id="collapseTwo<?php echo $sc->id;?>" class="panel-collapse collapse in">
               <div class="panel-body">
 
                 <!-- Here we insert another nested accordion -->
@@ -39,7 +39,7 @@
                 <div class="panel-group" id="accordion2">
                   <div class="panel panel-default">
                     <div class="panel-heading">
-                      <h4 class="panel-title"><a data-toggle="collapse"  data-parent="#accordion2" href="#collapseInner<?php echo $sk->id;?>">
+                      <h4 class="panel-title"><a data-toggle="collapse"  data-parent="#accordion2" href="#collapseInner<?php echo $sk->id;?>" class='collapsed'>
                        <?php echo $sk->name; ?>
                       </a>
                       <span class="checkbox-wrapper" style="    position: absolute;
@@ -85,11 +85,11 @@
   </div> 
   <div class="col-md-3 left-panel-profile">
     <table> 
-      <tr><td><input type="button" value="Share" class="button-primary btn btn-default profile-left-button" id="share-add-button"></td></tr>
-      <tr><td><input type="button" value="Compare" class="button-primary btn btn-default profile-left-button" id="compare-add-button"></td></tr>
-      <tr><td><input type="button" value="Print" class="button-primary btn btn-default profile-left-button" id="print-add-button"></td></tr>
-      <tr><td><input type="button" value="SFIA" class="button-primary btn btn-default profile-left-button" id="sifa-add-button"></td></tr>
-      <tr><td><input type="button" value="Skill" class="button-primary btn btn-default profile-left-button" id="skill-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Share" class="button-primary btn btn-default profile-left-button" id="share-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Compare" class="button-primary btn btn-default profile-left-button" id="compare-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Print" class="button-primary btn btn-default profile-left-button" id="print-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="SFIA" class="button-primary btn btn-default profile-left-button" id="sifa-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Skill" class="button-primary btn btn-default profile-left-button" id="skill-add-button"></td></tr>
     </table>
   </div>
 </div>
