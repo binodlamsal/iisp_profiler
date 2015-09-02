@@ -100,7 +100,7 @@ function profilerform_skill_settings_form($form, &$form_state, $profilerform_ski
 
 	  	$form['iisp_sifaplus_skill_types_id'] = array(
 		    '#type' => 'select',
-		    '#title' => t('Select skill types'),
+		    '#title' => t('Select role family'),
 		  	'#required' => true,
 		  	'#weight' => $weight++,
 		  	'#default_value' => $iisp_sifaplus_skill_types_id,
@@ -296,8 +296,16 @@ function receive_settings_data(){
 	global $user;
 
 	db_delete('iisp_field_user_data')->condition('uid',$user->uid)->execute();
- db_delete('iisp_goals_custom_fields')->condition('id', $_POST['edit-goal-id'], 'NOT IN')->condition('uid',$user->uid)->execute();
- db_delete('iisp_activities_custom_fields')->condition('id', $_POST['edit-activity-id'], 'NOT IN')->condition('uid',$user->uid)->execute();
+	if($_POST['edit-goal-id']){
+		 db_delete('iisp_goals_custom_fields')->condition('id', $_POST['edit-goal-id'], 'NOT IN')->condition('uid',$user->uid)->execute();
+	}else{
+		 db_delete('iisp_goals_custom_fields')->condition('uid',$user->uid)->execute();
+	}
+	if($_POST['edit-activity-id']){
+		 db_delete('iisp_activities_custom_fields')->condition('id', $_POST['edit-activity-id'], 'NOT IN')->condition('uid',$user->uid)->execute();
+	}else{
+		 db_delete('iisp_activities_custom_fields')->condition('uid',$user->uid)->execute();
+	}
 
  //End delete the previous data from issp_field_user_data
   if(isset($_POST['advanced'])){

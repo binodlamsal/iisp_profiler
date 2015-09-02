@@ -28,6 +28,7 @@ function iisp_profiler($tab = '') {
 }
 
 function profiler_info_list_form($form, $form_state){
+  global $user;
     $header = array(
         'name' => array('data' => t('Name'), 'field' => 'fs.name', 'sort' => 'DESC'),
         'description' => array('data' => t('Description')),      
@@ -42,6 +43,7 @@ function profiler_info_list_form($form, $form_state){
     $query = $query->extend('PagerDefault')->extend('TableSort');
     $query
       ->fields('fs', array('id', 'name', 'description', 'created', 'changed'))
+      ->condition('fs.uid',$user->uid)
       ->limit(10)
       ->orderBy('fs.id','DESC')
       ->setCountQuery($count_query);
