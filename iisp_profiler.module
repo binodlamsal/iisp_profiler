@@ -284,6 +284,24 @@ function iisp_profiler_menu() {
     'file'            => 'profiler_info.inc', 
     'access arguments' => array('skill profiler works'),
   );
+
+  
+  $items['iisp_skills/remove_skills_profile'] = array(
+    'title'           => 'Remove settings profile skills insert',
+    'description'     => 'Provides the ajax callback settings for removing iisp profiler skills',
+    'page callback'   => 'remove_skills_profile',
+    'file'            => 'profiler_info.inc', 
+    'access callback' => TRUE,
+  );
+
+   $items['iisp_skills/ajax_set_share_link'] = array(
+    'title'           => 'Settings profile share link insert',
+    'description'     => 'Provides the ajax callback settings for share link of the profiler',
+    'page callback'   => 'ajax_share_link_profile',
+    'file'            => 'profiler_info.inc', 
+    'access callback' => TRUE,
+  );
+
   
   return $items;
   

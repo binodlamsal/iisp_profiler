@@ -55,7 +55,6 @@ function profiler_info_list_form($form, $form_state){
 
     foreach ($result as $row)
     { 
-
         $options[$row->id] = array(
             'name' => l($row->name,'iisp_profiler/profiles/skill/'.$row->id),
             'description' => $row->description,
@@ -258,6 +257,45 @@ function ajax_skills_profile(){
   echo json_encode($msg);
 }
 
+function ajax_share_link_profile(){
+  global $base_url;
+  // Check if previously inserted share link is present or not in case of refresh link = 0
+  $user_profile_info = get_user_profile_info($_GET['iisp_profiles_id']);
+
+  if(empty($user_profile_info->sharing_links) || $_GET['refresh_link'] == 1){
+    $share_unique_id = md5(uniqid(mt_rand(), true));
+    $share_link = $base_url.'/iisp_profiler/profiles/share/'.$share_unique_id;
+    $check_save = db_update('iisp_profiles')
+                        ->fields(array(
+                          'sharing_links' => $share_link,
+                        ))
+                        ->condition('id', $_GET['iisp_profiles_id'])
+                        ->execute();  
+  }
+
+  //Get the previously stored sharing link
+  $user_new_profile_info = get_user_profile_info($_GET['iisp_profiles_id']);
+
+  if($check_save){
+    $msg['success'] = true;
+    $msg['sharing_links'] = $user_new_profile_info->sharing_links;
+  }else{
+    $msg['success'] = false;
+    $msg['sharing_links'] = $user_new_profile_info->sharing_links;
+  }
+  echo json_encode($msg);
+}
+
+function get_user_profile_info($profile_id){
+    $result = db_select('iisp_profiles', 'pd')
+              ->fields('pd')
+              ->condition('pd.id',$profile_id)
+              ->execute()
+              ->fetchObject();
+
+    return $result;
+}
+
 function ajax_skills_profile_data($profile_id){
   global $user;
     $user_profile_data_info = db_select('iisp_profile_data', 'pd')
@@ -271,6 +309,23 @@ function ajax_skills_profile_data($profile_id){
       $msg['success'] = false;
       echo json_encode($msg);
     }
+}
+
+function remove_skills_profile(){
+  $check_user_set_profile = check_profile_skills($_GET['iisp_skills_id'],$_GET['iisp_profiles_id']);
+  if($check_user_set_profile){
+      $check_delete = db_delete('iisp_profile_data')
+                          ->condition('iisp_profiles_id', $_GET['iisp_profiles_id'])
+                          ->condition('iisp_skills_id',$_GET['iisp_skills_id'])
+                          ->execute();
+  }
+  
+  if($check_delete){
+    $msg['success'] = true;
+  }else{
+    $msg['success'] = false;
+  }
+  echo json_encode($msg);
 }
 
 
