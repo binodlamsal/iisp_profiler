@@ -4,28 +4,76 @@ global $base_url;
 ?>
 
 <div class="row">
-  <div class="col-md-12" style="border-radius:10px; border:1px solid #eaeaea;">
-    <legend> <i class="fa fa-plane"></i> &nbsp; Take a Tour</legend>
-    <br/>
-    <br/>
-    <br/>
-    
-     <div class="owl-carousel owl-theme owl-slider thumbnail">
+
+
+
+<div class="panel-group" id="accordions-">
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" class="collapsed" data-parent="#accordions-" href="#accordion-1">
+          <i class="fa fa-plane"></i> &nbsp; Take a Tour
+        </a>
+      </h4>
+    </div>
+    <div id="accordion-1" class="panel-collapse collapse" style="height: 0px;">
+      <div class="panel-body">
+        
+        <div class="owl-carousel owl-theme owl-slider thumbnail">
+         
+<?php
+         $var1 = variable_get('take_tour_1');
+         $var2 = variable_get('take_tour_2');
+         $var3 = variable_get('take_tour_3');
+         $var4 = variable_get('take_tour_4');
+         $var5 = variable_get('take_tour_5');
+         $var6 = variable_get('take_tour_6');
+
+?>
+        <?php if(!empty($var1['value'])) { ?>
           <div class="item">
-        <img src="http://stability.nikadevs.com/sites/stability.nikadevs.com/files/styles/project_1126_470/public/work-img-BIG-2.jpg?itok=a-P8sP-k" width="1126" height="470" />      </div>
+          <?php echo $var1['value']; ?>
+          </div>
+        <?php } ?>
+
+        <?php if(!empty($var2['value'])) { ?>
           <div class="item">
-        <img src="http://stability.nikadevs.com/sites/stability.nikadevs.com/files/styles/project_1126_470/public/work-img-BIG-1.jpg?itok=hlcNIZp8" width="1126" height="470" />      </div>
+          <?php echo $var2['value']; ?>
+          </div>
+        <?php } ?>
+
+        <?php if(!empty($var3['value'])) { ?>
           <div class="item">
-        <img src="http://stability.nikadevs.com/sites/stability.nikadevs.com/files/styles/project_1126_470/public/work-img-BIG-3.jpg?itok=Gl8sPglA" width="1126" height="470" />      </div>
-         <div class="item">
-        <img src="http://stability.nikadevs.com/sites/stability.nikadevs.com/files/styles/project_1126_470/public/work-img-BIG-2.jpg?itok=a-P8sP-k" width="1126" height="470" />      </div>
+          <?php echo $var3['value']; ?>
+          </div>
+        <?php } ?>
+
+        <?php if(!empty($var4['value'])) { ?>
           <div class="item">
-        <img src="http://stability.nikadevs.com/sites/stability.nikadevs.com/files/styles/project_1126_470/public/work-img-BIG-1.jpg?itok=hlcNIZp8" width="1126" height="470" />      </div>
+          <?php echo $var4['value']; ?>
+          </div>
+        <?php } ?>
+
+        <?php if(!empty($var5['value'])) { ?>
           <div class="item">
-        <img src="http://stability.nikadevs.com/sites/stability.nikadevs.com/files/styles/project_1126_470/public/work-img-BIG-3.jpg?itok=Gl8sPglA" width="1126" height="470" />      </div>
+          <?php echo $var5['value']; ?>
+          </div>
+        <?php } ?>
+
+        <?php if(!empty($var6['value'])) { ?>
+          <div class="item">
+          <?php echo $var6['value']; ?>
+          </div>
+        <?php } ?>
+
+         
+        
       </div>
 
+      </div>
+    </div>
   </div>
+</div>
 </div>
 <hr class="lg">
 <div class="row">

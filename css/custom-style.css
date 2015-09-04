@@ -66,3 +66,17 @@ div#block-iisp-profiler-top-menu-for ul li{
 .date-padding label{
     display: none;
 }
+
+.profile-compare .panel-group .panel-body .row {
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #CCC;
+    padding-bottom: 10px;
+}
+
+.profile-compare .row h4 {
+    text-transform: none;
+    font-size: 14px;
+    font-variant: normal;
+    font-weight: 100;
+    color: #656464;
+}

@@ -276,6 +276,14 @@ function iisp_profiler_menu() {
     'access arguments' => array('skill profiler works'),
   );
 
+  $items['iisp_skills/compare'] = array(
+    'title'           => 'Compare profiles',
+    'description'     => 'Compare profiles',
+    'page callback'   => 'ajax_compare_profile',
+    'file'            => 'profiler_info.inc', 
+    'access arguments' => array('skill profiler works'),
+  );
+
   $items['iisp_skills/ajax_skills_profile_data/%'] = array(
     'title'           => 'Settings profile skill data',
     'description'     => 'Provides settings for the iisp profiler skills',
@@ -424,6 +432,12 @@ function iisp_profiler_theme() {
     'profiler_dashboard_page' => array(
       'variables' => array('goals_profiler' => NULL, 'activities_profiler' => NULL),      
       'template' => 'profiler_dashboard_page',
+      'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',
+      ),
+
+    'compare_page' => array(
+      'variables' => array('compare_page' => NULL, 'activities_profiler' => NULL),      
+      'template' => 'compare_page',
       'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',
       )
 

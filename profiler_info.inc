@@ -311,6 +311,7 @@ function ajax_skills_profile_data($profile_id){
     }
 }
 
+
 function remove_skills_profile(){
   $check_user_set_profile = check_profile_skills($_GET['iisp_skills_id'],$_GET['iisp_profiles_id']);
   if($check_user_set_profile){
@@ -326,6 +327,14 @@ function remove_skills_profile(){
     $msg['success'] = false;
   }
   echo json_encode($msg);
+
+}
+
+function ajax_compare_profile(){
+  
+   return theme('compare_page', array());
+
+
 }
 
 

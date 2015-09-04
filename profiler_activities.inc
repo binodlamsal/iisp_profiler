@@ -711,7 +711,7 @@ foreach($resultact as $key=>$res){
  if(array_key_exists($key, $newa)){
  	
   
-  $suffix .= '<div style="background:#CCC;margin:5px; padding:5px;" id="remove'.$key.'">'.$res.'<input type="hidden" name="activities[]" value="'.$key.'"><span style="textalign:right; float:right; clear:both;" onclick="removedom('.$key.')">X</span></div>';
+  $suffix .= '<div style="width:100%;background:#CCC;margin:5px; padding:5px;" class="btn btn-small btn-default" id="remove'.$key.'">'.l($res, 'iisp_profiler/goals/'.$key.'/edit').'<input type="hidden" name="activities[]" value="'.$key.'"><span style="margin-right;10px; float:right; clear:both;" onclick="removedom('.$key.')">X</span></div>';
 }
 
 }
