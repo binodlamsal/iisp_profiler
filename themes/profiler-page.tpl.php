@@ -39,8 +39,8 @@
                 <div class="panel-group" id="accordion2">
                   <div class="panel panel-default">
                     <div class="panel-heading">
-                      <h4 class="panel-title"><a data-toggle="collapse"  data-parent="#accordion2" href="#collapseInner<?php echo $sk->id;?>" class='collapsed'>
-                       <?php echo $sk->name; ?>
+                      <h4 class="panel-title"><a data-title="<?php echo $sk->name ?>" data-toggle="collapse"  data-parent="#accordion2" href="#collapseInner<?php echo $sk->id;?>" class='collapsed'>
+                       <?php echo drupal_substr($sk->name,0,45); ?>
                        <?php $scorerange = explode('-', $sk->scorerange);?>
                       </a>
                       <span class="checkbox-wrapper" style="    position: absolute;
