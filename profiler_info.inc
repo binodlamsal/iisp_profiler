@@ -302,6 +302,7 @@ function profiler_info_form($form, &$form_state, $profiler_info = NULL){
           'link'=>'Import from share link',
         );
   if(!empty($profiler_info)){
+    $profile_id = $profiler_info->id;
     $name = $profiler_info->name;
     $type = $profiler_info->type;
     $description = $profiler_info->description;
@@ -313,6 +314,7 @@ function profiler_info_form($form, &$form_state, $profiler_info = NULL){
         );  
 
   } else {
+        $profile_id = 0;
         $name    =  "";
         $type    =  array();
         $description  =  "";
@@ -328,7 +330,7 @@ function profiler_info_form($form, &$form_state, $profiler_info = NULL){
   '#weight' => $weight++,
   '#default_value' => $name,
   );
-if(!$type){
+if(!$profile_id){
   $form['type'] = array(
     '#type' => 'select',
     '#title' => t('Select type'),
@@ -339,7 +341,7 @@ if(!$type){
   ); 
 }
 
-if(!$links){
+if(!$profile_id){
     $form['links'] = array(
       '#type' => 'textfield',
       '#title' => t('Share link'),
