@@ -310,6 +310,24 @@ function iisp_profiler_menu() {
     'access callback' => TRUE,
   );
 
+
+  $items['iisp_skills/ajax_profile_name'] = array(
+    'title'           => 'Get profile name from ajax',
+    'description'     => 'Provides profile name from ajax',
+    'page callback'   => 'ajax_skills_profile_name',
+    'file'            => 'profiler_info.inc', 
+    'access arguments' => array('skill profiler works'),
+  );
+
+  $items['iisp_profiler/profiles/%/edit'] = array(
+    'title'           => 'Edit Profiles',
+    'description'     => 'Provides the specific profile',
+    'file'            => 'admin/profiler_admin.inc', 
+    'page callback'   => 'profile_form_page_edit',
+    'page arguments'  => array(2),
+    'file'            => 'profiler_info.inc', 
+    'access arguments' => array('skill profiler works'),
+  );
   
   return $items;
   
@@ -436,7 +454,7 @@ function iisp_profiler_theme() {
       ),
 
     'compare_page' => array(
-      'variables' => array('compare_page' => NULL, 'activities_profiler' => NULL),      
+      'variables' => array('skill_categories'=>NULL,'skills'=>NULL,'user_profile_list'=>NULL),      
       'template' => 'compare_page',
       'path' => drupal_get_path('module', 'iisp_profiler') .'/themes/',
       )

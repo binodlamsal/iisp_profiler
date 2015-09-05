@@ -20,7 +20,6 @@
     <div>
   </div>
     <?php foreach($skill_categories as $sc): ?>
-
     <?php $skill = get_skills_by_skill_category($sc->id); ?>
        <div class="panel-group" id="accordion1">
           <div class="panel panel-default">
@@ -47,15 +46,15 @@
                       <span class="checkbox-wrapper" style="    position: absolute;
                             left: 52%;
                             margin-top: -35px;">
-                      <span class="checkbox-style checkbox-reset score-not-set checkbox-skill<?php echo $sk->id; ?>" id="checkbox-reset-skill-<?php echo $sk->id; ?>" style="cursor:pointer;" onClick="resetLabels(<?php echo $sk->id; ?>)" value="<?php echo $sk->id; ?>">-</span>
+                      <span class="checkbox-style collapsed  checkbox-reset clickable score-not-set checkbox-skill<?php echo $sk->id; ?>" data-toggle="collapse"  data-parent="#accordion2" href="#collapseInner<?php echo $sk->id;?>" id="checkbox-reset-skill-<?php echo $sk->id; ?>" style="cursor:pointer;" onClick="resetLabels(<?php echo $sk->id; ?>)" value="<?php echo $sk->id; ?>">-</span>
                       <?php for($i=1; $i<=6; $i++) : ?>
                       <?php if ($i >= $scorerange[0] && $i <= $scorerange[1]) { ?>
-                          <span class="checkbox-style checkbox-skill<?php echo $sk->id; ?>" id="checkbox-<?php echo $i; ?>-skill-<?php echo $sk->id; ?>" style="cursor:pointer;" onClick="setLabels(<?php echo $i; ?>, <?php echo $sk->id; ?>)" value="<?php  echo $i; ?>"><?php echo $i; ?></span>
+                          <span class="checkbox-style collapsed clickable checkbox-skill<?php echo $sk->id; ?>" id="checkbox-<?php echo $i; ?>-skill-<?php echo $sk->id; ?>" data-toggle="collapse"  data-parent="#accordion2" href="#collapseInner<?php echo $sk->id;?>" style="cursor:pointer;" onClick="setLabels(<?php echo $i; ?>, <?php echo $sk->id; ?>)" value="<?php  echo $i; ?>"><?php echo $i; ?></span>
                       <?php } else { ?>
                           <span class="checkbox-style" id="checkbox-<?php echo $i; ?>-skill-<?php echo $sk->id; ?>" style="border: 1px dotted #000;background-color:#A7A385" value=""><?php echo $i; ?></span>
                       <?php } ?>
                       <?php endfor; ?>
-
+                      <!-- jQuery(this).parent().parent().children('a').removeClass('collapsed') -->
                       <?php //for($i=1; $i<=7; $i++) : ?>
                       <!-- <span class="checkbox-style checkbox-skill<?php echo $sk->id; ?>" id="checkbox-<?php echo $i; ?>-skill-<?php echo $sk->id; ?>" style="cursor:pointer;" onClick="setLabels(<?php echo $i; ?>, <?php echo $sk->id; ?>)" value="<?php  echo $i; ?>"><?php echo $i; ?></span> -->
                       <?php //endfor; ?>
@@ -96,8 +95,8 @@
   </div> 
   <div class="col-md-3 left-panel-profile">
     <table> 
-      <tr><td style='border-top:none;'><input type="button" data-toggle="modal" data-target="#myModal" value="Share" onClick="insertShareLink(<?php echo $user_profile_info->id; ?>,0)" class="button-primary btn btn-default profile-left-button" id="share-add-button"></td></tr>
-      <tr><td style='border-top:none;'><input type="button" value="Compare" class="button-primary btn btn-default profile-left-button" id="compare-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Share" onClick="insertShareLink(<?php echo $user_profile_info->id; ?>,0)" class="button-primary btn btn-default profile-left-button" id="share-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Compare" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/compare'" class="button-primary btn btn-default profile-left-button" id="compare-add-button"></td></tr>
       <tr><td style='border-top:none;'><input type="button" value="Print" class="button-primary btn btn-default profile-left-button" id="print-add-button"></td></tr>
       <tr><td style='border-top:none;'><input type="button" value="SFIA" class="button-primary btn btn-default profile-left-button" id="sifa-add-button"></td></tr>
       <tr><td style='border-top:none;'><input type="button" value="Skill" class="button-primary btn btn-default profile-left-button" id="skill-add-button"></td></tr>
@@ -107,7 +106,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

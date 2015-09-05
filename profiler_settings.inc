@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * Admin page sifa skill types setting

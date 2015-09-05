@@ -25,7 +25,7 @@ function iisp_skills_categories($tab = '') {
     default:
 	
      $output .= '<ul class="action-links"><li>'.l(t('Add iisp skills category'), 'admin/iisp_profiler/skills/categories/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
-	 $build['iisp_skills_categories_list'] = drupal_get_form('iisp_skills_caategories_list_form');
+	 $build['iisp_skills_categories_list'] = drupal_get_form('iisp_skills_categories_list_form');
      $output .= drupal_render($build);
 	  
   }
@@ -33,7 +33,7 @@ function iisp_skills_categories($tab = '') {
 
 }
 
-function iisp_skills_caategories_list_form($form, $form_state) {
+function iisp_skills_categories_list_form($form, $form_state) {
     if (isset($form_state['values']['operation']) && $form_state['values']['operation'] == 'delete') {
         return iisp_skills_categories_multiple_delete_confirm($form, $form_state, array_filter($form_state['values']['deletable_ids']));
     }
