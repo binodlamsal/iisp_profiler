@@ -350,6 +350,9 @@ if(!$profile_id){
         'visible' => array(
           ':input[name="type"]' => array('value' => 'link'),
         ),
+        'required' => array(
+          ':input[name="type"]' => array('value' => 'link'),
+        ),
       ),
       '#default_value' => $links,
     );
@@ -389,7 +392,11 @@ if(!$profile_id){
 
 function profiler_info_form_validate($form, &$form_state){
   $sharing_links = $form_state['values']['links'];
+  $type = $form_state['values']['type'];
   $profile_id = $form_state['values']['id'];
+  if($type == 'link' && empty($sharing_links)){
+      form_set_error('sharing_links','Share link is required');
+  }
   if(!$profile_id){
     $query = db_select('iisp_profiles', 'n');
           $query->fields('n');
