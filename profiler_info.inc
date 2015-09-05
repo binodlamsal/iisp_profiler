@@ -558,6 +558,57 @@ function remove_skills_profile(){
 
 }
 
+
+function print_iisp_profiles(){
+   global $base_url;
+  global $user;
+  $path = drupal_get_path('module', 'iisp_profiler');
+  drupal_add_js($base_url . '/' . $path . '/js/profiler_add.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2000));
+    drupal_add_css($base_url . '/' . $path . '/css/custom-style.css', array('type' => 'external', 'weight' => '500'));
+
+    $profile_id = arg(2);
+
+    //Start get user profile info by id
+    $user_profile_info = db_select('iisp_profiles', 'fs')
+              ->fields('fs')
+              ->condition('fs.id',$profile_id)
+              ->execute()
+              ->fetchObject();  
+    //End get user profile info by id
+
+    //Start get user profile info
+    $user_profile_list = db_select('iisp_profiles', 'fs')
+              ->fields('fs')
+              ->execute()
+              ->fetchAll();  
+    //End get user profile info
+
+    //Start get skill categorys         
+    $user_skill_categories = db_select('iisp_skill_cat', 'sc')
+              ->fields('sc')
+              ->execute()
+              ->fetchAll();  
+    //End get skill categorys 
+
+    //Start get skill types         
+    $user_skills = db_select('iisp_skills', 'sk')
+              ->fields('sk')
+              ->execute()
+              ->fetchAll();  
+    //End get skill types    
+
+    //Start get profiles skill levels that already exists
+    $user_profile_data_info = db_select('iisp_profile_data', 'pd')
+              ->fields('pd')
+              ->condition('pd.iisp_profiles_id',$profile_id)
+              ->execute()
+              ->fetchAll();        
+    //End get profiles skill levels that already exists      
+ return theme('profiler_page_print', array('user_profile_info' => $user_profile_info,'skill_categories'=>$user_skill_categories,'skills'=>$user_skills,'user_profile_data_info'=>$user_profile_data_info,'user_profile_list'=>$user_profile_list));
+
+}
+
+
 function ajax_compare_profile(){
   global $base_url;
   global $user;
@@ -587,4 +638,23 @@ function ajax_compare_profile(){
    return theme('compare_page', array('skill_categories'=>$user_skill_categories,'skills'=>$user_skills,'user_profile_list'=>$user_profile_list));
 }
 
+/**
+* Just help page implementation
+*/
+function help_iisp_profiles(){
+
+    $iisp_profiler_help = variable_get('iisp_profiler_help');
+    //echo $iisp_profiler_help['value'];
+    return $iisp_profiler_help['value']; 
+}
+
+/**
+* Just skills page implementation
+*/
+function skills_iisp_profiles(){
+
+    $iisp_profiler_help = variable_get('iisp_profiler_skills');
+    //echo $iisp_profiler_help['value'];
+    return $iisp_profiler_help['value']; 
+}
 

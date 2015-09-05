@@ -47,10 +47,34 @@ function iisp_admin_config_form($form, $form_state){
     '#required' => TRUE,
   );
 
+  $help = variable_get('iisp_profiler_help');
+
+  $form['iisp_profiler_help'] = array(
+    '#type' => 'text_format',
+    '#format' => 'full_html',
+    '#title' => t('Profiler help page'),
+    '#default_value' => $help['value'],
+    '#description' => t("Enter the help page contents here."),
+    //'#required' => TRUE,
+  );
+
+
+  $help = variable_get('iisp_profiler_skills');
+
+  $form['iisp_profiler_skills'] = array(
+    '#type' => 'text_format',
+    '#format' => 'full_html',
+    '#title' => t('Profiler skills page'),
+    '#default_value' => $help['value'],
+    '#description' => t("Enter skills page contents here."),
+    //'#required' => TRUE,
+  );
+
   $tour1 = variable_get('take_tour_1');
 
   $form['take_tour_1'] = array(
     '#type' => 'text_format',
+    '#format' => 'full_html',
     '#title' => t('Enter tour slider first description'),
     '#default_value' => $tour1['value'],
     '#description' => t("Enter tour slider first description you can add images and text"),
@@ -61,6 +85,8 @@ function iisp_admin_config_form($form, $form_state){
 
   $form['take_tour_2'] = array(
     '#type' => 'text_format',
+    '#format' => 'full_html',
+
     '#title' => t('Enter tour slider second description'),
     '#default_value' => $tour2['value'],
     '#description' => t("Enter tour slider second description you can add images and text"),
@@ -71,6 +97,7 @@ function iisp_admin_config_form($form, $form_state){
 
   $form['take_tour_3'] = array(
     '#type' => 'text_format',
+    '#format' => 'full_html',
     '#title' => t('Enter tour slider third description'),
     '#default_value' => $tour3['value'],
     '#description' => t("Enter tour slider third description you can add images and text"),
@@ -81,6 +108,7 @@ function iisp_admin_config_form($form, $form_state){
 
   $form['take_tour_4'] = array(
     '#type' => 'text_format',
+    '#format' => 'full_html',
     '#title' => t('Enter tour slider fourth description'),
     '#default_value' => $tour4['value'],
     '#description' => t("Enter tour slider fourth description you can add images and text"),
@@ -91,6 +119,7 @@ function iisp_admin_config_form($form, $form_state){
 
   $form['take_tour_5'] = array(
     '#type' => 'text_format',
+    '#format' => 'full_html',
     '#title' => t('Enter tour slider fifth description'),
     '#default_value' => $tour5['value'],
     '#description' => t("Enter tour slider third description you can add images and text"),
@@ -101,6 +130,7 @@ function iisp_admin_config_form($form, $form_state){
 
   $form['take_tour_6'] = array(
     '#type' => 'text_format',
+    '#format' => 'full_html',
     '#title' => t('Enter tour slider sixth description'),
     '#default_value' => $tour6['value'],
     '#description' => t("Enter tour slider sixth description you can add images and text"),

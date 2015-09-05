@@ -24,7 +24,7 @@ function iisp_skills_skills($tab = '') {
 	  break;
     default:
 	
-     $output .= '<ul class="action-links"><li>'.l(t('Add iisp skills'), 'admin/iisp_profiler/skills/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
+     $output .= '<ul class="action-links"><li>'.l(t('Add skills groups'), 'admin/iisp_profiler/skills/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
 	 $build['iisp_skills_skills_list'] = drupal_get_form('iisp_skills_skills_list_form');
      $output .= drupal_render($build);
 	  
@@ -187,7 +187,7 @@ function iisp_skills_skills_admin_enquiries() {
             '#type' => 'tableselect',
             '#header' => $header,
             '#options' => $options,
-            '#empty' => t('No iisp skills are available.'),  
+            '#empty' => t('No skills groups are available.'),  
             '#attributes' => array (
                 'id' => 'iisp_skills_table',
             )
@@ -205,7 +205,7 @@ function iisp_skills_skills_admin_enquiries() {
 function iisp_skills_skills_operations() {
   $operations = array(
     'delete' => array(
-      'label' => t('Delete selected iisp skills'),
+      'label' => t('Delete selected skill groups'),
       'callback' => NULL,
     ),
   );
@@ -221,7 +221,7 @@ function iisp_skills_skills_operations() {
 function iisp_skills_skills_form_list_validate($form, &$form_state) {
   // Error if there are no items to select.
   if (!is_array($form_state['values']['deletable_ids']) || !count(array_filter($form_state['values']['deletable_ids']))) {
-    form_set_error('', t('No iisp skills categories selected.'));
+    form_set_error('', t('No skills group categories selected.'));
   }
 }
 
@@ -369,7 +369,7 @@ function iisp_skills_skills_form_submit($form, &$form_state){
 		drupal_write_record('iisp_skills', $iisp_skills_skills, 'id');
 	}
 
-	drupal_set_message('IISP skill category saved');
+	drupal_set_message('Skill group category saved');
 	$form_state['redirect'] = 'admin/iisp_profiler/skills';
 }
 
@@ -379,7 +379,7 @@ function iisp_skills_skills_page_edit($iisp_skills_skills_id){
 			->condition('fs.id', $iisp_skills_skills_id)
             ->execute()
             ->fetchObject();
-   drupal_set_title(t('<em> Edit iisp skill  @title </em>', array('@title' => $query->name)), PASS_THROUGH);
+   drupal_set_title(t('<em> Edit skill  @title </em>', array('@title' => $query->name)), PASS_THROUGH);
 
    return drupal_get_form('iisp_skills_skills_form', $query);
 }

@@ -225,3 +225,28 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 		<input type="submit" name="save_from" value="SAVE ALL SETTINGS" class="btn btn-default btn-submit-second">
 	</div>
 </form>
+
+
+
+<script language="javascript" type="text/javascript">
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  }
+    function isInView1(elem){
+       return jQuery(elem).offset().top - jQuery(window).scrollTop() < jQuery(elem).height() + 400 ;
+    }
+</script>
+<div style='text-align:center;'>
+<script language="javascript" type="text/javascript">
+    jQuery(window).scroll(function(){
+     if(!jQuery('.ET-300x250-Below-Article-Lazy').attr("loaded") && isInView1(jQuery('.ET-300x250-Below-Article-Lazy'))) {
+     console.log('it is started');
+
+        jQuery('.ET-300x250-Below-Article-Lazy').html("<iframe id='a511371f' name='a511371f' src='http://revive.earthtripper.com/www/delivery/afr.php?resize=1&amp;zoneid=6&amp;cb=<?php echo rand();?>' frameborder='0' scrolling='no' width='100%' height='250'><a href='http://revive.earthtripper.com/www/delivery/ck.php?n=aedf9b1c&amp;cb=<?php echo rand();?>' target='_blank'><img src='http://revive.earthtripper.com/www/delivery/avw.php?zoneid=6&amp;cb=<?php echo rand();?>&amp;n=aedf9b1c' border='0' alt='' /></a></iframe>")
+       jQuery('.ET-300x250-Below-Article-Lazy').attr("loaded",true);
+    }
+});
+onload='javascript:resizeIframe(this);'
+</script>
+</div>
+
