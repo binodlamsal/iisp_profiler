@@ -255,7 +255,7 @@ function iisp_profiler_activities_admin_enquiries() {
 function iisp_profiler_activities_operations() {
   $operations = array(
     'delete' => array(
-      'label' => t('Bulk delete iisp goals'),
+      'label' => t('Bulk delete goals'),
       'callback' => NULL,
     ),
 	'pending' => array(

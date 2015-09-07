@@ -20,6 +20,7 @@ jQuery(document).ready(function($) {
 
 
 	var profile_info_id = $("#profile_info_id").val();
+	debugger;
 
 	$.ajax({
                 url: base_url + '/'+ secondLevelLocation +'/iisp_skills/ajax_skills_category_total',
@@ -56,6 +57,7 @@ jQuery(document).ready(function($) {
 								   $('#setlevel-btn-value'+skillLevel).text('Level ' + score); 
 								   $('#setlevel-btn-value'+skillLevel).attr("data-checkboxid",score);
 								   $('#checkbox-'+score+'-skill-'+skillLevel).css("background-color", "green");
+								   $('#checkbox-'+score+'-skill-'+skillLevel).css("border", "1px dotted #000");
 								   $('#checkbox-reset-skill-'+skillLevel).removeClass("score-not-set");
 								   $('#checkbox-reset-skill-'+skillLevel).addClass("score-already-set");
 						  });

@@ -6,7 +6,7 @@
     <input type="hidden" value="<?php echo $user_profile_info->id; ?>" id="profile_info_id">
     <h3>Profiler  &raquo;  <?php  echo ucwords($user_profile_info->name); ?></h3>
     <p>To enter your skills: click on any of the SFIA skills to view the skill description. Select your skill level by clicking on the appropriate number – you can remind yourself of the generic skills and levels of responsibility by selecting the `SFIA` button or clicking on the ‘i’ information button when viewing a skill description. Profiles are automatically saved and will appear in your list of profiles each time you access the system.</p>
-    <div class="col-md-9">
+    <div class="col-md-9" id="printdiv">
       <span class="profile-viewing">
         <p style="margin-left: 75%;">You are currently viewing</p>
         <div class="form-group form-type-select" style="width: 25%; margin-left: 75%;">
@@ -95,9 +95,9 @@
     <table> 
       <tr><td style='border-top:none;'><input type="button" value="Share" onClick="insertShareLink(<?php echo $user_profile_info->id; ?>,0)" class="button-primary btn btn-default profile-left-button" id="share-add-button"></td></tr>
       <tr><td style='border-top:none;'><input type="button" value="Compare" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/compare/<?php echo $user_profile_info->id; ?>'" class="button-primary btn btn-default profile-left-button" id="compare-add-button"></td></tr>
-      <tr><td style='border-top:none;'><input type="button" value="Print" class="button-primary btn btn-default profile-left-button" id="print-add-button"></td></tr>
-      <tr><td style='border-top:none;'><input type="button" value="SFIA" class="button-primary btn btn-default profile-left-button" id="sifa-add-button"></td></tr>
-      <tr><td style='border-top:none;'><input type="button" value="Skill" class="button-primary btn btn-default profile-left-button" id="skill-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Print" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/print/<?php echo arg(3);  ?>'" class="button-primary btn btn-default profile-left-button" id="print-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Skills" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/skills'" class="button-primary btn btn-default profile-left-button" id="sifa-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Help" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/help'" class="button-primary btn btn-default profile-left-button" id="skill-add-button"></td></tr>
     </table>
   </div>
 </div>
@@ -113,8 +113,8 @@
       <div class="modal-body">
         <p> Do you want to share this profile with others?</p>
         <p>
-          <input type="radio" name="radio_share" value="1" id= "share_info_yes_id" class="share_info">Yes
-          <input type="radio" name="radio_share" value="0" id= "share_info_no_id" class="share_info" checked="checked">No
+          <input type="radio" name="radio_share" value="1" id= "share_info_yes_id" class="share_info">&nbsp;Yes
+          <input type="radio" name="radio_share" value="0" id= "share_info_no_id" class="share_info" checked="checked">&nbsp;No
         </p>
         <div class="share_div">
           <p>
@@ -122,7 +122,7 @@
           </p>
           <p class="link-to-share"></p>
           <p class="share_link">
-             <a href="http://localhost/infoseskills.net/?q=iisp_profiler/profiles/preview" class="btn btn-default" target="_blank">Preview</a>
+             <a href="<?php echo $base_url."/iisp_skills/print/".arg(3)."/preview" ?>" class="btn btn-default" target="_blank">Preview</a>
              <a href="" class="btn btn-default email-sharelink" target="_blank">Email</a>
              <button type="button" class="btn btn-default ref-sharelink" onClick="insertShareLink(<?php echo $user_profile_info->id; ?>,1)">Refresh</button>
           </p>
@@ -211,4 +211,31 @@ function insertLabels(skillLevel,profileid,userid){
                 });
     }
 }
+</script>
+
+<script type="text/javascript">
+
+    function PrintElem(elem)
+    {
+        Popup(jQuery(elem).html());
+    }
+
+    function Popup(data) 
+    {
+        var mywindow = window.open('', 'my div');
+        mywindow.document.write('<html><head><title>Accuweigh Test Report</title>');
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+
+        mywindow.print();
+        mywindow.close();
+
+        return false;
+    }
+
 </script>
