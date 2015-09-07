@@ -22,6 +22,27 @@ jQuery(document).ready(function($) {
 	var profile_info_id = $("#profile_info_id").val();
 
 	$.ajax({
+                url: base_url + '/'+ secondLevelLocation +'/iisp_skills/ajax_skills_category_total',
+                data: {"iisp_profiles_id":profile_info_id},
+                dataType: 'json',
+                method:'POST',
+                  success:function (data)
+                  {
+                  		$.each(data, function(key,val) {
+                  					var score = val.tot_score;
+                  					var cat_id = val.skill_cat_id;
+                  				   $('#skill_catid_total_'+cat_id).text('Total - ' + score); 
+						  });
+                  },
+                  error: function() {
+				    //error loading content
+				  },
+				  complete: function() {
+				  	$('.score-not-set').css('background-color','green');
+				  }
+    });
+
+	$.ajax({
                 url: base_url + '/'+ secondLevelLocation +'/iisp_skills/ajax_skills_profile_data/'+profile_info_id,
                 data: {"test":"test"},
                 dataType: 'json',
@@ -72,10 +93,18 @@ jQuery(document).ready(function($) {
         $('#profile-pos-id-'+profile_pos_id).removeClass('remove-profile-class');
 	});
 
+	//statically add all value while page loading for first position
+	setTimeout(function() {
+		$('#myModal').attr("data-modal-pos-id",1);
+		$('#add_profile_id').val(pathArray[4]);
+        $(".btn-save-ap").trigger('click');
+    },10); 
+
 	$('body').on('click','.btn-save-ap',function(){
 		var pos_id = $('#myModal').attr("data-modal-pos-id");
 		var profile_id = $('#add_profile_id').val();
-		$('#myModal').modal('toggle');
+		// $('#myModal').modal('toggle');
+		$('#myModal').modal('hide');
 		$.ajax({
                   url: base_url + '/'+ secondLevelLocation +'/iisp_skills/ajax_profile_name',
                   data: {"iisp_profiles_id":profile_id},

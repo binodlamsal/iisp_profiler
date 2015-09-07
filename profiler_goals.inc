@@ -7,10 +7,6 @@
  */
 // Add all forms definitions
 
-//module_load_include('inc', 'coatings', 'coatings.form');
-//module_load_include('inc', 'coatings', 'coatings.constant');
-//module_load_include('inc', 'item', 'item.constant');
-
 //
 // Fields settings Listing page, create and edit page
 //

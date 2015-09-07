@@ -25,12 +25,13 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo<?php echo $sc->id;?>">
+                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo<?php echo $sc->id;?>" class="collapsed">
                   <?php echo $sc->name; ?> 
+                  <span class="total_skills" id="skill_catid_total_<?php echo $sc->id; ?>" style="float:right;"></span>
                 </a>
               </h4>
             </div>
-            <div id="collapseTwo<?php echo $sc->id;?>" class="panel-collapse collapse in">
+            <div id="collapseTwo<?php echo $sc->id;?>" class="panel-collapse collapse">
               <div class="panel-body">
 
                 <!-- Here we insert another nested accordion -->
@@ -46,18 +47,15 @@
                       <span class="checkbox-wrapper" style="    position: absolute;
                             left: 52%;
                             margin-top: -35px;">
-                      <span class="checkbox-style collapsed  checkbox-reset clickable score-not-set checkbox-skill<?php echo $sk->id; ?>" data-toggle="collapse"  data-parent="#accordion2" href="#collapseInner<?php echo $sk->id;?>" id="checkbox-reset-skill-<?php echo $sk->id; ?>" style="cursor:pointer;" onClick="resetLabels(<?php echo $sk->id; ?>)" value="<?php echo $sk->id; ?>">-</span>
+                      <span class="checkbox-style collapsed  checkbox-reset clickable score-not-set checkbox-skill-<?php echo $sk->id; ?>" href="#collapseInner<?php echo $sk->id;?>" id="checkbox-reset-skill-<?php echo $sk->id; ?>" style="cursor:pointer;" onClick="resetLabels(<?php echo $sk->id; ?>)" value="<?php echo $sk->id; ?>">-</span>
                       <?php for($i=1; $i<=6; $i++) : ?>
                       <?php if ($i >= $scorerange[0] && $i <= $scorerange[1]) { ?>
-                          <span class="checkbox-style collapsed clickable checkbox-skill<?php echo $sk->id; ?>" id="checkbox-<?php echo $i; ?>-skill-<?php echo $sk->id; ?>" data-toggle="collapse"  data-parent="#accordion2" href="#collapseInner<?php echo $sk->id;?>" style="cursor:pointer;" onClick="setLabels(<?php echo $i; ?>, <?php echo $sk->id; ?>)" value="<?php  echo $i; ?>"><?php echo $i; ?></span>
+                          <span class="checkbox-style collapsed clickable checkbox-skill-<?php echo $sk->id; ?>" id="checkbox-<?php echo $i; ?>-skill-<?php echo $sk->id; ?>" href="#collapseInner<?php echo $sk->id;?>" style="cursor:pointer;" onClick="setLabels(<?php echo $i; ?>, <?php echo $sk->id; ?>)" value="<?php  echo $i; ?>"><?php echo $i; ?></span>
                       <?php } else { ?>
                           <span class="checkbox-style" id="checkbox-<?php echo $i; ?>-skill-<?php echo $sk->id; ?>" style="border: 1px dotted #000;background-color:#A7A385" value=""><?php echo $i; ?></span>
                       <?php } ?>
                       <?php endfor; ?>
                       <!-- jQuery(this).parent().parent().children('a').removeClass('collapsed') -->
-                      <?php //for($i=1; $i<=7; $i++) : ?>
-                      <!-- <span class="checkbox-style checkbox-skill<?php echo $sk->id; ?>" id="checkbox-<?php echo $i; ?>-skill-<?php echo $sk->id; ?>" style="cursor:pointer;" onClick="setLabels(<?php echo $i; ?>, <?php echo $sk->id; ?>)" value="<?php  echo $i; ?>"><?php echo $i; ?></span> -->
-                      <?php //endfor; ?>
                       </span>         
                       </h4>
                     </div>
@@ -96,7 +94,7 @@
   <div class="col-md-3 left-panel-profile">
     <table> 
       <tr><td style='border-top:none;'><input type="button" value="Share" onClick="insertShareLink(<?php echo $user_profile_info->id; ?>,0)" class="button-primary btn btn-default profile-left-button" id="share-add-button"></td></tr>
-      <tr><td style='border-top:none;'><input type="button" value="Compare" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/compare'" class="button-primary btn btn-default profile-left-button" id="compare-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Compare" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/compare/<?php echo $user_profile_info->id; ?>'" class="button-primary btn btn-default profile-left-button" id="compare-add-button"></td></tr>
       <tr><td style='border-top:none;'><input type="button" value="Print" class="button-primary btn btn-default profile-left-button" id="print-add-button"></td></tr>
       <tr><td style='border-top:none;'><input type="button" value="SFIA" class="button-primary btn btn-default profile-left-button" id="sifa-add-button"></td></tr>
       <tr><td style='border-top:none;'><input type="button" value="Skill" class="button-primary btn btn-default profile-left-button" id="skill-add-button"></td></tr>
@@ -139,12 +137,32 @@
 <script type="text/javascript">
 
 function setLabels(label, skillLevel){
+  debugger;
+    var attrtoggle = jQuery('.checkbox-skill-'+skillLevel).attr('data-toggle');
+    var attrparent = jQuery('.checkbox-skill-'+skillLevel).attr('data-parent');
+  
+  if(typeof attrtoggle == typeof undefined && typeof attrparent == typeof undefined){
+    jQuery('.checkbox-skill-'+skillLevel).removeAttr('data-toggle','collapse');
+    jQuery('.checkbox-skill-'+skillLevel).removeAttr('data-parent','#accordion2');
+    jQuery('#checkbox-'+label+'-skill-'+skillLevel).attr('data-toggle','collapse');
+    jQuery('#checkbox-'+label+'-skill-'+skillLevel).attr('data-parent','#accordion2');
+  }
+   // jQuery(this).parent().parent().children('a').removeClass('collapsed');
    jQuery('#setLevelDiv'+skillLevel + ' .level-set').text('Level ' + label); 
    jQuery('#setlevel-btn-value'+skillLevel).text('Set Level ' + label);
    jQuery('#setlevel-btn-value'+skillLevel).attr("data-checkboxid",label);
-}
+} 
 
 function resetLabels(skillLevel){
+    var resetattrtoggle = jQuery('.checkbox-skill-'+skillLevel).attr('data-toggle');
+    var resetattrparent = jQuery('.checkbox-skill-'+skillLevel).attr('data-parent');
+  if(typeof resetattrtoggle == typeof undefined && typeof resetattrparent == typeof undefined){
+   debugger;
+    jQuery('.checkbox-skill-'+skillLevel).removeAttr('data-toggle','collapse');
+    jQuery('.checkbox-skill-'+skillLevel).removeAttr('data-parent','#accordion2');
+    jQuery('#checkbox-reset-skill-'+skillLevel).attr('data-toggle','collapse');
+    jQuery('#checkbox-reset-skill-'+skillLevel).attr('data-parent','#accordion2');
+  }
    jQuery('#setlevel-btn-value'+skillLevel).text('Reset Level');
    jQuery('#setlevel-btn-value'+skillLevel).attr("data-checkboxid",0);
 }

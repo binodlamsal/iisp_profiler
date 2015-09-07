@@ -75,7 +75,7 @@ function sifa_skill_levels_settings_form_submit($form, &$form_state){
 		drupal_write_record('iisp_sifaplus_skill_levels', $sifa_skill_levels_settings, 'id');
 	}
 
-	drupal_set_message('IISP sifa plus skill levels saved');
+	drupal_set_message('Sifa plus skill levels saved');
 	$form_state['redirect'] = 'admin/iisp_profiler/sifa_skills_levels';
 }
 

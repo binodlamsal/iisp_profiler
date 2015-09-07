@@ -328,6 +328,14 @@ function iisp_profiler_menu() {
     'file'            => 'profiler_info.inc', 
     'access arguments' => array('skill profiler works'),
   );
+
+  $items['iisp_skills/ajax_skills_category_total'] = array(
+    'title'           => 'Get skill category total from ajax',
+    'description'     => 'Provides skill category total from ajax',
+    'page callback'   => 'ajax_skills_cat_total',
+    'file'            => 'profiler_info.inc', 
+    'access arguments' => array('skill profiler works'),
+  );
   
   return $items;
   

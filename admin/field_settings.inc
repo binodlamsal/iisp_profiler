@@ -20,7 +20,7 @@ function iisp_fields_settings($tab = '') {
 	  break;
     default:
 	
-     $output .= '<ul class="action-links"><li>'.l(t('Add iisp field settings'), 'admin/iisp_profiler/field_settings/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
+     $output .= '<ul class="action-links"><li>'.l(t('Add field settings'), 'admin/iisp_profiler/field_settings/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
 	 $build['iisp_fields_settings_list'] = drupal_get_form('iisp_fields_settings_list_form');
      $output .= drupal_render($build);
 	  
@@ -75,7 +75,7 @@ function iisp_fields_settings_multiple_delete_confirm_submit($form, &$form_state
     iisp_fields_settings_delete_multiple(array_keys($form_state['values']['deletable_ids']));
     $count = count($form_state['values']['deletable_ids']);
     watchdog('iisp_fields_settings', 'Deleted @count iisp_fields_settings.', array('@count' => $count));
-    drupal_set_message(format_plural($count, 'Deleted 1 iisp field settings.', 'Deleted @count iisp field settings.'));
+    drupal_set_message(format_plural($count, 'Deleted 1 field settings.', 'Deleted @count field settings.'));
   }
   $form_state['redirect'] = 'admin/iisp_profiler/field_settings';
 }
@@ -181,7 +181,7 @@ function iisp_fields_settings_admin_enquiries() {
             '#type' => 'tableselect',
             '#header' => $header,
             '#options' => $options,
-            '#empty' => t('No iisp fields settings available.'),  
+            '#empty' => t('No fields settings available.'),  
             '#attributes' => array (
                 'id' => 'iisp_field_settings_table',
             )
@@ -199,7 +199,7 @@ function iisp_fields_settings_admin_enquiries() {
 function iisp_fields_settings_operations() {
   $operations = array(
     'delete' => array(
-      'label' => t('Delete selected iisp fields settings'),
+      'label' => t('Delete selected fields settings'),
       'callback' => NULL,
     ),
   );
@@ -215,7 +215,7 @@ function iisp_fields_settings_operations() {
 function iisp_fields_settings_form_list_validate($form, &$form_state) {
   // Error if there are no items to select.
   if (!is_array($form_state['values']['deletable_ids']) || !count(array_filter($form_state['values']['deletable_ids']))) {
-    form_set_error('', t('No iisp fields settings selected.'));
+    form_set_error('', t('No fields settings selected.'));
   }
 }
 
@@ -329,7 +329,7 @@ function iisp_fields_settings_form($form, &$form_state, $iisp_fields_settings = 
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => t('Save iisp fields settings'),
+      '#value' => t('Save fields settings'),
       '#weight' => $weight++,
 	  '#prefix' => '<div class="form-item form-actions">',
 	  '#suffix' => '</div>',
@@ -350,7 +350,7 @@ function iisp_fields_settings_form_submit($form, &$form_state){
 		drupal_write_record('iisp_field_settings', $iisp_fields_settings, 'id');
 	}
 
-	drupal_set_message('IISP field setting saved');
+	drupal_set_message('Field setting saved');
 	$form_state['redirect'] = 'admin/iisp_profiler/field_settings';
 }
 
@@ -360,7 +360,7 @@ function iisp_fields_settings_page_edit($iisp_fields_settings_id){
 			->condition('fs.id', $iisp_fields_settings_id)
             ->execute()
             ->fetchObject();
-   drupal_set_title(t('<em> Edit iisp field settings  @title </em>', array('@title' => $query->name)), PASS_THROUGH);
+   drupal_set_title(t('<em> Edit field settings  @title </em>', array('@title' => $query->name)), PASS_THROUGH);
 
    return drupal_get_form('iisp_fields_settings_form', $query);
 }

@@ -140,7 +140,7 @@ function profiler_info_admin_enquiries() {
     $query
       ->fields('fs', array('id', 'name', 'description', 'created', 'changed'))
       ->condition('fs.uid',$user->uid)
-      ->limit(10)
+      ->limit(50)
       ->orderBy('fs.id','DESC')
       ->setCountQuery($count_query);
     $result = $query->execute();
@@ -180,7 +180,7 @@ function profiler_info_admin_enquiries() {
             '#type' => 'tableselect',
             '#header' => $header,
             '#options' => $options,
-            '#empty' => t('No iisp fields settings available.'),  
+            '#empty' => t('No fields settings available.'),  
             '#attributes' => array (
                 'id' => 'iisp_field_settings_table',
             )
@@ -532,6 +532,46 @@ function ajax_skills_profile_name(){
       $msg['success'] = false;
       echo json_encode($msg);
     }
+}
+
+function ajax_skills_cat_total(){
+    global $user;
+    $result = db_select('iisp_skill_cat', 'pd')
+              ->fields('pd')
+              ->execute()
+              ->fetchAll();
+    $result_arr = array();
+    if($result){
+      foreach($result as $r){
+        $result_arr[] = array(
+            'skill_cat_id' => $r->id,
+            'tot_score' => get_total_score($r->id,$_GET['iisp_profiles_id'])
+          );
+      }
+      echo json_encode($result_arr); 
+    }
+    else {
+      $msg['success'] = false;
+      echo json_encode($msg);
+    }
+}
+
+function get_total_score($sub_cat_id,$profile_id){
+     $query = db_select('iisp_profile_data', 'n');
+          $query->fields('n');
+          $query->leftJoin('iisp_skills', 'o', '(n.iisp_skills_id = o.id)');
+          $query->condition('o.iisp_skill_cat_id', $sub_cat_id);
+          $query->condition('n.iisp_profiles_id', $profile_id);
+          $result_profile_data = $query
+            ->execute()
+            ->fetchAll();
+    $score = 0;
+  if($result_profile_data){
+    foreach($result_profile_data as $q){
+        $score = $score + $q->score;
+    }
+  }
+  return $score;
 }
 
 function ajax_skills_profile_data($profile_id){

@@ -1,4 +1,11 @@
-<?php global $user; ?>
+<?php global $user;
+$skill_compare_no = 6;
+if(array_key_exists('2', $user->roles)){
+  $skill_compare_no = variable_get('iisp_skiller_compare_no');
+}elseif(array_key_exists('4', $user->roles)){
+  $skill_compare_no = variable_get('iisp_manager_compare_no');
+}
+?>
 <?php global $base_url;?>
 <div class="col-md-12 profile-compare">
 
@@ -7,8 +14,7 @@
       <div class="col-md-6">
           <h2>Category and Skills</h2>
       </div>
-      <?php for($i=1;$i<=6 ;$i++) : ?>
-        <!-- onClick="addProfiles(<?php //echo $i; ?>)" -->
+      <?php for($i=1;$i<=$skill_compare_no;$i++) : ?>
         <div class="col-md-1">
             <button class="btn-default btn btn-small user-add-class" data-toggle="modal" data-target="#myModal" data-profile-pos-id="<?php echo $i; ?>"  id="profile-pos-id-<?php echo $i; ?>">ADD</button>
         </div>
@@ -22,12 +28,12 @@
     <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo<?php echo $sc->id;?>">
+            <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo<?php echo $sc->id;?>" class='collapsed'>
               <?php echo $sc->name; ?> 
             </a>
           </h4>
         </div>
-        <div id="collapseTwo<?php echo $sc->id;?>" class="panel-collapse collapse in">
+        <div id="collapseTwo<?php echo $sc->id;?>" class="panel-collapse collapse">
           <?php if($skill) : ?>
           <?php foreach($skill as $sk) : ?>
             <div class="panel-body">
@@ -35,7 +41,7 @@
                   <div class="col-md-6">
                       <h4><?php echo $sk->name; ?></h4>
                   </div>
-                  <?php for($i=1;$i<=6 ;$i++) : ?>
+                  <?php for($i=1;$i<=$skill_compare_no;$i++) : ?>
                   <div class="col-md-1" style='text-align:center;'>
                       <span class='checkbox-style checkbox-pos-<?php echo $i; ?>' id="checkbox-skill-<?php echo $sk->id; ?>-pos-<?php echo $i; ?>">-</span>
                   </div>
