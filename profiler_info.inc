@@ -662,7 +662,7 @@ function ajax_compare_profile(){
   global $base_url;
   global $user;
   $path = drupal_get_path('module', 'iisp_profiler');
-    drupal_add_js($base_url . '/' . $path . '/js/profiler_add.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2000));
+    drupal_add_js($base_url . '/' . $path . '/js/compare.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2010));
     //Start get skill categorys         
     $user_skill_categories = db_select('iisp_skill_cat', 'sc')
               ->fields('sc')
