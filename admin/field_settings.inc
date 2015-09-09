@@ -199,7 +199,7 @@ function iisp_fields_settings_admin_enquiries() {
 function iisp_fields_settings_operations() {
   $operations = array(
     'delete' => array(
-      'label' => t('Delete selected fields settings'),
+      'label' => t('Delete selected fields'),
       'callback' => NULL,
     ),
   );
@@ -296,7 +296,7 @@ function iisp_fields_settings_form($form, &$form_state, $iisp_fields_settings = 
     '#weight' => $weight++,
     '#required' => true,
     '#default_value' =>$description,
-    '#description' => t('Description for iisp field settings'),      
+    '#description' => t('Description for field settings'),      
   );
 
   $form['type'] = array(

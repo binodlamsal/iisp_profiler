@@ -54,7 +54,7 @@ function sifa_skill_levels_settings_form($form, &$form_state, $sifa_skill_levels
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => t('Save sifa skill level'),
+      '#value' => t('Save Skill Levels'),
       '#weight' => $weight++,
     '#prefix' => '<div class="form-item form-actions">',
     '#suffix' => '</div>',
@@ -75,7 +75,7 @@ function sifa_skill_levels_settings_form_submit($form, &$form_state){
 		drupal_write_record('iisp_sifaplus_skill_levels', $sifa_skill_levels_settings, 'id');
 	}
 
-	drupal_set_message('Sifa plus skill levels saved');
+	drupal_set_message('Skill Levels saved');
 	$form_state['redirect'] = 'admin/iisp_profiler/sifa_skills_levels';
 }
 

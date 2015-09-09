@@ -7,16 +7,16 @@ function iisp_admin_config_form($form, $form_state){
     '#type' => 'textfield',
     '#title' => t('Name of the application'),
     '#default_value' => variable_get('application_name'),
-    '#description' => t("Please enter the name of the application example:IISP Profiler"),
+    '#description' => t("Please enter the name of the application example:name Profiler"),
     '#required' => TRUE,
   );
   
   $form['iisp_skiller_role_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('Enter the IISP skiller role id(numeric value)'),
+    '#title' => t('Enter the  skiller role id(numeric value)'),
     '#default_value' => variable_get('iisp_skiller_role_id'),
 	'#element_validate' => array('element_validate_number'),
-    '#description' => t("Please enter the IISP skiller role id in number"),
+    '#description' => t("Please enter the skiller role id in number"),
     '#required' => TRUE,
   );
   
@@ -33,7 +33,7 @@ function iisp_admin_config_form($form, $form_state){
     '#type' => 'textfield',
     '#title' => t('Number of profilers to compare skill profiler'),
     '#default_value' => variable_get('iisp_skiller_compare_no'),
-    '#description' => t("Enter the number of profiles that can compared by IISP skiller(numeric value)"),
+    '#description' => t("Enter the number of profiles that can compared by skiller(numeric value)"),
     '#required' => TRUE,
 	'#element_validate' => array('element_validate_number'),
   );
@@ -42,7 +42,7 @@ function iisp_admin_config_form($form, $form_state){
     '#type' => 'textfield',
     '#title' => t('Number of profilers to compare skill profiler'),
     '#default_value' => variable_get('iisp_manager_compare_no'),
-    '#description' => t("Enter the number of profiles that can be compared by the IISP manager(numeric value)"),
+    '#description' => t("Enter the number of profiles that can be compared by the  manager(numeric value)"),
 	   '#element_validate' => array('element_validate_number'),
     '#required' => TRUE,
   );

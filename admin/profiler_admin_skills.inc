@@ -24,7 +24,7 @@ function iisp_skills_skills($tab = '') {
 	  break;
     default:
 	
-     $output .= '<ul class="action-links"><li>'.l(t('Add skills groups'), 'admin/iisp_profiler/skills/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
+     $output .= '<ul class="action-links"><li>'.l(t('Add Skill Groups'), 'admin/iisp_profiler/skills/create', array('html'=>true, 'attributes' => array('class' => array('btn', 'btn-sm', 'btn-success'))))."</li></ul>";
 	 $build['iisp_skills_skills_list'] = drupal_get_form('iisp_skills_skills_list_form');
      $output .= drupal_render($build);
 	  
@@ -65,8 +65,8 @@ function iisp_skills_skills_multiple_delete_confirm($form, &$form_state, $deleta
 	$form['#submit'][] = 'iisp_skills_skills_multiple_delete_confirm_submit';
 
 	$confirm_question = format_plural(count($deletable_ids),
-	    'Are you sure you want to delete this report setting?',
-	    'Are you sure you want to delete these report settings?');
+	    'Are you sure you want to delete this Skill Group?',
+	    'Are you sure you want to delete these Skill Groups?');
 	return confirm_form($form,
 	                  $confirm_question,
 	                  'admin/iisp_profiler/skills/', t('This action cannot be undone.'),
@@ -78,8 +78,8 @@ function iisp_skills_skills_multiple_delete_confirm_submit($form, &$form_state) 
   if ($form_state['values']['confirm']) {    
     iisp_skills_skills_delete_multiple(array_keys($form_state['values']['deletable_ids']));
     $count = count($form_state['values']['deletable_ids']);
-    watchdog('iisp_skills_skills', 'Deleted @count iisp_skills_skills.', array('@count' => $count));
-    drupal_set_message(format_plural($count, 'Deleted 1 iisp skill.', 'Deleted @count iisp skill.'));
+    watchdog('iisp_skills_skills', 'Deleted @count Skill Group.', array('@count' => $count));
+    drupal_set_message(format_plural($count, 'Deleted Skill Groups.', 'Deleted @count Skill Groups.'));
   }
   $form_state['redirect'] = 'admin/iisp_profiler/skills';
 }
@@ -187,7 +187,7 @@ function iisp_skills_skills_admin_enquiries() {
             '#type' => 'tableselect',
             '#header' => $header,
             '#options' => $options,
-            '#empty' => t('No skills groups are available.'),  
+            '#empty' => t('No Skill Groups are available.'),  
             '#attributes' => array (
                 'id' => 'iisp_skills_table',
             )
@@ -205,7 +205,7 @@ function iisp_skills_skills_admin_enquiries() {
 function iisp_skills_skills_operations() {
   $operations = array(
     'delete' => array(
-      'label' => t('Delete selected skill groups'),
+      'label' => t('Delete selected skills'),
       'callback' => NULL,
     ),
   );
@@ -221,7 +221,7 @@ function iisp_skills_skills_operations() {
 function iisp_skills_skills_form_list_validate($form, &$form_state) {
   // Error if there are no items to select.
   if (!is_array($form_state['values']['deletable_ids']) || !count(array_filter($form_state['values']['deletable_ids']))) {
-    form_set_error('', t('No skills group categories selected.'));
+    form_set_error('', t('No Skill Group categories selected.'));
   }
 }
 
@@ -345,7 +345,7 @@ function iisp_skills_skills_form($form, &$form_state, $iisp_skills_skills = NULL
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => t('Save IISP skill'),
+      '#value' => t('Save Skill Group'),
       '#weight' => $weight++,
 	  '#prefix' => '<div class="form-item form-actions">',
 	  '#suffix' => '</div>',
@@ -369,7 +369,7 @@ function iisp_skills_skills_form_submit($form, &$form_state){
 		drupal_write_record('iisp_skills', $iisp_skills_skills, 'id');
 	}
 
-	drupal_set_message('Skill group category saved');
+	drupal_set_message('Skill Group category saved');
 	$form_state['redirect'] = 'admin/iisp_profiler/skills';
 }
 

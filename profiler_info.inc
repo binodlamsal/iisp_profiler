@@ -91,6 +91,19 @@ function profiler_info_delete_multiple($values){
 function profiler_info_admin_enquiries() {
   
   global $user;
+
+  global $base_url;
+  $path = drupal_get_path('module', 'iisp_profiler');
+  
+  
+  $path = drupal_get_path('module', 'iisp_profiler');
+  
+  
+  drupal_add_js($base_url . '/' . $path . '/js/stupidtable.js', array('type' => 'file', 'scope' => 'header', 'weight' => 0));
+  
+  drupal_add_js('(function ($) {
+    $("table").stupidtable();
+     }(jQuery));', 'inline', array('scope' => 'footer', 'weight' => 2800));
   
     //Add the bulk operation for iisp field settings
     // Build the 'Update options' form.
@@ -125,10 +138,10 @@ function profiler_info_admin_enquiries() {
 
 
     $header = array(
-        'name' => array('data' => t('Name'), 'field' => 'fs.name', 'sort' => 'DESC'),
-        'description' => array('data' => t('Description')),      
-        'created' => array('data' => t('Date Created')),      
-        'changed' => array('data' => t('Date Changed')),      
+        'name' => array('data' => t('Name'), 'data-sort'=>'string', 'style'=>'cursor:pointer;'),
+        'description' => array('data' => t('Description'), 'data-sort'=>'string', 'style'=>'cursor:pointer;'),      
+        'created' => array('data' => t('Date Created'), 'data-sort'=>'date', 'style'=>'cursor:pointer;'),      
+        'changed' => array('data' => t('Date Changed'), 'data-sort'=>'date', 'style'=>'cursor:pointer;'),      
         'operations' => array('data' => t('Operations')),
     );
 
@@ -154,8 +167,8 @@ function profiler_info_admin_enquiries() {
         $options[$row->id] = array(
             'name' => l($row->name,'iisp_profiler/profiles/skill/'.$row->id),
             'description' => $row->description,
-            'created' =>  format_date($row->created,'short'),
-            'changed' => format_date($row->changed,'short'),
+            'created' =>  process_date1($row->created),
+            'changed' => process_date1($row->changed),
             'operations' => array('data' =>array(
                 array(
                     '#prefix' => '<ul class="links inline" style="list-style:none">',
@@ -164,7 +177,7 @@ function profiler_info_admin_enquiries() {
                     '#prefix' => '<li>',
                     '#suffix' => '</li>',
                     '#type' => 'link',
-                    '#title' => t('Edit'),
+                    '#title' => t('<i class="fa fa-pencil"></i> Edit'),
                     '#href' => "iisp_profiler/profiles/$row->id/edit",
                     '#attributes' => array('class' => array('edit', 'btn', 'btn-default', 'btn-sm', 'btn-icon', 'icon-left')),
                     '#options' => array('query' => $destination, 'html' => true)

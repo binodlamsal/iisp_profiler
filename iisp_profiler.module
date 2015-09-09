@@ -45,7 +45,7 @@ function iisp_profiler_menu() {
   );
  
   $items['admin/iisp_profiler/skills/categories/create'] = array(
-    'title'           => 'create new skills categories',
+    'title'           => 'Create new skill categories',
     'description'     => 'Provides the skills categories for the iisp profiler',
     'page callback'   => 'iisp_skills_categories',
     'page arguments' => array('create'),
@@ -65,7 +65,7 @@ function iisp_profiler_menu() {
   );
 
   $items['admin/iisp_profiler/skills'] = array(
-    'title'           => 'Skills groups',
+    'title'           => 'Skill Groups',
     'description'     => 'Provides the  skills for the  profiler',
     'page callback'   => 'iisp_skills_skills',
 	'file'            => 'admin/profiler_admin_skills.inc', 
@@ -76,8 +76,8 @@ function iisp_profiler_menu() {
   
 
   $items['admin/iisp_profiler/skills/create'] = array(
-    'title'           => 'Create IISP skills',
-    'description'     => 'Provides the iisp skills for the iisp profiler',
+    'title'           => 'Create Skill Group',
+    'description'     => 'Provides the skills for the iisp profiler',
     'page callback'   => 'iisp_skills_skills',
 	'page arguments'  => array('create'),
 	'file'            => 'admin/profiler_admin_skills.inc',
@@ -87,7 +87,7 @@ function iisp_profiler_menu() {
   
   $items['admin/iisp_profiler/skills/%/edit'] = array(
     'title'           => 'Edit skills',
-    'description'     => 'Provides the  skills for the  profiler',
+    'description'     => 'Provides the skills for the  profiler',
     'file'            => 'admin/profiler_admin.inc', 
     'page callback'   => 'iisp_skills_skills_page_edit',
 	'page arguments'  => array(3),
@@ -166,7 +166,7 @@ function iisp_profiler_menu() {
   
   $items['iisp_profiler/activities'] = array(
     'title'           => 'Activities',
-    'description'     => 'Provides the activities for the iisp profiler',
+    'description'     => 'Provides the activities for the profiler',
     'page callback'   => 'iisp_profiler_activities',
     'file'            => 'profiler_activities.inc', 
 	  'access arguments' => array('skill profiler works'),
@@ -174,7 +174,7 @@ function iisp_profiler_menu() {
   
   $items['iisp_profiler/activities/create'] = array(
     'title'           => 'Add activities',
-    'description'     => 'Add the activities for the iisp profiler',
+    'description'     => 'Add the activities for the profiler',
     'page callback'   => 'iisp_profiler_activities',
 	  'page arguments'  => array('create'),
     'file'            => 'profiler_activities.inc', 
@@ -183,7 +183,7 @@ function iisp_profiler_menu() {
   
   $items['iisp_profiler/activities/%/edit'] = array(
     'title'           => 'Edit activities',
-    'description'     => 'Edit activities for the iisp profiler',
+    'description'     => 'Edit activities for the profiler',
     'page callback'   => 'iisp_profiler_activities_page_edit',
 	  'page arguments'  => array(2),
     'file'            => 'profiler_activities.inc', 
@@ -192,14 +192,14 @@ function iisp_profiler_menu() {
   
   $items['iisp_profiler/goals'] = array(
     'title'           => 'Goals',
-    'description'     => 'Provides the goals for the iisp profiler',
+    'description'     => 'Provides the goals for the profiler',
     'page callback'   => 'iisp_profiler_activities',
     'file'            => 'profiler_goals.inc', 
 	  'access arguments' => array('skill profiler works'),
   );
   $items['iisp_profiler/goals/create'] = array(
     'title'           => 'Add Goals',
-    'description'     => 'Add the goals for the iisp profiler',
+    'description'     => 'Add the goals for the  profiler',
     'page callback'   => 'iisp_profiler_activities',
 	  'page arguments'  => array('create'),
     'file'            => 'profiler_goals.inc', 
@@ -209,7 +209,7 @@ function iisp_profiler_menu() {
   
   $items['iisp_profiler/goals/%/edit'] = array(
     'title'           => 'Edit Goals',
-    'description'     => 'Edit goals for the iisp profiler',
+    'description'     => 'Edit goals for the profiler',
     'page callback'   => 'iisp_profiler_activities_page_edit',
 	  'page arguments'  => array(2),
     'file'            => 'profiler_goals.inc', 
@@ -219,7 +219,7 @@ function iisp_profiler_menu() {
   
   $items['iisp_profiler/profiles'] = array(
     'title'           => 'Profiles',
-    'description'     => 'Provides the profiles for the iisp profiler',
+    'description'     => 'Provides the profiles for the profiler',
     'page callback'   => 'iisp_profiler',
     'file'            => 'profiler_info.inc',
     'access arguments' => array('skill profiler works'),
@@ -227,7 +227,7 @@ function iisp_profiler_menu() {
 
   $items['iisp_profiler/profiles/create'] = array(
     'title'           => 'Profiles',
-    'description'     => 'Create new profiles for the iisp profiler',
+    'description'     => 'Create new profiles for the profiler',
     'page callback'   => 'iisp_profiler',
 	  'page arguments' => array('create'),
     'file'            => 'profiler_info.inc',
@@ -237,7 +237,7 @@ function iisp_profiler_menu() {
   
   $items['iisp_profiler/dashboard'] = array(
     'title'           => 'Dashboard',
-    'description'     => 'Provides the dashboard for the iisp profiler',
+    'description'     => 'Provides the dashboard for the  profiler',
     'page callback'   => 'iisp_profiler_dashboard',
     'file'            => 'profiler_dashboard.inc', 
 	  'access arguments' => array('skill profiler works'),
@@ -245,7 +245,7 @@ function iisp_profiler_menu() {
   
   $items['iisp_skills/ajax_settings'] = array(
     'title'           => 'Settings',
-    'description'     => 'Provides the ajax callback settings for the iisp profiler',
+    'description'     => 'Provides the ajax callback settings for the  profiler',
     'page callback'   => 'ajax_settings',
     'file'            => 'profiler_settings.inc', 
 	  'access arguments' => array('skill profiler works'),
@@ -261,7 +261,7 @@ function iisp_profiler_menu() {
   
   $items['iisp_profiler/profiles/skill/%'] = array(
     'title'           => 'Profiles',
-    'description'     => 'Provides the profiles for the iisp profiler',
+    'description'     => 'Provides the profiles for the profiler',
     'page arguments'  => array(3),
     'page callback'   => 'iisp_profiler_skill_add',
     'file'            => 'profiler_info.inc',
@@ -270,7 +270,7 @@ function iisp_profiler_menu() {
 
   $items['iisp_skills/ajax_skills_profile'] = array(
     'title'           => 'Settings profile skills insert',
-    'description'     => 'Provides the ajax callback settings for the iisp profiler skills',
+    'description'     => 'Provides the ajax callback settings for the profiler skills',
     'page callback'   => 'ajax_skills_profile',
     'file'            => 'profiler_info.inc', 
     'access arguments' => array('skill profiler works'),
@@ -286,7 +286,7 @@ function iisp_profiler_menu() {
 
   $items['iisp_skills/ajax_skills_profile_data/%'] = array(
     'title'           => 'Settings profile skill data',
-    'description'     => 'Provides settings for the iisp profiler skills',
+    'description'     => 'Provides settings for the  profiler skills',
     'page arguments'  => array(2),
     'page callback'   => 'ajax_skills_profile_data',
     'file'            => 'profiler_info.inc', 
@@ -296,7 +296,7 @@ function iisp_profiler_menu() {
   
   $items['iisp_skills/remove_skills_profile'] = array(
     'title'           => 'Remove settings profile skills insert',
-    'description'     => 'Provides the ajax callback settings for removing iisp profiler skills',
+    'description'     => 'Provides the ajax callback settings for removing  profiler skills',
     'page callback'   => 'remove_skills_profile',
     'file'            => 'profiler_info.inc', 
     'access arguments' => array('skill profiler works'),
@@ -603,6 +603,14 @@ function mymodule_menu_link_alter(&$link) {
 	 } else {
 	  	return "<span style='display:none;'>".date("M d, Y", strtotime($date) )."</span>";
 	}
+ }
+
+ function process_date1($date){
+   if(!empty($date)){
+        return date("M d, Y", $date);
+   } else {
+      return "<span style='display:none;'>".date("M d, Y", $date)."</span>";
+  }
  }
 
 

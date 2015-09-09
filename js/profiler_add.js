@@ -23,7 +23,7 @@ jQuery(document).ready(function($) {
 	debugger;
 
 	$.ajax({
-                url: base_url + '/'+ secondLevelLocation +'/iisp_skills/ajax_skills_category_total',
+                url: base_url + '/iisp_skills/ajax_skills_category_total',
                 data: {"iisp_profiles_id":profile_info_id},
                 dataType: 'json',
                 method:'POST',
@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
     });
 
 	$.ajax({
-                url: base_url + '/'+ secondLevelLocation +'/iisp_skills/ajax_skills_profile_data/'+profile_info_id,
+                url: base_url + '/iisp_skills/ajax_skills_profile_data/'+profile_info_id,
                 data: {"test":"test"},
                 dataType: 'json',
                 method:'POST',
@@ -72,7 +72,7 @@ jQuery(document).ready(function($) {
 
 	$('#viewing_profile_id').change(function(){
 		//alert(base_url); 
-			window.location.replace(base_url + "/?q=iisp_profiler/profiles/skill/" + $('#viewing_profile_id').val());
+			window.location.replace(base_url + "/iisp_profiler/profiles/skill/" + $('#viewing_profile_id').val());
 	});
 	
 

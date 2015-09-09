@@ -55,7 +55,7 @@ function sifa_skill_types_settings_form($form, &$form_state, $sifa_skill_types_s
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => t('Save sifa skill settings'),
+      '#value' => t('Save skill settings'),
       '#weight' => $weight++,
 	  '#prefix' => '<div class="form-item form-actions">',
 	  '#suffix' => '</div>',
