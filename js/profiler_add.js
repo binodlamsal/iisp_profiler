@@ -20,7 +20,6 @@ jQuery(document).ready(function($) {
 
 
 	var profile_info_id = $("#profile_info_id").val();
-	debugger;
 
 	$.ajax({
                 url: base_url + '/iisp_skills/ajax_skills_category_total',
@@ -32,7 +31,7 @@ jQuery(document).ready(function($) {
                   		$.each(data, function(key,val) {
                   					var score = val.tot_score;
                   					var cat_id = val.skill_cat_id;
-                  				   $('#skill_catid_total_'+cat_id).text('Total - ' + score); 
+                  				   $('#skill_catid_total_'+cat_id).text(score); 
 						  });
                   },
                   error: function() {

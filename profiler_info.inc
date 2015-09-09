@@ -693,6 +693,7 @@ function ajax_compare_profile(){
      //Start get user profile info
     $user_profile_list = db_select('iisp_profiles', 'fs')
               ->fields('fs')
+              ->condition('fs.uid',$user->uid)
               ->execute()
               ->fetchAll();  
     //End get user profile info  

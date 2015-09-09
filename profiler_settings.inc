@@ -94,7 +94,7 @@ function profilerform_skill_settings_form($form, &$form_state, $profilerform_ski
 		    '#date_format' => 'Y-m-d',
 		    '#default_value' => $cpd_year_start,
 		    '#validate' => 'required',
-		    '#description' => t('Tips and Info : This is the day and month your review year starts; this may match that of your employer. If you are unsure, enter 01/01/2015.'),
+		    '#description' => t('Tips and Info: This is the day and month your review year starts; this may match that of your employer. If you are unsure, enter 01/01/20XX.'),
 	  	);
 
 	  	$form['iisp_sifaplus_skill_types_id'] = array(
@@ -104,7 +104,7 @@ function profilerform_skill_settings_form($form, &$form_state, $profilerform_ski
 		  	'#weight' => $weight++,
 		  	'#default_value' => $iisp_sifaplus_skill_types_id,
 		  	'#options' => $options_skill_types,
-		    '#description' => t('Tips and Info : Please indentify which of the SFIAplus skills best matches your primary specialism. This will help us provide you with relevant content and messages to help you with your CPD.'),
+		    '#description' => t('Tips and Info: Please indentify which of the Role Families best matches your primary specialism. This will help us provide you with relevant content and messages to help you with your CPD.'),
 			'#select2' => array(
 			  'width' => '200',
 			  'placeholder' => t('Select categories'),
@@ -120,7 +120,7 @@ function profilerform_skill_settings_form($form, &$form_state, $profilerform_ski
 		  	'#weight' => $weight++,
 		  	'#default_value' => $primary_sifaplus_level,
 		  	'#options' => $options_skill_levels,
-		    '#description' => t('Tips and Info : Please use the slider to identify the closest fit to your current level in the IT Profession. This will help us provide you with relevant content and messages to help you with your CPD.')
+		    '#description' => t('Tips and Info: Please select a Skill Level to identify the closest fit to your current level in the Profession. This will help us provide you with relevant content and messages to help you with your CPD.')
 		  );
 
   $form['actions'] = array('#type' => 'actions');
