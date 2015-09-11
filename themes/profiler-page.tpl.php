@@ -182,9 +182,10 @@ function insertShareLink(profileid,refresh_link){
 }
 
 function insertLabels(skillLevel,profileid,userid){
+    debugger;
     var score = jQuery('#setlevel-btn-value'+skillLevel).attr('data-checkboxid');
     if(score != 0){ 
-     jQuery('.checkbox-skill'+skillLevel).css("background-color", "#CCC");
+     jQuery('.checkbox-skill-'+skillLevel).css("background-color", "#CCC");
      jQuery('#checkbox-'+score+'-skill-'+skillLevel).css("background-color", "green");
       jQuery.ajax({
                   url:'<?php echo $base_url; ?>/iisp_skills/ajax_skills_profile',
@@ -197,7 +198,7 @@ function insertLabels(skillLevel,profileid,userid){
                     },
                 });
     }else{
-     jQuery('.checkbox-skill'+skillLevel).css("background-color", "#CCC");
+     jQuery('.checkbox-skill-'+skillLevel).css("background-color", "#CCC");
      jQuery('#checkbox-reset-skill-'+skillLevel).css("background-color", "green");
       jQuery.ajax({
                   url:'<?php echo $base_url; ?>/iisp_skills/remove_skills_profile',
