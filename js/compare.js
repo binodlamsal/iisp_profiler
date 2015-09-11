@@ -21,7 +21,7 @@ jQuery(document).ready(function($) {
         $('#profile-pos-id-' + profile_pos_id).addClass('user-add-class');
         $('#profile-pos-id-' + profile_pos_id).removeClass('remove-profile-class');
         $('.compare-pos-' + profile_pos_id).text(0);
-        $('.compare-pos-' + profile_pos_id).css("background-color", "green");
+        $('.compare-pos-' + profile_pos_id).css("background-color", "#00ff00");
     });
     //statically add all value while page loading for first position
     setTimeout(function() {
@@ -48,15 +48,15 @@ jQuery(document).ready(function($) {
                     var cat_id = val.skill_cat_id;
                     
                     if(pos_id == 1){
-                      $('#skill-total-catid-' + cat_id + '-pos-' + pos_id).text(score);
+                      $('#new-skill-total-catid-' + cat_id + '-pos-' + pos_id).text(score);
                     }
                     else{
-                      var getMainProfileScore = $('#skill-total-catid-' + cat_id + '-pos-1').text();
+                      var getMainProfileScore = $('#new-skill-total-catid-' + cat_id + '-pos-1').text();
                       var mainProfileScoreInt = parseInt(getMainProfileScore);
                       var getDiffScore = +score - mainProfileScoreInt; 
                       var color = get_color_skill(getDiffScore);
                       $('#skill-total-catid-' + cat_id + '-pos-' + pos_id).css("background-color", color);
-                      $('#skill-total-catid-' + cat_id + '-pos-' + pos_id).text(score);
+                      $('#new-skill-total-catid-' + cat_id + '-pos-' + pos_id).text(score);
                     }
                 });
             },
@@ -118,12 +118,12 @@ jQuery(document).ready(function($) {
 
 function get_color_skill(score_diff) {
   var color;
-  if(score_diff >= -1){
-    color = "green";
-  }else if(score_diff == -2){
-    color = "gold";
+  if(score_diff >= 0){
+    color = "#00ff00";
+  }else if(score_diff < 0 && score_diff >= -4){
+    color = "#ffaa00";
   }else{
-    color = "red";
+    color = "#ff0000";
   }
     return color;
 }

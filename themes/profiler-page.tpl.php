@@ -94,7 +94,7 @@
   <div class="col-md-3 left-panel-profile">
     <table> 
       <tr><td style='border-top:none;'><input type="button" value="Share" onClick="insertShareLink(<?php echo $user_profile_info->id; ?>,0)" data-toggle="modal" data-target="#myModal" class="button-primary btn btn-default profile-left-button share_info" id="share-add-button"></td></tr>
-      <tr><td style='border-top:none;'><input type="button" value="Compare" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/compare/<?php echo $user_profile_info->id; ?>'" class="button-primary btn btn-default profile-left-button" id="compare-add-button"></td></tr>
+      <tr><td style='border-top:none;'><input type="button" value="Compare" class="button-primary btn btn-default profile-left-button" id="compare-add-button"></td></tr>
       <tr><td style='border-top:none;'><input type="button" value="Print" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/print/<?php echo arg(3);  ?>'" class="button-primary btn btn-default profile-left-button" id="print-add-button"></td></tr>
       <tr><td style='border-top:none;'><input type="button" value="Skills" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/skills'" class="button-primary btn btn-default profile-left-button" id="sifa-add-button"></td></tr>
       <tr><td style='border-top:none;'><input type="button" value="Help" onclick="window.location.href='<?php echo $base_url; ?>/iisp_skills/help'" class="button-primary btn btn-default profile-left-button" id="skill-add-button"></td></tr>
@@ -137,7 +137,6 @@
 <script type="text/javascript">
 
 function setLabels(label, skillLevel){
-  debugger;
     var attrtoggle = jQuery('.checkbox-skill-'+skillLevel).attr('data-toggle');
     var attrparent = jQuery('.checkbox-skill-'+skillLevel).attr('data-parent');
   
@@ -157,7 +156,6 @@ function resetLabels(skillLevel){
     var resetattrtoggle = jQuery('.checkbox-skill-'+skillLevel).attr('data-toggle');
     var resetattrparent = jQuery('.checkbox-skill-'+skillLevel).attr('data-parent');
   if(typeof resetattrtoggle == typeof undefined && typeof resetattrparent == typeof undefined){
-   debugger;
     jQuery('.checkbox-skill-'+skillLevel).removeAttr('data-toggle','collapse');
     jQuery('.checkbox-skill-'+skillLevel).removeAttr('data-parent','#accordion2');
     jQuery('#checkbox-reset-skill-'+skillLevel).attr('data-toggle','collapse');

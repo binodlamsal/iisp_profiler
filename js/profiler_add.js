@@ -66,7 +66,11 @@ jQuery(document).ready(function($) {
         }
     });
     $('#viewing_profile_id').change(function() {
-        //alert(base_url); 
         window.location.replace(base_url +"/"+secondLevelLocation+ "/iisp_profiler/profiles/skill/" + $('#viewing_profile_id').val());
     });
+
+    $('#compare-add-button').click(function() {
+        window.location.replace(base_url +"/"+secondLevelLocation+ "/iisp_skills/compare/" + $('#viewing_profile_id').val());
+    });
+
 });

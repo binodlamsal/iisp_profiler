@@ -35,7 +35,7 @@ if(array_key_exists('4', $user->roles)){
                <?php for($i=1;$i<=$skill_compare_no;$i++) : ?>
               <!-- <span class="col-md-1 compare-score compare-tot-score-<?php echo $sc->id; ?> comp-pos-<?php echo $i; ?>-skillcat-<?php echo $sc->id; ?>" id="skill-total-catid-<?php echo $sc->id; ?>-pos-<?php echo $i; ?>" style='text-align:center'> -->
               <span class="col-md-1 compare-score compare-pos-<?php echo $i;?> compare-tot-score-<?php echo $sc->id; ?> comp-pos-<?php echo $i; ?>-skillcat-<?php echo $sc->id; ?>" id="skill-total-catid-<?php echo $sc->id; ?>-pos-<?php echo $i; ?>">
-                0
+                <span id="new-skill-total-catid-<?php echo $sc->id; ?>-pos-<?php echo $i; ?>">0</span>
               </span>
               <?php endfor; ?>
             </a>
