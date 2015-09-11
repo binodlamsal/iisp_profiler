@@ -147,7 +147,7 @@ if(array_key_exists('4', $user->roles)){
         $get = 6;
 
      }
-     if($get <= 6){
+     if($get < 6){
       $total  = "1190px";
      } else {
       $total  = (553 + (100*($get+2)));

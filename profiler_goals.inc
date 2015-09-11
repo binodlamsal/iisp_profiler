@@ -197,6 +197,7 @@ function iisp_profiler_activities_admin_enquiries() {
 			$newarray[$res->iisp_field_settings_id] = $res;
 		}
 		
+		if(!empty($newarray[6]->value)) {
 		if($newarray[6]->value == '1'){
 			$status = "<span style='color:red'>Pending</span>";
 		} else if($newarray[6]->value == '2'){
@@ -204,7 +205,10 @@ function iisp_profiler_activities_admin_enquiries() {
 		} else if($newarray[6]->value == '3'){
 			$status = "<span style='color:green'>Complete</span>";
 		}
-		
+		}else {
+
+			$status = "";
+		}
 		
 		
 			
