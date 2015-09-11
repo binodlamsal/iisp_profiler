@@ -67,6 +67,6 @@ jQuery(document).ready(function($) {
     });
     $('#viewing_profile_id').change(function() {
         //alert(base_url); 
-        window.location.replace(base_url + "/iisp_profiler/profiles/skill/" + $('#viewing_profile_id').val());
+        window.location.replace(base_url +"/"+secondLevelLocation+ "/iisp_profiler/profiles/skill/" + $('#viewing_profile_id').val());
     });
 });
