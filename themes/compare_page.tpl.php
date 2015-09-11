@@ -31,24 +31,13 @@ if(array_key_exists('4', $user->roles)){
             <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo<?php echo $sc->id;?>" class='collapsed'>
               <span class='row'>
               <span class="col-md-6"><?php echo $sc->name; ?></span>
-
-              <span class="col-md-1" style='text-align:center;margin-left:5px;'>
-                2
+ 
+               <?php for($i=1;$i<=$skill_compare_no;$i++) : ?>
+              <!-- <span class="col-md-1 compare-score compare-tot-score-<?php echo $sc->id; ?> comp-pos-<?php echo $i; ?>-skillcat-<?php echo $sc->id; ?>" id="skill-total-catid-<?php echo $sc->id; ?>-pos-<?php echo $i; ?>" style='text-align:center'> -->
+              <span class="col-md-1 compare-score compare-tot-score-<?php echo $sc->id; ?> comp-pos-<?php echo $i; ?>-skillcat-<?php echo $sc->id; ?>" id="skill-total-catid-<?php echo $sc->id; ?>-pos-<?php echo $i; ?>">
+                0
               </span>
-              <span class="col-md-1" style='text-align:center;margin-left:5px;'>
-                2
-              </span>
-              <span class="col-md-1" style='text-align:center;margin-left:5px;'>
-                2
-              </span>
-              <span class="col-md-1" style='text-align:center;margin-left:5px;'>
-                2
-              </span>
-              <span class="col-md-1" style='text-align:center;margin-left:5px;'>
-                2
-
-            </span>
-
+              <?php endfor; ?>
             </a>
           </h4>
         </div>
@@ -117,8 +106,6 @@ if(array_key_exists('4', $user->roles)){
   }
 </script>
 
-
-
 <style type="text/css">
   html{
     overflow-x: auto;
@@ -137,7 +124,7 @@ if(array_key_exists('4', $user->roles)){
 }
 
 .col-md-1 {
- width: 80px;
+ width: 100px;
 }
 
 .col-md-6 {
@@ -163,14 +150,11 @@ if(array_key_exists('4', $user->roles)){
      if($get <= 6){
       $total  = "1190px";
      } else {
-     $total  = (553 + (80*($get+2)));
-     }
+      $total  = (553 + (100*($get+2)));
+     }     
 
      drupal_add_js('
         (function ($) {
             $(".container").css("width", "'.$total.'px");
         }(jQuery));', array('type' => 'inline', 'scope' => 'footer', 'weight' => 2000));
-
-
    ?>
-

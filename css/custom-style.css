@@ -96,4 +96,15 @@ div#block-iisp-profiler-top-menu-for ul li{
 .profile-compare .row {
      margin-left: 0px; 
      margin-right: 0px; 
+
     }
+
+.panel-title .compare-score {
+    background: green;
+    width: 30px;
+    margin: 10px;
+    margin-left: 57px;
+    color: white;
+    border-radius: 135px;
+    padding: 5px 10px;
+}
