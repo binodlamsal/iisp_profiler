@@ -1,8 +1,8 @@
 <?php global $user;
 $skill_compare_no = 6;
-if(array_key_exists('2', $user->roles)){
+if(array_key_exists('4', $user->roles)){
   $skill_compare_no = variable_get('iisp_skiller_compare_no');
-}elseif(array_key_exists('4', $user->roles)){
+}elseif(array_key_exists('2', $user->roles)){
   $skill_compare_no = variable_get('iisp_manager_compare_no');
 }
 ?>
@@ -29,7 +29,26 @@ if(array_key_exists('2', $user->roles)){
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo<?php echo $sc->id;?>" class='collapsed'>
-              <?php echo $sc->name; ?> 
+              <span class='row'>
+              <span class="col-md-6"><?php echo $sc->name; ?></span>
+
+              <span class="col-md-1" style='text-align:center;margin-left:5px;'>
+                2
+              </span>
+              <span class="col-md-1" style='text-align:center;margin-left:5px;'>
+                2
+              </span>
+              <span class="col-md-1" style='text-align:center;margin-left:5px;'>
+                2
+              </span>
+              <span class="col-md-1" style='text-align:center;margin-left:5px;'>
+                2
+              </span>
+              <span class="col-md-1" style='text-align:center;margin-left:5px;'>
+                2
+
+            </span>
+
             </a>
           </h4>
         </div>
@@ -97,3 +116,61 @@ if(array_key_exists('2', $user->roles)){
                 });
   }
 </script>
+
+
+
+<style type="text/css">
+  html{
+    overflow-x: auto;
+  }
+
+  .site-wrapper {
+    overflow: visible;
+    position: relative;
+    width: 100%;
+}
+
+.container {
+    width: 1190px;
+    overflow-x: visible;
+    white-space: nowrap;
+}
+
+.col-md-1 {
+ width: 80px;
+}
+
+.col-md-6 {
+ width: 553px;
+}
+
+
+</style>
+
+
+
+    
+  <?php 
+     if(array_key_exists('4', $user->roles)){
+        $get = variable_get('iisp_skiller_compare_no');
+     }
+     elseif(array_key_exists('2', $user->roles)){
+        $get = variable_get('iisp_manager_compare_no');
+     } else {
+        $get = 6;
+
+     }
+     if($get <= 6){
+      $total  = "1190px";
+     } else {
+     $total  = (553 + (80*($get+2)));
+     }
+
+     drupal_add_js('
+        (function ($) {
+            $(".container").css("width", "'.$total.'px");
+        }(jQuery));', array('type' => 'inline', 'scope' => 'footer', 'weight' => 2000));
+
+
+   ?>
+

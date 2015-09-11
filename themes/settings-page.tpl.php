@@ -29,7 +29,7 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 	  </ul>
 	    <div class="tab-content">
 	    	<div class="tab-pane fade  active in" id="tab-1">
-				<p>When recording your Development Goals and Activities, there will be fields you use often (standard fields) and others you only use from time to time (advanced fields). To make using BCS Personal Development Plan quicker and easier to use, at any time you can make the fields you use less often into Advanced fields</p>
+				<p>When recording your Development Goals and Activities, there will be fields you use often (standard fields) and others you only use from time to time (advanced fields). To make using the Skills Profiler quicker and easier to use, at any time you can make the fields you use less often into Advanced fields</p>
 				<table>
 					<thead>
 						<tr>
@@ -60,7 +60,7 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 				</table>
 			</div>
 			<div class="tab-pane fade " id="tab-2">
-				<p>Make BCS Personal Development Plan even more personal to you by creating your own customised fields within your Development Goals. Give the field a name, choose a type and identify if it is a field you will use regularly or (if not) tick it as an Advanced field to place it into the Advanced fields area.</p>		
+				<p>Make the Skills Profiler even more personal to you by creating your own customised fields within your Development Goals. Give the field a name, choose a type and identify if it is a field you will use regularly or (if not) tick it as an Advanced field to place it into the Advanced fields area.</p>		
 				
 				<div class="panel-group col-md-12" id="accordion">
 					<div class="panel panel-default">
@@ -139,14 +139,14 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 				</div>
 			</div>
 			<div class="tab-pane fade " id="tab-3">
-				<p>Make BCS Personal Development Plan even more personal to you by creating your own customised fields within your Development Goals. Give the field a name, choose a type and identify if it is a field you will use regularly or (if not) tick it as an Advanced field to place it into the Advanced fields area.</p>		
+				<p>Make the Skills Profiler even more personal to you by creating your own customised fields within your Activities. Give the field a name, choose a type and identify if it is a field you will use regularly or (if not) tick it as an Advanced field to place it into the Advanced fields area.</p>		
 				
 				<div class="panel-group col-md-12" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-parent="#accordion" href="#accordion-1">
-									Activity Defined Fields
+									User Defined Activity Fields
 								</a>
 							</h4>
 						</div>
@@ -225,28 +225,3 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 		<input type="submit" name="save_from" value="SAVE ALL SETTINGS" class="btn btn-default btn-submit-second">
 	</div>
 </form>
-
-
-
-<script language="javascript" type="text/javascript">
-  function resizeIframe(obj) {
-    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-  }
-    function isInView1(elem){
-       return jQuery(elem).offset().top - jQuery(window).scrollTop() < jQuery(elem).height() + 400 ;
-    }
-</script>
-<div style='text-align:center;'>
-<script language="javascript" type="text/javascript">
-    jQuery(window).scroll(function(){
-     if(!jQuery('.ET-300x250-Below-Article-Lazy').attr("loaded") && isInView1(jQuery('.ET-300x250-Below-Article-Lazy'))) {
-     console.log('it is started');
-
-        jQuery('.ET-300x250-Below-Article-Lazy').html("<iframe id='a511371f' name='a511371f' src='http://revive.earthtripper.com/www/delivery/afr.php?resize=1&amp;zoneid=6&amp;cb=<?php echo rand();?>' frameborder='0' scrolling='no' width='100%' height='250'><a href='http://revive.earthtripper.com/www/delivery/ck.php?n=aedf9b1c&amp;cb=<?php echo rand();?>' target='_blank'><img src='http://revive.earthtripper.com/www/delivery/avw.php?zoneid=6&amp;cb=<?php echo rand();?>&amp;n=aedf9b1c' border='0' alt='' /></a></iframe>")
-       jQuery('.ET-300x250-Below-Article-Lazy').attr("loaded",true);
-    }
-});
-onload='javascript:resizeIframe(this);'
-</script>
-</div>
-

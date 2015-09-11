@@ -47,6 +47,20 @@ function iisp_admin_config_form($form, $form_state){
     '#required' => TRUE,
   );
 
+  $form['use_md_slider'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Check if you want to use MD slider'),
+    '#default_value' => variable_get('use_md_slider'),
+    '#description' => t("Please check if you want to use MD slider"),
+  );
+
+  $form['md_slider_machine_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Please enter the MD slider machine name'),
+    '#default_value' => variable_get('md_slider_machine_name'),
+    '#description' => t("Please enter the MD slider machine name"),
+  );
+
   $help = variable_get('iisp_profiler_help');
 
   $form['iisp_profiler_help'] = array(

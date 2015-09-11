@@ -147,7 +147,7 @@ function iisp_profiler_menu() {
   );
 
   $items['admin/iisp_profiler/sifa_skills_levels'] = array(
-    'title'           => 'Skills levels',
+    'title'           => 'Skill Levels',
     'description'     => 'Provides the skills levels',
     'page callback'   => 'sifa_skill_levels',
     'file'            => 'admin/sifa_skill_levels_settings.inc', 

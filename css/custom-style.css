@@ -81,13 +81,19 @@ div#block-iisp-profiler-top-menu-for ul li{
     color: #656464;
 }
 
-.total_skills{
+.total_skills {
     width: 11px !important;
     height: 25px;
-    margin: 0px 6px;
-    padding: 8px 10px;
+    color: white;
+    /* margin: -7px 3px; */
+    padding: 8px 21px 21px 10px;
     border-radius: 135px;
     background-color: green;
-    z-index: 10000 !important;
-    margin-left: 47%;
+    /* z-index: 10000 !important; */
+    /* margin-left: 47%; */
 }
+
+.profile-compare .row {
+     margin-left: 0px; 
+     margin-right: 0px; 
+    }

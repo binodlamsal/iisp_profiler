@@ -6,6 +6,23 @@ global $base_url;
 <div class="row">
 
 
+   <?php 
+
+
+       $i = variable_get('use_md_slider');
+       $md_slider = variable_get('md_slider_machine_name');
+       
+
+
+        if($i == 1)   {
+
+
+          print render(md_slider_view($md_slider));
+
+
+        } else {  ?>
+
+
 
 <div class="panel-group" id="accordions-">
 <div class="panel panel-default">
@@ -18,6 +35,8 @@ global $base_url;
     </div>
     <div id="accordion-1" class="panel-collapse collapse" style="height: 0px;">
       <div class="panel-body">
+
+     
         
         <div class="owl-carousel owl-theme owl-slider thumbnail">
          
@@ -70,10 +89,13 @@ global $base_url;
         
       </div>
 
+      
+
       </div>
     </div>
   </div>
 </div>
+<?php } ?>
 </div>
 <hr class="lg">
 <div class="row">

@@ -627,6 +627,7 @@ function print_iisp_profiles(){
   $path = drupal_get_path('module', 'iisp_profiler');
   drupal_add_js($base_url . '/' . $path . '/js/profiler_add.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 2000));
     drupal_add_css($base_url . '/' . $path . '/css/custom-style.css', array('type' => 'external', 'weight' => '500'));
+    drupal_add_css($base_url . '/' . $path . '/css/printforprofiler.css', array('type' => 'external', 'weight' => '500'));
 
     $profile_id = arg(2);
 

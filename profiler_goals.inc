@@ -407,7 +407,7 @@ function iisp_profiler_activities_form($form, &$form_state, $activities = NULL){
  
  	
 	$form['field_info_first'] = array(
-    '#prefix' => '<div class="row"><div class="col-md-8" style="background:#f7f7f7; padding:10px; border-radius:10px; border:1px solid #eaeaea;" ><legend><i class="fa fa-key"></i> &nbsp; Add/Edit Goals</legend><br/><br/><br/><p>* Are mandantory fields</p>',
+    '#prefix' => '<div class="row"><div class="col-md-8" style="background:#f7f7f7; padding:10px; border-radius:10px; border:1px solid #eaeaea;" ><legend><i class="fa fa-key"></i> &nbsp; Add/Edit Goals</legend><br/><br/><br/><p>* Are mandatory fields</p>',
 	'#type' => 'markup',
 	'#weight' => $weight++,	
 	);			

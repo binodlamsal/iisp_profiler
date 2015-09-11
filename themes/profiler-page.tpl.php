@@ -212,30 +212,3 @@ function insertLabels(skillLevel,profileid,userid){
     }
 }
 </script>
-
-<script type="text/javascript">
-
-    function PrintElem(elem)
-    {
-        Popup(jQuery(elem).html());
-    }
-
-    function Popup(data) 
-    {
-        var mywindow = window.open('', 'my div');
-        mywindow.document.write('<html><head><title>Accuweigh Test Report</title>');
-        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-        mywindow.document.write('</head><body >');
-        mywindow.document.write(data);
-        mywindow.document.write('</body></html>');
-
-        mywindow.document.close(); // necessary for IE >= 10
-        mywindow.focus(); // necessary for IE >= 10
-
-        mywindow.print();
-        mywindow.close();
-
-        return false;
-    }
-
-</script>
