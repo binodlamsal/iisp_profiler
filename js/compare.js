@@ -53,7 +53,7 @@ jQuery(document).ready(function($) {
                     else{
                       var getMainProfileScore = $('#new-skill-total-catid-' + cat_id + '-pos-1').text();
                       var mainProfileScoreInt = parseInt(getMainProfileScore);
-                      var getDiffScore = +score - mainProfileScoreInt; 
+                      var getDiffScore = +mainProfileScoreInt - score; 
                       var color = get_color_skill(getDiffScore);
                       $('#skill-total-catid-' + cat_id + '-pos-' + pos_id).css("background-color", color);
                       $('#new-skill-total-catid-' + cat_id + '-pos-' + pos_id).text(score);
