@@ -36,7 +36,7 @@ jQuery(document).ready(function($) {
         $('#myModal').modal('hide');
         //Start ajax call for ajax skill category total
         $.ajax({
-            url: base_url + '/' + secondLevelLocation + '/iisp_skills/ajax_skills_category_total',
+            url: base_url + '/iisp_skills/ajax_skills_category_total',
             data: {
                 "iisp_profiles_id": profile_id
             },
@@ -70,7 +70,7 @@ jQuery(document).ready(function($) {
         //End ajax call for ajax skill category total
         //Ajax call for name
         $.ajax({
-            url: base_url + '/' + secondLevelLocation + '/iisp_skills/ajax_profile_name',
+            url: base_url + '/iisp_skills/ajax_profile_name',
             data: {
                 "iisp_profiles_id": profile_id
             },
@@ -94,7 +94,7 @@ jQuery(document).ready(function($) {
 
         //Ajax call for score show
         $.ajax({
-            url: base_url + '/' + secondLevelLocation + '/iisp_skills/ajax_skills_profile_data/' + profile_id,
+            url: base_url + '/iisp_skills/ajax_skills_profile_data/' + profile_id,
             data: {
                 "iisp_profiles_id": profile_id
             },
