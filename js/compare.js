@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
         $('#profile-pos-id-' + profile_pos_id).addClass('btn-default');
         $('#profile-pos-id-' + profile_pos_id).addClass('user-add-class');
         $('#profile-pos-id-' + profile_pos_id).removeClass('remove-profile-class');
-        $('.compare-pos-' + profile_pos_id).text(0);
+        $('.new-compare-pos-' + profile_pos_id).text(0);
         $('.compare-pos-' + profile_pos_id).css("background-color", "#00ff00");
     });
     //statically add all value while page loading for first position
