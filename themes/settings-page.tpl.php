@@ -67,7 +67,7 @@ $form = drupal_get_form('profilerform_skill_settings_form');
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-parent="#accordion" href="#accordion-1">
-									Goal Defined fields
+									User defined Goals fields
 								</a>
 							</h4>
 						</div>

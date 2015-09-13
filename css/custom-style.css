@@ -99,12 +99,13 @@ div#block-iisp-profiler-top-menu-for ul li{
 
     }
 
-.panel-title .compare-score {
+.panel-title .compare-score span {
     background: #00ff00;
-    width: 30px;
-    margin: 10px;
-    margin-left: 57px;
-    color: white;
+    width: 31px;
+    height: 30px;
+    float: left;
+    margin: 0px 6px;
+    padding: 7px 10px;
     border-radius: 135px;
-    padding: 5px 10px;
+    z-index: 10000 !important;
 }

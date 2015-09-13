@@ -199,7 +199,7 @@ function iisp_skills_categories_admin_enquiries() {
 function iisp_skills_categories_operations() {
   $operations = array(
     'delete' => array(
-      'label' => t('Delete selected skill categories categories'),
+      'label' => t('Delete selected skill categories'),
       'callback' => NULL,
     ),
   );

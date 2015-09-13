@@ -45,7 +45,7 @@ function sifa_skill_types_settings_form($form, &$form_state, $sifa_skill_types_s
 	
   $form['name'] = array(
     '#type' => 'textarea',
-    '#title' => t('SFIA skill types'),
+    '#title' => t('Role Family'),
   	'#required' => true,
   	'#weight' => $weight++,
   	'#default_value' => $skill_types,

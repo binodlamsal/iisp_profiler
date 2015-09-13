@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
     //statically add all value while page loading for first position
     setTimeout(function() {
         $('#myModal').attr("data-modal-pos-id", 1);
-        $('#add_profile_id').val(pathArray[4]);
+        $('#add_profile_id').val(pathArray[3]);
         $(".btn-save-ap").trigger('click');
     }, 10);
 
@@ -55,7 +55,7 @@ jQuery(document).ready(function($) {
                       var mainProfileScoreInt = parseInt(getMainProfileScore);
                       var getDiffScore = +mainProfileScoreInt - score; 
                       var color = get_color_skill(getDiffScore);
-                      $('#skill-total-catid-' + cat_id + '-pos-' + pos_id).css("background-color", color);
+                      $('#skill-total-catid-' + cat_id + '-pos-' + pos_id+' span').css("background-color", color);
                       $('#new-skill-total-catid-' + cat_id + '-pos-' + pos_id).text(score);
                     }
                 });
